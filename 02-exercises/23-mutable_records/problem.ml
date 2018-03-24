@@ -12,6 +12,12 @@ type color =
   | Red
   | Yellow
   | Green
+  (* You'll get an error about Unbound value compare_color. This is because we
+     used the [compare] ppx for [stoplight] below, which has a [color] as one of
+     its fields, but we didn't have [compare] on [color].
+
+     Fix it by adding this: [@@deriving compare]
+  *)
 
 type stoplight =
   { location      : string (* stoplights don't usually move *)
