@@ -143,6 +143,7 @@ let with_rendering f =
     let%map output =
       Process.run_exn ()
         ~prog:"stty"
+        (* NOTE: for people on Mac OS X, use ~args:[ "-f"; "/dev/tty"; "size" ] *)
         ~args:[ "size"
               ; "-F"
               ; "/dev/tty"
@@ -179,14 +180,14 @@ let with_rendering f =
           match%bind Reader.really_read ~len:1 tty_reader b with
           | `Eof _ -> return (`Finished ())
           | `Ok ->
-            match Char.to_int b.[0] with
+            match Char.to_int (Bytes.get b 0) with
             | 3 (* CTRL + C *) ->
               let%bind () = Pipe.write w User_input.Ctrl_c in
               return (`Finished ())
             | 0O177 -> repeat Backspace
             | 0O015 -> repeat Return
             | 0O33  -> repeat Escape
-            | _     -> repeat (Char b.[0])
+            | _     -> repeat (Char (Bytes.get b 0))
         )
       )
     in

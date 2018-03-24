@@ -5,5 +5,9 @@
 ))
 
 (alias
+ ((name DEFAULT)
+   (deps (fuzzy.exe))))
+
+(alias
  ((name all)
   (deps ((glob_files *.exe)))))
