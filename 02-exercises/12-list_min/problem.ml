@@ -3,8 +3,8 @@ open! Base
 (* This function finds the largest element in a list: *)
 let rec largest xs =
   match xs with
-  | [] -> Float.neg_infinity
-  | x :: ys -> max x (largest ys)
+  | []      -> Float.neg_infinity
+  | x :: ys -> Float.max x (largest ys)
 
 (* Let's write a function to find the smallest element: Hint: the opposite of
    [Float.neg_infinity] is [Float.infinity]. *)
