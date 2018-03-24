@@ -9,7 +9,9 @@ open! Base
    val (::) : 'a -> 'a list -> 'a list
 *)
 let () =
-  assert (5 :: [1;8;4] = [5;1;8;4])
+  assert ([%compare.equal: int list]
+            (5 :: [1;8;4])
+            [5;1;8;4])
 
 (* The append infix operator @ concatenates two lists:
 
@@ -18,8 +20,9 @@ let () =
    This function is the same as the List.append function.
 *)
 let () =
-  assert ([5;1] @ [8;4] = [5;1;8;4]);
-  assert (List.append [5;1] [8;4] = [5;1;8;4])
+  assert ([%compare.equal: int list] ([5;1] @ [8;4]) [5;1;8;4]);
+  assert ([%compare.equal: int list]
+            (List.append [5;1] [8;4]) [5;1;8;4])
 
 (* TODO: Write a function to construct a list of all integers in the range [from,to_)
    in increasing order.
