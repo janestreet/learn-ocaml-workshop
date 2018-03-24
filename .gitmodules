@@ -1,0 +1,3 @@
+[submodule "01-install-ocaml"]
+	path = 01-install-ocaml
+	url = https://github.com/janestreet/install-ocaml

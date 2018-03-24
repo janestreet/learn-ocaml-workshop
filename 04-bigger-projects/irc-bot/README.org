@@ -1,0 +1,195 @@
+#+SETUPFILE: ~/sources/org-html-themes/setup/theme-readtheorg.setup
+#+TITLE: Writing an IRC bot
+[[https://en.wikipedia.org/wiki/Internet_Relay_Chat][Internet Relay Chat]] is one of the earliest open network protocols for
+communication. It's popularity has waned in the Age of Slack/Twitter/Snapchat
+but it still has a devoted user-base, especially in the open-source community.
+
+Your mission today, should you choose to accept it, is to write an IRC bot
+using Core, the Async library for concurrency, and the Angstrom parsing
+library.
+* Overview of IRC
+  The protocol used by IRC servers and clients is a text-based TCP protocol.
+  The original RFC was published in 1993 ([[https://tools.ietf.org/html/rfc1459][RFC1459]]) and the protocol was
+  subsequently specified in more detail in 2000 through a series of updated
+  RFCs:
+
+  - [[https://tools.ietf.org/html/rfc2810][RFC2810]] Internet Relay Chat: Architecture
+  - [[https://tools.ietf.org/html/rfc2811][RFC2811]] Internet Relay Chat: Channel Management
+  - [[https://tools.ietf.org/html/rfc2812][RFC2812]] Internet Relay Chat: Client Protocol
+  - [[https://tools.ietf.org/html/rfc2813][RFC2813]] Internet Relay Chat: Server Protocol
+
+  The protocol is rich: There are many different commands that clients can
+  issue to servers as well as protocols for server-to-server and
+  client-to-client communication.
+
+  Luckily, for our purposes, to write a bot we'll only need to implement a few
+  of these:
+
+  #+BEGIN_EXAMPLE
+    NICK <nickname>
+    USER <user> <mode> <unused> <realname>
+    JOIN <channels> [<keys>]
+    PRIVMSG <msgtarget> <message>
+    PING <server1>
+    PONG <server1>
+  #+END_EXAMPLE
+* A quick tour through the IRC protocol
+** Message format
+   IRC is a text-based protocol made up of ~\r\n~-delimited messages and as a
+   result it's fairly human-readable. It's easy to debug or play around by using
+   a utility like ~nc~ or ~socat~ or reading the verbatim messages exchanged
+   between clients and servers.
+
+   Paraphrasing [[https://tools.ietf.org/html/rfc2812][RFC2812]]:
+
+   - Servers and clients send each other messages, which may or may not generate
+     a reply.
+   - Each IRC message may consist of up to three main parts, each separated by a
+     space: an optional prefix, a command, and any number of parameters for the
+     command (from 0 to 15, inclusive).
+
+     #+BEGIN_EXAMPLE
+     NICK jdoe
+     JOIN #some-channel
+     #+END_EXAMPLE
+
+   - Messages are a maximum of 512 characters including a required delimiter on
+     the end of ~\r\n~ (i.e. there is space for 510 useful characters)[fn:1].
+   - When the final parameter is prefixed with a ':' character, the value of
+     that parameter, including any space characters, is the remainder of the
+     message. E.g.:
+
+     #+BEGIN_EXAMPLE
+     PRIVMSG jdoe :This is a long parameter with spaces in it.
+     #+END_EXAMPLE
+
+[fn:1] In examples below we omit the terminating CRLF for convenience.
+
+** Reply format
+   As alluded to above, some messages warrant replies. A reply is just a message
+   with some additional constraints:
+
+   - The optional prefix (described above) is always included.
+   - The command is a three digit reply-code, (the full list of possibilities
+     is specified in [[https://tools.ietf.org/html/rfc2812#section-5.1][section 5 of RFC2812]]).
+   - The first command parameter is always the "target" of the reply, for our
+     purposes, typically a nick.
+** An example session
+   Putting it all together, here's a full example of a client (nick "jdoe")
+   connecting to an IRC server, identifying herself, joining a channel, sending
+   a message, and receiving a response. Here, '>' denotes a message from jdoe's
+   IRC client to the server, and '<' denotes a response from the server to
+   jdoe's client.
+
+   #+BEGIN_EXAMPLE
+     > NICK jdoe
+     > USER jdoe * * :Jane Doe
+     < :irc.example.com 001 jdoe :Welcome to the example.com Internet Relay Network jdoe!jdoe@some-hostname
+     < :irc.example.com 002 jdoe :Your host is some-hostname, running ircd
+     < :irc.example.com 003 jdoe :This server was created Sun, 11 Mar 2018 23:18:53 EDT
+     < :irc.example.com 004 jdoe example.com ircd-1.0 iox beIikntplsZ
+     < :irc.example.com 251 jdoe There are 1 users and 0 invisible on 1 servers
+     < :irc.example.com 255 jdoe I have 1 clients and 1 servers
+     < :irc.example.com 422 jdoe :MOTD File is missing
+     > JOIN #test
+     < :jdoe!jdoe@some-hostname JOIN #test
+     < :irc.example.com 331 jdoe #test :No topic is set
+     < :irc.example.com 353 jdoe = #test :@jdoe
+     < :irc.example.com 366 jdoe #test :End of NAMES list
+     > PRIVMSG #test :Hello test!
+     < :psmith!psmith@another-hostname JOIN #test
+     < :psmith!psmith@another-hostname PRIVMSG #test :Hello jdoe!
+     < :psmith!psmith@another-hostname QUIT :connection closed
+     > QUIT
+   #+END_EXAMPLE
+
+   With this, we should know just about everything we need to know to be able
+   to write a functional bot!
+* Testing the waters
+  For the purposes of this workshop, we'll use a channel on the [[https://freenode.net/][Freenode IRC
+  network]] called ~##js-ocaml-workshop-2018~. You can connect to Freenode at
+  ~irc.freenode.org:6667~ [fn:2]. Since IRC is text-based, you can use a utility
+  like ~netcat~, ~socat~, or ~nc~ to connect to an IRC server and try sending
+  some commands manually. ~nc~ has a ~-C~ flag which will cause it to terminate
+  your lines with ~\r\n~ as we want here:
+
+  #+BEGIN_SRC shell
+     $ nc -C irc.freenode.org 6667
+  #+END_SRC
+
+  Once you're connected, the first order of business is to identify yourself
+  by issuing a ~NICK~ command to register a nickname for yourself and then the
+  ~USER~ command to give a bit more information. For example:
+
+  #+BEGIN_EXAMPLE
+    NICK jdoe
+    USER jdoe * * :Jane Doe
+  #+END_EXAMPLE
+
+  After that, you can join the channel mentioned above like this:
+
+  #+BEGIN_EXAMPLE
+    JOIN :##js-ocaml-workshop-2018
+  #+END_EXAMPLE
+
+  And send a message to everyone else in the channel like this:
+
+  #+BEGIN_EXAMPLE
+    PRIVMSG ##js-ocaml-workshop-2018 :Hi everyone!
+  #+END_EXAMPLE
+
+  Once you're done, you can leave the channel with the [[https://en.wikipedia.org/wiki/List_of_Internet_Relay_Chat_commands#PART][PART]] command, issue a
+  [[https://en.wikipedia.org/wiki/List_of_Internet_Relay_Chat_commands#QUIT][QUIT]] to disconnect entirely, or just close the connection by exiting ~nc~
+  with ~Ctrl-C~.
+
+[fn:2] In practice, you should almost certainly be connecting using TLS, but
+we'll keep things simple and leave that out of scope for this exercise.
+* Getting started
+  Now that you have the basics of the IRC protocol down, try writing a simple
+  bot which connects to a (configurable) channel and responds to anyone who says
+  "hi" or "hello" with a friendly greeting. Make sure it doesn't get itself into
+  a politeness loop by responding to its own greetings!
+
+  To help you on your way, ~bin/bot.ml~ defines a simple command-line based bot
+  which identifies itself, connects to a configurable channel, and sends a
+  single message before disconnecting without making any attempt to validate
+  arguments or check for error replies from the server.
+
+  If you're going to keep your bot connecting for a long time (as you probably
+  should) then you'll probably need to handle [[https://tools.ietf.org/html/rfc2812#section-3.7.2][PING]] messages from the server and
+  respond with a [[https://tools.ietf.org/html/rfc2812#section-3.7.3][PONG]] so your bot isn't disconnected for lack of activity.
+
+  *CAUTION:* If your bot takes input then you should be very careful to consider
+  whether you need to sanitize it before using it. The Internet is a scary place
+  so you should be careful not to trust any old message.
+* Improvements to your simple bot
+  Once you have your bot working (woo!) there are a number of different
+  improvements that you can make:
+
+  - Update your bot to greet users by name
+  - Batch greetings of users who join at close to the same time into one message
+  - Extend your bot to be able to connect to multiple channels at the same time
+    and spread happiness across the whole network
+* Extensions
+  Once you have a working bot that can handle the above, you're well on your way
+  to making it support whatever you want! There are a few different directions
+  in which you can proceed.
+
+  One idea is to amend your bot to use the [[https://github.com/inhabitedtype/angstrom][angstrom]] library to parse IRC
+  protocol messages so that you can be more sure that it can handle all the
+  different messages that IRC servers in the wild might throw at you. Be sure to
+  write some expect tests to make sure your parser works!
+
+  If you want to keep expanding the skills of your bot, you are bounded only by
+  your imagine. You could write a bot which:
+
+  - Archives all the messages sent to a channel for future reading.
+  - Prints a fortune from the ~/usr/bin/fortune~ on demand.
+  - Knows how to do unit conversions.
+  - Uses a [[https://blog.codinghorror.com/markov-and-you/][Markov chain]] and a text corpus of your choice to generate made-up but
+    convincing sounding responses to people's messages.
+
+  Something else! The world is your oyster.
+
+  Just a reminder to *BE CAREFUL:* If your bot takes input then you should be
+  very careful to consider whether you need to sanitize it before using it.

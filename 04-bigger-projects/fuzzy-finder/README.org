@@ -1,0 +1,101 @@
+#+TITLE: Write A Fuzzy Finder
+Recently many of us at Jane Street have taken a liking to [[https://github.com/junegunn/fzf][fzf]]. This utility
+makes it quick and easy for users to make a selection in a terminal pipeline, or
+as part of a shell script.
+
+E.g.
+#+BEGIN_EXAMPLE
+  echo -e "blue pill\nred pill" | fzf
+#+END_EXAMPLE
+
+will present the user in their terminal with the choice between a "red pill" and
+"blue pill". The user can type in characters to narrow the selection, and hit
+the Enter key, at which point the selection will be sent to fzf's stdout.
+
+This is actually very useful, e.g.
+#+BEGIN_EXAMPLE
+  function qcd(){ pushd $(echo -e "${HOME}\n/usr/local/bin\n/usr/bin" | fzf); }
+#+END_EXAMPLE
+which allows one to type 'qcd<RET>' and then quickly choose a directory to navigate to in the shell.
+
+
+Your task, in this project is to create your own fuzzy finder.
+
+* Fuzzy Finder Inputs & Outputs
+  Have you ever considered how ~less~ can read from standard in, but also read
+  PgUp/PgDwn inputs? Have you ever done something like the below?
+
+  #+BEGIN_EXAMPLE
+    tail ${FILE} | vim - | sed 's/hello/goodbye/g'
+  #+END_EXAMPLE
+
+  In these cases, the terminal can still be controlled by the user, but
+  stdin/stdout are being redirected by the shell to other programs; so it's not
+  possible for the keyboard input and terminal output to go to stdin/stdout.
+
+  Instead, in these cases, the device ~/dev/tty~ is used for reading and writing
+  directly to the terminal. So, fuzzy finding utilities should have two sets of
+  inputs, and two sets of outputs: 
+  
+  - Inputs : stdin, read from ~/dev/tty~ 
+  - Outputs: stdout, write to ~/dev/tty~
+
+  We have created the following scaffolding for you to use in this task:
+
+  - ~Tty_text~: a tiny, primitive library for managing drawing to the terminal
+    and reading user input
+  - ~Render~: a helper module to limit how often rendering will occur per second
+  - ~Spinner~: Useful for displaying to the user if stdin still contains more
+    data
+  - ~Fuzzy~: Boilerplate, the place to start writing your finder.
+
+  You should start by thinking about the below:
+
+*** When and what you actually need to render things to the screen
+    If you do this too often, the user will experience flickering. What actually
+    needs to be written out to the screen?
+*** How you are going to process inputs
+    A piece of advice is to structure the code so there is a loop that processes
+    all of the events, and dispatches changes based on them. E.g. the user
+    pressed a key, a new line arrived on stdin, etc.
+*** How will line editing work?
+    The user input is there for you to consume, but there's no actual line
+    editor provided.
+*** How you are going to store the data, filtered items, and user input?
+    There are no data structures defined, that's up to you.
+*** How will the user input match what comes from stdin?
+    A simple check if the input string is present in any of the input is
+    probably reasonable to start with
+
+
+    Here are some example commands that you may find useful for testing your
+    finder:
+
+    #+BEGIN_EXAMPLE
+      seq 0 10000 | ./_build/default/fuzzy.exe
+    #+END_EXAMPLE
+
+    #+BEGIN_EXAMPLE
+      seq 0 7 100000 | ./_build/default/fuzzy.exe
+    #+END_EXAMPLE
+
+** Extensions
+   Once your finder is working, here are some things to try to do to improve it:
+*** Add colors
+    The [[https://en.wikipedia.org/wiki/ANSI_escape_code][Wikipedia]] article on ANSI escape codes explains how to color things. This
+    would allow you to highlight the current selection, for example.
+*** Process arrow keys
+    The Tty_text module only processes single character inputs. Some inputs, like
+    the arrow keys are > 2 bytes in length. Modify the =Tty_text= to determine if the escape key was hit, or if
+    an escaped keypress occurred. The command `showkey -a` will likely aid in this task.
+*** Add more diagnostic info
+    Add output for
+    - How many items the program knows about
+    - How many items match the current search
+*** Fuzzier finding
+    Depending how you did your match (looking for a match with
+    ~String.Search_pattern.create~, perhaps?), try and come up with a better
+    fuzziness metric.
+*** Output sorting
+    Try to come up with a good way to sort the output. Is lexicographic string
+    comparison enough?

@@ -1,0 +1,106 @@
+#+TITLE: Frogger in your browser
+
+If you've never played Frogger, play an online version (picked at random) here:
+[[https://denodell.github.io/frogger/]]
+
+You will be writing a simplified version that discretizes time and space, which
+makes the collision and movement logic a lot easier to implement. [[http://storage.googleapis.com/jane-street-ocaml-workshop-2018-03-24-frogger/index.html][Here's]] an
+example of the finished product. Try pressing the keys ~i~ and ~u~ to see some
+fun tricks!
+
+* ~js_of_ocaml~
+  This version of Frogger will run in the browser by using ~js-of-ocaml~ to
+  transpile OCaml bytecode into Javascript. Fortunately for us, ~jbuilder~
+  supports this out of the box: all one needs to do is ask for the ~.bc.js~
+  target (see the definition of the ~DEFAULT~ alias in the [[file:jbuild][jbuild]] file).
+
+  First, test your installation of ~js-of-ocaml~ by running ~make~ in the
+  [[file:test-js-of-ocaml-install][test-js-of-ocaml-install]] directory. Then, point your browser at
+  ~_build/default/03-frogger/test-js-of-ocaml-install/index.html~.
+
+* Writing a game in functional programming style
+  We have written a simple scaffold that handles graphics, events and
+  interactions with the DOM so you can focus on implementing just the game
+  logic. [[file:scaffold.mli][scaffold.mli]] defines modules and types that you'll need to use, like
+  the number and kinds of rows in the playing board, and images of characters.
+
+  Take a look at [[file:frogger.mli][frogger.mli]]. This is the interface you will implement by
+  writing a corresponding ~frogger.ml~. The contract between the scaffold and
+  your code is that you implement the four functions at the bottom of this
+  ~.mli~, and the scaffold will call those functions with the appropriate events
+  at the right times.
+
+  A ~World.t~ represents the entire state of the game at a given point in time.
+  It is up to you to define what goes in the type -- that's why ~frogger.mli~
+  does not specify what's inside the type (we call this an /opaque/ type).
+  However, to help you get started, we've specified some function signatures in
+  the ~World~ module [[file:suggested_frogger.mli][here]] that are likely to be useful.
+
+  To specify the logic of the game, you'll need to figure out the following
+  things (these correspond to the functions in [[file:frogger.mli][frogger.mli]]):
+
+** How to create the world
+   This is the ~create~ function. You may want to use the ~Random~ module (from
+   ~Base~) to make life interesting.
+
+** How to advance the world one timestep
+   For this first project, we'll say that time advances only in units of 1
+   second. The ~tick~ function should implement how the ~World.t~ is transformed
+   when time advances. Note its signature:
+
+   #+BEGIN_SRC ocaml
+   val tick : World.t -> World.t
+   #+END_SRC
+
+   It takes a ~World.t~ and returns a new ~World.t~. Writing your game in this
+   functional style will allow us to do some interesting things later on.
+
+** How to respond to player input
+   Players can press one of the four arrow keys to move their character around.
+   You specify what to do when they do that by writing a ~handle_input~
+   function.
+
+   All this function needs to know is: what the current state of the world is (a
+   ~World.t~), and what button player pressed (a ~Key.t~). Its output: the
+   resulting state of the world (a ~World.t~). 
+
+** ~handle_event~: dispatch to ~tick~ or ~handle_input~
+   It's nice to be able to say, "The only things that happen in this game are:
+   time progressing, and the player doing something." Your ~handle_event~
+   function should just ~match~ on the kind of event and dispatch to the
+   appropriate handler (one of the two above).
+
+** How to draw the world
+   A list of tuples ~(Image.t, Position.t)~ tell the scaffold which images to
+   draw where, and in what order: images later in the list will be overlaid on
+   top of earlier ones at the same position.
+
+* That seems awfully complicated! How should I start?
+  A reasonable starting point is to just move the frog (well, camel) around the
+  game board. Read [[file:frogger.ml][frogger.ml]] and follow the suggestions to build this basic game.
+
+* Build and run
+  Type =make= to build, and point your browser to
+  =_build/default/03-frogger/index.html= to play the game!
+
+* Extensions
+** AI
+   Write an AI player for your game. Given the initial ~World.t~, it should emit
+   a sequence of ~Key.t option~, one for every timestep. 
+
+   To see your AI in action you will need to modify the scaffold a little:
+   instead of feeding player input into the ~handle_input~ function, make it
+   feed in the output of the AI you write.
+
+*** Some interesting extensions once you've written an AI
+    1. Does your ~create~ function ever produce initial states that cannot be
+       played to a win?
+
+    2. How would you write AI to deal with potential randomness in the ~tick~
+       function?
+
+** Continuous time
+   While the interpolating scaffold is a neat trick, it's not perfect because
+   the collision detection logic is now out-of-sync with what's going on
+   visually. Extend the interface, game logic and scaffold to produce a
+   smoothly-animated Frogger that also plays right.
