@@ -10,8 +10,8 @@ let rec every answer combine xs =
 
 let rec largest xs =
   match xs with
-  | [] -> Float.neg_infinity
-  | x :: ys -> max x (largest ys)
+  | []      -> Float.neg_infinity
+  | x :: ys -> Float.max x (largest ys)
 
 let rec smallest xs =
   match xs with

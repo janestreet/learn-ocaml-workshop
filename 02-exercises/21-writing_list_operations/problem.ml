@@ -108,7 +108,7 @@ let () = assert (List.mem ~equal:Int.equal [1;2;3] 3)
    indicate the first element is smaller, 0 to indicate they are equal, and a positive
    number to indicate the first element is larger.
 
-   val sort: cmp:('a -> 'a -> int) -> 'a list -> 'a list
+   val sort: compare:('a -> 'a -> int) -> 'a list -> 'a list
 *)
 let () = assert ([%compare.equal: int list] (List.sort ~cmp:(fun x y -> x - y) [3;1;2]) [1;2;3])
 
