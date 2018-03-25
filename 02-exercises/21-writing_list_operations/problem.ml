@@ -101,8 +101,7 @@ let%test _ =
    val mem : 'a list -> equal:('a -> 'a -> bool) -> 'a -> bool
 *)
 
-let () = assert
-  (List.mem ~equal:Int.equal [1;2;3] 3) 
+let () = assert (List.mem ~equal:Int.equal [1;2;3] 3)
 
 (* List.sort returns a sorted list in increasing order according to the specified
    comparison function. The comparison function should return a negative number to
@@ -111,10 +110,7 @@ let () = assert
 
    val sort: compare:('a -> 'a -> int) -> 'a list -> 'a list
 *)
-let () = assert
-  ([%compare.equal: int list]
-     (List.sort ~compare:(fun x y -> x - y) [3;1;2])
-     [1;2;3])
+let () = assert ([%compare.equal: int list] (List.sort ~cmp:(fun x y -> x - y) [3;1;2]) [1;2;3])
 
 (*module My_list : sig
   val map : ('a -> 'b) -> 'a list -> 'b list
@@ -133,4 +129,4 @@ end = My_list*)
      Int.(=) 8 !acc
 
   let%test "Testing My_list.filter..." =
-    [%compare.equal: int list] [8 ; 2] (My_list.filter (fun x -> x mod 2 = 0) [1; 3; 7; 8; 9; 2])
+    [%compare.equal: int list] [8 ; 2] (My_list.filter (fun x -> x % 2 = 0) [1; 3; 7; 8; 9; 2])
