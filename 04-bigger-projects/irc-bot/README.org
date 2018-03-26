@@ -181,7 +181,7 @@ we'll keep things simple and leave that out of scope for this exercise.
   write some expect tests to make sure your parser works!
 
   If you want to keep expanding the skills of your bot, you are bounded only by
-  your imagine. You could write a bot which:
+  your imagination. You could write a bot which:
 
   - Archives all the messages sent to a channel for future reading.
   - Prints a fortune from the ~/usr/bin/fortune~ on demand.
