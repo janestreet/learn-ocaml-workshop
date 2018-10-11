@@ -5,8 +5,8 @@ let rec every answer combine xs =
   | [] -> answer
   | x::xs -> combine x (every answer combine xs)
 
-(* Here are two functions which compute the largest and smallest integers in a list of
-   integers: *)
+(* Here are two functions which compute the largest and smallest float in a list of
+   floats: *)
 
 let rec largest xs =
   match xs with
@@ -16,7 +16,7 @@ let rec largest xs =
 let rec smallest xs =
   match xs with
   | [] -> Float.infinity
-  | x :: ys -> min x (smallest ys)
+  | x :: ys -> Float.min x (smallest ys)
 
 (* Let's rewrite them using every: *)
 let simpler_largest  xs = every (failwith "For you to implement") xs
