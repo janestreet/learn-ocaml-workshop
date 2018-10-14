@@ -110,7 +110,7 @@ let () = assert (List.mem ~equal:Int.equal [1;2;3] 3)
 
    val sort: compare:('a -> 'a -> int) -> 'a list -> 'a list
 *)
-let () = assert ([%compare.equal: int list] (List.sort ~cmp:(fun x y -> x - y) [3;1;2]) [1;2;3])
+let () = assert ([%compare.equal: int list] (List.sort ~compare:(fun x y -> x - y) [3;1;2]) [1;2;3])
 
 (*module My_list : sig
   val map : ('a -> 'b) -> 'a list -> 'b list
