@@ -13,8 +13,8 @@ let (i,s,c) = example
 
 let () =
   assert (i = 5);
-  assert (s = "hello");
-  assert (c = 'A')
+  assert (String.( = ) s "hello");
+  assert (Char.( = ) c 'A')
 
 (* Consider a coordinate type containing the x and y values of a coordinate.
    Write a function that computes the sum of two coordinates.

@@ -9,7 +9,7 @@ open! Base
    Recall: a function called add1 which takes an integer and returns an integer has the type
    val add1 : int -> int
 
-   so, to use that signature in a type, we'd write
+   So, to use that signature in a type, we'd write
    (int -> int)
 
    We now define a function called map_option.
