@@ -1,0 +1,10 @@
+(executables (
+  (names (lumines))
+  (libraries
+    (async
+     graphics
+     base
+   ))
+))
+
+(enforce_style ((let_syntax ()) (ocamlformat ())))
