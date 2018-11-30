@@ -1,8 +1,7 @@
 open! Base
 
 (* OCaml allows you to define record types.
-   These are like structs in C.
-   Or in python/ruby/java - data members of a class.
+   These are like structs in C, or data members of a class in python/ruby/java. 
 *)
 
 type person = (* The name of the type is [person] *)

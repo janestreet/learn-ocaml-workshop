@@ -72,7 +72,7 @@ let two =
 let four =
   Abstract_type_example.to_int (Abstract_type_example.add two two)
 ;;
-    assert (four = 4)
+assert (four = 4)
 
 module Fraction : sig
 
