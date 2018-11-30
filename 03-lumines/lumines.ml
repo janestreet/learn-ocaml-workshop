@@ -655,7 +655,8 @@ let every seconds ~f ~stop =
     if !stop
     then return ()
     else (
-      let%bind () = Clock.after (Time.Span.of_sec seconds) in
+      Clock.after (Time.Span.of_sec seconds)
+      >>= fun () ->
       f ();
       loop ())
   in

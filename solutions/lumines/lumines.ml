@@ -721,7 +721,9 @@ end = struct
           draw_part
             color
             ~from:{ col = part_size.col * col; row = part_size.row * row }));
-    draw_sweeper game
+    draw_sweeper game;
+    Graphics.display_mode true;
+    Graphics.synchronize ()
   ;;
 
   let read_key () = if Graphics.key_pressed () then Some (Graphics.read_key ()) else None
@@ -734,7 +736,8 @@ let every seconds ~f ~stop =
     if !stop
     then return ()
     else (
-      let%bind () = Clock.after (Time.Span.of_sec seconds) in
+      Clock.after (Time.Span.of_sec seconds)
+      >>= fun () ->
       f ();
       loop ())
   in
@@ -785,6 +788,7 @@ let handle_clock_tick (game : Game.t) =
 (* this is the core loop that powers the game *)
 let run () =
   let game = Game.create ~height:14 ~width:16 ~seconds_per_sweep:3. in
+  Graphics.init_exn game;
   handle_keys game;
   run_sweeper game;
   handle_clock_tick game
