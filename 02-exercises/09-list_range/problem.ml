@@ -8,10 +8,7 @@ open! Base
 
    val (::) : 'a -> 'a list -> 'a list
 *)
-let () =
-  assert ([%compare.equal: int list]
-            (5 :: [1;8;4])
-            [5;1;8;4])
+let () = assert ([%compare.equal: int list] [ 5; 1; 8; 4 ] [ 5; 1; 8; 4 ])
 
 (* The append infix operator @ concatenates two lists:
 
@@ -20,17 +17,16 @@ let () =
    This function is the same as the List.append function.
 *)
 let () =
-  assert ([%compare.equal: int list] ([5;1] @ [8;4]) [5;1;8;4]);
-  assert ([%compare.equal: int list]
-            (List.append [5;1] [8;4]) [5;1;8;4])
+  assert ([%compare.equal: int list] ([ 5; 1 ] @ [ 8; 4 ]) [ 5; 1; 8; 4 ]);
+  assert ([%compare.equal: int list] (List.append [ 5; 1 ] [ 8; 4 ]) [ 5; 1; 8; 4 ])
+;;
 
 (* TODO: Write a function to construct a list of all integers in the range [from,to_)
    in increasing order.
 
    val range : int -> int -> int list
 *)
-let range from to_ =
-  failwith "For you to implement"
+let range from to_ = failwith "For you to implement"
 
 (* Here's a different way of getting the [equal] function for a type [t]:
 
@@ -48,11 +44,8 @@ let range from to_ =
    that type just to use its equality operator, you can ask the [ppx_compare]
    syntax extension to create it for you on the fly. *)
 
-let%test "Testing range..." =
-  [%compare.equal: int list] (range 1 4) [1; 2; 3] 
-;;
+let%test "Testing range..." = [%compare.equal: int list] (range 1 4) [ 1; 2; 3 ]
 
 let%test "Testing range..." =
-  [%compare.equal: int list] (range (-5) 3) [-5;-4;-3;-2;-1;0;1;2]
+  [%compare.equal: int list] (range (-5) 3) [ -5; -4; -3; -2; -1; 0; 1; 2 ]
 ;;
-

@@ -1,3 +1,3 @@
 open! Base
 
-val factorial : int -> int 
+val factorial : int -> int
