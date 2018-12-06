@@ -1,16 +1,8 @@
 open! Base
 
-(* The previous exercise discussed various list functions, but didn't discuss
-   how to actually build up a list. For this, the cons and append infix operators
-   are useful.
-
-   The cons infix operator :: appends an element to the front of a list:
-
-   val (::) : 'a -> 'a list -> 'a list
-*)
-let () = assert ([%compare.equal: int list] [ 5; 1; 8; 4 ] [ 5; 1; 8; 4 ])
-
-(* The append infix operator @ concatenates two lists:
+(* When working with two lists it's conveninet to have a way to concatenate them together.
+    
+   The append infix operator @ concatenates two lists:
 
    val (@) : 'a list -> 'a list -> 'a list
 
@@ -21,8 +13,8 @@ let () =
   assert ([%compare.equal: int list] (List.append [ 5; 1 ] [ 8; 4 ]) [ 5; 1; 8; 4 ])
 ;;
 
-(* TODO: Write a function to construct a list of all integers in the range [from,to_)
-   in increasing order.
+(* TODO: Write a function to construct a list of all integers in the range from [from] to [to_]
+   includeing [from] but excluding [to_] in increasing order.
 
    val range : int -> int -> int list
 *)

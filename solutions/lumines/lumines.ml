@@ -349,7 +349,7 @@ end = struct
             let coords = Moving_piece.coords ~bottom_left:{ Point.row; col } in
             let colors =
               List.map coords ~f:(get t)
-              |> List.fold_left ~init:[] ~f:(fun acc t ->
+              |> List.fold ~init:[] ~f:(fun acc t ->
                 match t with
                 | None -> None :: acc
                 | Some t ->
@@ -377,8 +377,8 @@ end = struct
        we leave the board in a valid state
     *)
     let squares_to_remove =
-      List.fold_left (List.range 0 t.width) ~init:[] ~f:(fun acc col ->
-        List.fold_left (List.range 0 t.height) ~init:acc ~f:(fun acc row ->
+      List.fold (List.range 0 t.width) ~init:[] ~f:(fun acc col ->
+        List.fold (List.range 0 t.height) ~init:acc ~f:(fun acc row ->
           let point = { Point.col; row } in
           match get t point with
           | Some filled_square ->
@@ -478,7 +478,7 @@ end = struct
     then (
       let check_col = t.cur_pos / pixels_per_square in
       let more_marked =
-        List.fold_left (List.range 0 t.board.height) ~init:false ~f:(fun acc row ->
+        List.fold (List.range 0 t.board.height) ~init:false ~f:(fun acc row ->
           let color = Board.get t.board { Point.row; col = check_col } in
           match color with
           | None -> acc
@@ -564,7 +564,7 @@ end = struct
     then false
     else (
       let coords = Moving_piece.coords ~bottom_left:{ Point.row; col } in
-      List.fold_left coords ~init:true ~f:(fun can_move point ->
+      List.fold coords ~init:true ~f:(fun can_move point ->
         if point.Point.row >= t.height
         then can_move
         else Board.is_empty t.board point && can_move))

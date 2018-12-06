@@ -6,6 +6,11 @@ open! Base
    The head is the first element of the linked list
    The tail is everything else.
 
+   To construct a list we use the cons infix operator :: to append elements to 
+   the front of a list
+
+   val (::) : 'a -> 'a list -> 'a list
+
    [] means "the empty list".
    hd :: tl means "the element hd added to the front of the list tl".
 
@@ -13,6 +18,8 @@ open! Base
    either equal to [] or equal to (hd :: tl) where hd is the first element of the list
    and tl is all the rest of the elements of the list (which may itself be empty).
 *)
+
+let () = assert ([%compare.equal: int list] [ 5; 1; 8; 4 ]  (5 :: 1 :: 8 :: 4  :: []))
 
 (* This function computes the length of a list. *)
 let rec length lst =
