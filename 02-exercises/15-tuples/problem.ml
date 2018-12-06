@@ -1,4 +1,5 @@
 open! Base
+
 (* Another non-basic type in OCaml is a tuple. A tuple is an ordered collection
    of values that can each be of a different type. The signature for a tuple is
    written by separating all the types within the tuple by a *.
@@ -6,15 +7,16 @@ open! Base
 type int_and_string_and_char = int * string * char
 
 (* Tuples are created by joining values with a comma: *)
-let example : int_and_string_and_char = (5, "hello", 'A')
+let example : int_and_string_and_char = 5, "hello", 'A'
 
 (* You can also extract the components of a tuple: *)
-let (i,s,c) = example
+let i, s, c = example
 
 let () =
   assert (i = 5);
   assert (String.( = ) s "hello");
   assert (Char.( = ) c 'A')
+;;
 
 (* Consider a coordinate type containing the x and y values of a coordinate.
    Write a function that computes the sum of two coordinates.
@@ -22,8 +24,7 @@ let () =
 type coordinate = int * int
 
 (* TODO *)
-let add coord1 coord2 =
-  failwith "For you to implement"
+let add coord1 coord2 = failwith "For you to implement"
 
 (* Now consider a name type containing strings representing first and last name. *)
 type name = string * string
@@ -48,9 +49,9 @@ type 'a pair = 'a * 'a
 *)
 
 (* We can construct pairs just like we construct regular tuples *)
-let int_pair : int pair = (5, 7)
-let string_pair : string pair = ("foo", "bar")
-let nested_char_pair : (char pair) pair = (('a','b'),('c','d'))
+let int_pair : int pair = 5, 7
+let string_pair : string pair = "foo", "bar"
+let nested_char_pair : char pair pair = ('a', 'b'), ('c', 'd')
 
 (* Write functions to extract the first and second elements from a pair. *)
 (* val first : 'a pair -> 'a *)
@@ -62,11 +63,6 @@ let first pair = failwith "For you to implement"
 let second pair = failwith "For you to implement"
 
 (* Notice the cool [%compare.equal: int*int] here! *)
-let%test "Testing add..." =
-  [%compare.equal: int*int] (4,7) (add (5,3) (-1,4))
-
-let%test "Testing first..." =
-  String.(=) "foo" (first ("foo","bar"))
-
-let%test "Testing second..." =
-  Char.(=) 'b' (second ('a','b'))
+let%test "Testing add..." = [%compare.equal: int * int] (4, 7) (add (5, 3) (-1, 4))
+let%test "Testing first..." = String.( = ) "foo" (first ("foo", "bar"))
+let%test "Testing second..." = Char.( = ) 'b' (second ('a', 'b'))

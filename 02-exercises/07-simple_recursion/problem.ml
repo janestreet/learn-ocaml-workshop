@@ -13,19 +13,15 @@ let add_every_number_up_to x =
   assert (x >= 0);
   match x with
   | 0 -> 0
-  | _ -> x + (add_every_number_up_to (x-1))
+  | _ -> x + add_every_number_up_to (x - 1)
+;;
 
 (* Let's write a function to multiply every number up to x. Remember: [factorial 0] is 1 *)
 let rec factorial x =
   assert (x >= 0);
   failwith "For you to implement"
+;;
 
-let%test "Testing factorial..." =
-  Int.(=) 1 (factorial 0)
-
-let%test "Testing factorial..." =
-  Int.(=) 120 (factorial 5)
-
-let%test "Testing factorial..." =
-  Int.(=) (479001600) (factorial 12)
-
+let%test "Testing factorial..." = Int.( = ) 1 (factorial 0)
+let%test "Testing factorial..." = Int.( = ) 120 (factorial 5)
+let%test "Testing factorial..." = Int.( = ) 479001600 (factorial 12)

@@ -18,19 +18,19 @@ open! Base
 let rec length lst =
   match lst with
   | [] -> 0
-  | _ :: tl -> 1 + (length tl)
+  | _ :: tl -> 1 + length tl
+;;
 
 (* Write a function to add up the elements of a list by matching on it. *)
-let rec sum lst =
-  failwith "For you to implement"
+let rec sum lst = failwith "For you to implement"
 
 (* The signature for the append operator is
    val (@) : 'a list -> 'a list -> 'a list
 
    It's an infix operator. You can use it one of two ways:
 *)
-let list_append       first second = first @ second
-let other_list_append first second = (@) first second
+let list_append first second = first @ second
+let other_list_append first second = first @ second
 
 (* The way you put something on the head to the list
    uses the same kind of syntax for matching on lists.
@@ -38,14 +38,7 @@ let other_list_append first second = (@) first second
 *)
 let new_head hd rest = hd :: rest
 
-let%test "Testing sum..." =
-  Int.(=) 0 (sum [])
-
-let%test "Testing sum..." =
-  Int.(=) 55 (sum [55])
-
-let%test "Testing sum..." =
-  Int.(=) 0 (sum [5 ; (-5) ; 1 ; (-1)])
-
-let%test "Testing sum..." =
-  Int.(=) 12 (sum [5 ; 5 ; 1 ; 1])
+let%test "Testing sum..." = Int.( = ) 0 (sum [])
+let%test "Testing sum..." = Int.( = ) 55 (sum [ 55 ])
+let%test "Testing sum..." = Int.( = ) 0 (sum [ 5; -5; 1; -1 ])
+let%test "Testing sum..." = Int.( = ) 12 (sum [ 5; 5; 1; 1 ])
