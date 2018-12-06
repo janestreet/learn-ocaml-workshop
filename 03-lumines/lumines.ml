@@ -61,8 +61,8 @@ end
    - Unmarked : this means that it is not part of any completed square
    - To_sweep : this means it is part of a completed square and the sweeper will delete
      it when it passes all connected to_sweep [Filled_square]s
-   - Swept : this means that the sweeper has passed this, square and it is 'deleted'
-     it will be actually removed from the board when the sweeper reaches the end of the
+   - Swept : this means that the sweeper has passed this square and it is 'deleted'.
+     It will be actually removed from the board when the sweeper reaches the end of the
      blocks to delete *)
 module Filled_square : sig
   module Sweeper_state : sig
@@ -78,7 +78,7 @@ module Filled_square : sig
     { color :
         Color.t
     (* recall from our earlier exercise, by marking this as mutable we can change it in
-       place rather than making a new one every time the state update *)
+       place rather than making a new one every time the state updates *)
     ; mutable sweeper_state : Sweeper_state.t
     }
 
@@ -141,7 +141,7 @@ end = struct
 end
 
 module Point : sig
-  (* It is uesful to refer to points in our grid using this record. This allows us
+  (* It is useful to refer to points in our grid using this record. This allows us
      to avoid making mistakes about which coordinate is the row and which is to column
 
      We have provided a selection of useful functions, but feel free to add any others
@@ -167,7 +167,7 @@ module Point : sig
 
   val compare_by_col : t -> t -> int
 
-  (* This is uesful for the graphics portion of the library.  Feel free to ignore all
+  (* This is useful for the graphics portion of the library.  Feel free to ignore all
      these functions *)
   module For_drawing : sig
     val fill_rect : Graphics.color -> t -> t -> unit
@@ -211,15 +211,15 @@ module Moving_piece : sig
     ; bottom_right : Filled_square.t
     }
 
-  (* create creates a new random peice *)
+  (* create creates a new random piece *)
 
   val create : unit -> t
 
-  (* rotate_left returns a new moving peice where the colors have been rotated left *)
+  (* rotate_left returns a new moving piece where the colors have been rotated left *)
 
   val rotate_left : t -> t
 
-  (* rotate_right returns a new moving peice where the colors have been rotated right *)
+  (* rotate_right returns a new moving piece where the colors have been rotated right *)
 
   val rotate_right : t -> t
 
@@ -265,9 +265,9 @@ end = struct
 end
 
 module Board : sig
-  (* The board is a 2dimensional array of filled_square options. If the
+  (* The board is a 2-dimensional array of filled_square options. If the
      square is empty we represent that with None.  If it is is filled
-     we represent it with Some Filled_Square.  We have provided getter
+     we represent it with Some Filled_square.  We have provided getter
      and setter functions to get values out of the array *)
 
   type t =
@@ -276,7 +276,7 @@ module Board : sig
     ; width : int
     }
 
-  (* given a height and width, make a board *)
+  (* given a height and width, create a board *)
 
   val create : height:int -> width:int -> t
 
@@ -293,8 +293,8 @@ module Board : sig
 
   val remove_squares : t -> unit
 
-  (* add_piece takes a piece, and the left column, insert it into the board
-     returns true if it was able to add the peice to the baord and false
+  (* add_piece takes a piece, and the left column, inserts it into the board.
+     Returns true if it was able to add the piece to the board and false
      otherwise *)
 
   val add_piece : t -> moving_piece:Moving_piece.t -> col:int -> bool
@@ -332,7 +332,7 @@ end = struct
   ;;
 
   let remove_squares t =
-    (* TODO: any sqaures that are marked as [`swept] should be removed from the board.
+    (* TODO: any squares that are marked as [`swept] should be removed from the board.
        Gravity should be applied appropriately.
 
        at the end of this function we should call [mark_squares] so that we ensure that
@@ -480,7 +480,7 @@ end = struct
 
   let can_move ~row ~col t =
     (* TODO: Check if the moving the piece so the bottom left corner is at [row] [col]
-       will cause it to be invalid either because it collides with a filled in square
+       will cause it to be invalid either because it collides with a filled-in square
        on the board or because it runs off the board *)
     ignore row;
     ignore col;
@@ -489,14 +489,14 @@ end = struct
   ;;
 
   let move_left t =
-    (* TODO: Move the active peice left one square *)
+    (* TODO: Move the active piece left one square *)
     ignore t;
     ignore (can_move ~row:0 ~col:0 t);
     assert false
   ;;
 
   let move_right t =
-    (* TODO: Move the active peice right one square *)
+    (* TODO: Move the active piece right one square *)
     ignore t;
     assert false
   ;;
@@ -512,7 +512,7 @@ end = struct
 
   let tick t =
     (* TODO: handle to 1 second clock tick.
-       The moving peice should try to move down one square.
+       The moving piece should try to move down one square.
        If it can't it we should check if the game is over or
        add it to the board and mark and new squares if appropriate *)
     ignore t;
@@ -618,7 +618,7 @@ end = struct
        for more info!
 
        So, we set [display_mode] to false, draw to the background buffer,
-       set [display_mode] to true and then synchronized. This guarantees
+       set [display_mode] to true and then synchronize. This guarantees
        that there won't be flickering!
     *)
     Graphics.display_mode false;
