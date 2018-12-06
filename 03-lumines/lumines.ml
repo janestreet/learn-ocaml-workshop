@@ -63,6 +63,7 @@ end
      it when it passes all connected [Filled_square]s marked as [To_sweep]
    - [Swept] : this means that the sweeper has passed this, square and it is 'deleted'
      it will be actually removed from the board when the sweeper reaches the end of the
+
      blocks to delete *)
 module Filled_square : sig
   module Sweeper_state : sig
@@ -78,7 +79,7 @@ module Filled_square : sig
     { color :
         Color.t
     (* recall from our earlier exercise, by marking this as mutable we can change it in
-       place rather than making a new one every time the state update *)
+       place rather than making a new one every time the state updates *)
     ; mutable sweeper_state : Sweeper_state.t
     }
 
@@ -143,6 +144,7 @@ end
 module Point : sig
   (* It is useful to refer to points in our grid using this record. This allows us
      to avoid making mistakes about which coordinate is the row and which is the column
+
 
      We have provided a selection of useful functions, but feel free to add any others
      you find you want
@@ -277,7 +279,7 @@ module Board : sig
     ; width : int
     }
 
-  (* given a height and width, make a board *)
+  (* given a height and width, create a board *)
 
   val create : height:int -> width:int -> t
 
@@ -334,7 +336,7 @@ end = struct
   ;;
 
   let remove_squares t =
-    (* TODO: any sqaures that are marked as [`swept] should be removed from the board.
+    (* TODO: any squares that are marked as [`swept] should be removed from the board.
        Gravity should be applied appropriately.
 
        at the end of this function we should call [mark_squares] so that we ensure that
@@ -482,7 +484,7 @@ end = struct
 
   let can_move ~row ~col t =
     (* TODO: Check if the moving the piece so the bottom left corner is at [row] [col]
-       will cause it to be invalid either because it collides with a filled in square
+       will cause it to be invalid either because it collides with a filled-in square
        on the board or because it runs off the board *)
     ignore row;
     ignore col;
@@ -604,7 +606,10 @@ end = struct
       (Point.add (Point.add from part_size) { Point.col = -1; row = -1 })
   ;;
 
-  let draw_sweeper (game : Game.t) =
+  let draw<<<<<<< master
+300
+ 
+_sweeper (game : Game.t) =
     let height = game.height * pixels_per_square in
     let pos = Sweeper.cur_pos game.sweeper in
     Point.For_drawing.fill_rect
@@ -620,7 +625,7 @@ end = struct
        for more info!
 
        So, we set [display_mode] to false, draw to the background buffer,
-       set [display_mode] to true and then synchronized. This guarantees
+       set [display_mode] to true and then synchronize. This guarantees
        that there won't be flickering!
     *)
     Graphics.display_mode false;
