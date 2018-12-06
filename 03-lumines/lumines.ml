@@ -606,10 +606,7 @@ end = struct
       (Point.add (Point.add from part_size) { Point.col = -1; row = -1 })
   ;;
 
-  let draw<<<<<<< master
-300
- 
-_sweeper (game : Game.t) =
+  let draw_sweeper (game : Game.t) =
     let height = game.height * pixels_per_square in
     let pos = Sweeper.cur_pos game.sweeper in
     Point.For_drawing.fill_rect
