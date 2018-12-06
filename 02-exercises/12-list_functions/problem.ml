@@ -34,7 +34,7 @@ let simpler_product xs = failwith "For you to implement"
    it into a float list
    *)
 
-let float_of_int xs = failiwth "For you to implement"
+let float_of_int xs = failwith "For you to implement"
 
 (* List.init
 
