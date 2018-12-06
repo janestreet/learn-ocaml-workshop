@@ -3,7 +3,7 @@ open! Base
 (* Sometimes rather than redefining the record you would like to have a field or
    a set of fields that you can modify on the fly.
 
-   In OCaml if you want to have a field in a record that can be update in place
+   In OCaml if you want to have a field in a record that can be updated in place
    you must use some additional syntax. The mutable keyword makes the field
    modifiable.
 

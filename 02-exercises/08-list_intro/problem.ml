@@ -11,7 +11,7 @@ open! Base
 
    When matching on a list, it's either empty or non-empty. To say it another way, it's
    either equal to [] or equal to (hd :: tl) where hd is the first element of the list
-   and tl] is all the rest of the elements of the list (which may itself be empty).
+   and tl is all the rest of the elements of the list (which may itself be empty).
 *)
 
 (* This function computes the length of a list. *)

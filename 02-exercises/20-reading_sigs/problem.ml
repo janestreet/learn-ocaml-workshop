@@ -1,5 +1,4 @@
 open! Base
-open! Prelude
 
 (* Ocaml, like many other languages, provides a way to interact with code via
    interfaces. This allows implementation details to be hidden away, and for
