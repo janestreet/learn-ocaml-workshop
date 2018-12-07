@@ -324,19 +324,17 @@ end = struct
   let set t { Point.col; row } value = t.board.(col).(row) <- value
 
   let mark_squares t =
-    (* TODO: at the end of this function the all
-       filled_squares that are part of completed squares
-       (anything that is in a single color square of 4 parts which includes
-       combined groups)
-       should be in sweeper state [`to_sweep] and
-       all other squares should be [`unmarked]
-    *)
+    (* TODO: at the end of this function the all filled_squares that
+       are part of completed squares (anything that is in a single
+       color square of 4 parts which includes combined groups) should
+       be in sweeper state [To_sweep] and all other squares should be
+       [Unmarked] *)
     ignore t;
     assert false
   ;;
 
   let remove_squares t =
-    (* TODO: any squares that are marked as [`swept] should be removed from the board.
+    (* TODO: any squares that are marked as [Swept] should be removed from the board.
        Gravity should be applied appropriately.
 
        at the end of this function we should call [mark_squares] so that we ensure that
@@ -646,7 +644,9 @@ end = struct
               draw_part
                 color
                 ~from:{ col = part_size.col * col; row = part_size.row * row }));
-    draw_sweeper game
+    draw_sweeper game;
+    Graphics.display_mode true;
+    Graphics.synchronize ()
   ;;
 
   let read_key () = if Graphics.key_pressed () then Some (Graphics.read_key ()) else None
@@ -711,6 +711,7 @@ let handle_clock_tick (game : Game.t) =
 (* this is the core loop that powers the game *)
 let run () =
   let game = Game.create ~height:14 ~width:16 ~seconds_per_sweep:3. in
+  Graphics.init_exn game;
   handle_keys game;
   run_sweeper game;
   handle_clock_tick game

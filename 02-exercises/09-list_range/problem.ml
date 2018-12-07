@@ -1,7 +1,7 @@
 open! Base
 
 (* When working with two lists it's conveninet to have a way to concatenate them together.
-    
+
    The append infix operator @ concatenates two lists:
 
    val (@) : 'a list -> 'a list -> 'a list
@@ -14,7 +14,7 @@ let () =
 ;;
 
 (* TODO: Write a function to construct a list of all integers in the range from [from] to [to_]
-   includeing [from] but excluding [to_] in increasing order.
+   including [from] but excluding [to_] in increasing order.
 
    val range : int -> int -> int list
 *)
