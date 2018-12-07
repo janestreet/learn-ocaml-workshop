@@ -55,14 +55,15 @@ end = struct
 end
 
 (* A filled in square on the board has two pieces of state. The color
-   that it is right, now and the "state" that it's currently in.
+   that it is right now, and the "state" that it's currently in.
 
    The state is one of:
-   - Unmarked : this means that it is not part of any completed square
-   - To_sweep : this means it is part of a completed square and the sweeper will delete
-     it when it passes all connected to_sweep [Filled_square]s
-   - Swept : this means that the sweeper has passed this, square and it is 'deleted'
+   - [Unmarked] : this means that it is not part of any completed square
+   - [To_sweep] : this means it is part of a completed square and the sweeper will delete
+     it when it passes all connected [Filled_square]s marked as [To_sweep]
+   - [Swept] : this means that the sweeper has passed this, square and it is 'deleted'
      it will be actually removed from the board when the sweeper reaches the end of the
+
      blocks to delete *)
 module Filled_square : sig
   module Sweeper_state : sig
@@ -78,25 +79,25 @@ module Filled_square : sig
     { color :
         Color.t
     (* recall from our earlier exercise, by marking this as mutable we can change it in
-       place rather than making a new one every time the state update *)
+       place rather than making a new one every time the state updates *)
     ; mutable sweeper_state : Sweeper_state.t
     }
 
-  (* create takes a color and returns a filled_square.  All squares start off with
+  (* [create] takes a color and returns a filled_square.  All squares start off with
      a state of Unmarked *)
 
   val create : Color.t -> t
 
-  (* unmark sets the state to Unmarked *)
+  (* [unmark] sets the state to Unmarked *)
 
   val unmark : t -> unit
 
-  (* to_sweep sets the state to To_sweep *)
+  (* [to_sweep] sets the state to To_sweep *)
 
   val to_sweep : t -> unit
 
-  (* sweep checks the current state of t.
-     if it is To_sweep it marks it as swept and returns true
+  (* [sweep] checks the current state of t.
+     if it is [To_sweep], it marks it as [Swept] and returns true
      otherwise it doesn't change the state and returns false *)
 
   val sweep : t -> bool
@@ -141,8 +142,8 @@ end = struct
 end
 
 module Point : sig
-  (* It is uesful to refer to points in our grid using this record. This allows us
-     to avoid making mistakes about which coordinate is the row and which is to column
+  (* It is useful to refer to points in our grid using this record. This allows us
+     to avoid making mistakes about which coordinate is the row and which is the column
 
      We have provided a selection of useful functions, but feel free to add any others
      you find you want
@@ -167,7 +168,7 @@ module Point : sig
 
   val compare_by_col : t -> t -> int
 
-  (* This is uesful for the graphics portion of the library.  Feel free to ignore all
+  (* This is useful for the graphics portion of the library.  Feel free to ignore all
      these functions *)
   module For_drawing : sig
     val fill_rect : Graphics.color -> t -> t -> unit
@@ -186,10 +187,10 @@ end = struct
 
   module For_drawing = struct
     let for_rect
-          ~f
-          color
-          { col = from_col; row = from_row }
-          { col = to_col; row = to_row }
+        ~f
+        color
+        { col = from_col; row = from_row }
+        { col = to_col; row = to_row }
       =
       Graphics.set_color color;
       f from_col from_row (to_col - from_col) (to_row - from_row)
@@ -211,20 +212,21 @@ module Moving_piece : sig
     ; bottom_right : Filled_square.t
     }
 
-  (* create creates a new random peice *)
+  (* create creates a new random piece *)
 
   val create : unit -> t
 
-  (* rotate_left returns a new moving peice where the colors have been rotated left *)
+  (* rotate_left returns a new moving piece where the colors have been rotated left *)
 
   val rotate_left : t -> t
 
-  (* rotate_right returns a new moving peice where the colors have been rotated right *)
+  (* rotate_right returns a new moving piece where the colors have been rotated right *)
 
   val rotate_right : t -> t
 
-  (* given the column and row of the bottom left block return a list of the 4 coordinates
-     of the block (returned in (col,row) order) *)
+  (* given the column and row of the bottom left block of the pice,
+     [coords] return a list of the coordinates of all four blocks in
+     the piece *)
 
   val coords : bottom_left:Point.t -> Point.t list
 end = struct
@@ -273,10 +275,10 @@ end = struct
 end
 
 module Board : sig
-  (* The board is a 2dimensional array of filled_square options. If the
-     square is empty we represent that with None.  If it is is filled
+  (* The board is a 2-dimensional array of filled_square options. If
+     the square is empty, we represent it with None.  If it is filled,
      we represent it with Some Filled_Square.  We have provided getter
-     and setter functions to get values out of the array *)
+     and setter functions to get and set values of the array *)
 
   type t =
     { board : Filled_square.t option array array
@@ -284,7 +286,7 @@ module Board : sig
     ; width : int
     }
 
-  (* given a height and width, make a board *)
+  (* given a height and width, create a board *)
 
   val create : height:int -> width:int -> t
 
@@ -296,14 +298,15 @@ module Board : sig
 
   val set : t -> Point.t -> Filled_square.t option -> unit
 
-  (* remove_squares will be called by the sweeper.  It should delete any squares
+  (* [remove_squares] will be called by the sweeper.  It should delete any squares
      marked as Swept from the board and leave the board in a valid state *)
 
   val remove_squares : t -> unit
 
-  (* add_piece takes a piece, and the left column, insert it into the board
-     returns true if it was able to add the peice to the baord and false
-     otherwise *)
+  (* [add_piece] takes a piece and the column number of the left side of
+     the piece and inserts it into the board. Returns:
+     true  if it was able to add the piece to the board
+     false otherwise *)
 
   val add_piece : t -> moving_piece:Moving_piece.t -> col:int -> bool
 
@@ -328,49 +331,47 @@ end = struct
   let set t { Point.col; row } value = t.board.(col).(row) <- value
 
   let mark_squares_that_are_sweepable t =
-    (* TODO: at the end of this function the all
-       filled_squares that are part of completed squares
-       (anything that is in a single color square of 4 parts which includes
-       combined groups)
-       should be in sweeper state [`to_sweep] and
-       all other squares should be [`unmarked]
-    *)
+    (* TODO: at the end of this function the all filled_squares that
+       are part of completed squares (anything that is in a single
+       color square of 4 parts which includes combined groups) should
+       be in sweeper state [To_sweep] and all other squares should be
+       [Unmarked] *)
     List.iter (List.range 0 t.width) ~f:(fun col ->
-      List.iter (List.range 0 t.height) ~f:(fun row ->
-        match get t { col; row } with
-        | None -> ()
-        | Some filled_square -> Filled_square.unmark filled_square));
+        List.iter (List.range 0 t.height) ~f:(fun row ->
+            match get t { col; row } with
+            | None -> ()
+            | Some filled_square -> Filled_square.unmark filled_square));
     List.iter
       (List.range 0 (t.width - 1))
       ~f:(fun col ->
-        List.iter
-          (List.range 0 (t.height - 1))
-          ~f:(fun row ->
-            let coords = Moving_piece.coords ~bottom_left:{ Point.row; col } in
-            let colors =
-              List.map coords ~f:(get t)
-              |> List.fold ~init:[] ~f:(fun acc t ->
-                match t with
-                | None -> None :: acc
-                | Some t ->
-                  let color = Some t.Filled_square.color in
-                  (match acc with
-                   | [] -> [ color ]
-                   | [ c ] ->
-                     if Option.equal Color.equal color c then acc else color :: acc
-                   | _ -> acc))
-            in
-            match colors with
-            | [ Some _ ] ->
-              List.iter coords ~f:(fun point ->
-                match get t point with
-                | None -> ()
-                | Some filled_square -> Filled_square.to_sweep filled_square)
-            | _ -> ()))
+          List.iter
+            (List.range 0 (t.height - 1))
+            ~f:(fun row ->
+                let coords = Moving_piece.coords ~bottom_left:{ Point.row; col } in
+                let colors =
+                  List.map coords ~f:(get t)
+                  |> List.fold ~init:[] ~f:(fun acc t ->
+                      match t with
+                      | None -> None :: acc
+                      | Some t ->
+                        let color = Some t.Filled_square.color in
+                        (match acc with
+                         | [] -> [ color ]
+                         | [ c ] ->
+                           if Option.equal Color.equal color c then acc else color :: acc
+                         | _ -> acc))
+                in
+                match colors with
+                | [ Some _ ] ->
+                  List.iter coords ~f:(fun point ->
+                      match get t point with
+                      | None -> ()
+                      | Some filled_square -> Filled_square.to_sweep filled_square)
+                | _ -> ()))
   ;;
 
   let remove_squares t =
-    (* TODO: any sqaures that are marked as [`swept] should be removed from the board.
+    (* TODO: any squares that are marked as [Swept] should be removed from the board.
        Gravity should be applied appropriately.
 
        at the end of this function we should call [mark_squares] so that we ensure that
@@ -378,22 +379,22 @@ end = struct
     *)
     let squares_to_remove =
       List.fold (List.range 0 t.width) ~init:[] ~f:(fun acc col ->
-        List.fold (List.range 0 t.height) ~init:acc ~f:(fun acc row ->
-          let point = { Point.col; row } in
-          match get t point with
-          | Some filled_square ->
-            if Filled_square.Sweeper_state.equal filled_square.sweeper_state Swept
-            then point :: acc
-            else acc
-          | _ -> acc))
+          List.fold (List.range 0 t.height) ~init:acc ~f:(fun acc row ->
+              let point = { Point.col; row } in
+              match get t point with
+              | Some filled_square ->
+                if Filled_square.Sweeper_state.equal filled_square.sweeper_state Swept
+                then point :: acc
+                else acc
+              | _ -> acc))
       |> List.sort ~compare:(fun p1 p2 -> Point.compare_by_row p2 p1)
     in
     List.iter squares_to_remove ~f:(fun { Point.col; row } ->
-      List.iter
-        (List.range row (t.height - 1))
-        ~f:(fun row1 ->
-          set t { Point.row = row1; col } (get t { Point.row = row1 + 1; col }));
-      set t { Point.row = t.height - 1; col } None);
+        List.iter
+          (List.range row (t.height - 1))
+          ~f:(fun row1 ->
+              set t { Point.row = row1; col } (get t { Point.row = row1 + 1; col }));
+        set t { Point.row = t.height - 1; col } None);
     mark_squares_that_are_sweepable t
   ;;
 
@@ -401,9 +402,9 @@ end = struct
     (* TODO: insert the moving piece into the board applying gravity appropriately *)
     let find_row ~col =
       List.find (List.range 0 t.height) ~f:(fun i ->
-        match get t { Point.row = i; col } with
-        | None -> true
-        | Some _ -> false)
+          match get t { Point.row = i; col } with
+          | None -> true
+          | Some _ -> false)
     in
     let left_row = find_row ~col in
     let right_row = find_row ~col:(col + 1) in
@@ -479,10 +480,10 @@ end = struct
       let check_col = t.cur_pos / pixels_per_square in
       let more_marked =
         List.fold (List.range 0 t.board.height) ~init:false ~f:(fun acc row ->
-          let color = Board.get t.board { Point.row; col = check_col } in
-          match color with
-          | None -> acc
-          | Some filled_square -> Filled_square.sweep filled_square || acc)
+            let color = Board.get t.board { Point.row; col = check_col } in
+            match color with
+            | None -> acc
+            | Some filled_square -> Filled_square.sweep filled_square || acc)
       in
       if not more_marked || t.cur_pos = steps then Board.remove_squares t.board);
     (* advance sweeper *)
@@ -565,9 +566,9 @@ end = struct
     else (
       let coords = Moving_piece.coords ~bottom_left:{ Point.row; col } in
       List.fold coords ~init:true ~f:(fun can_move point ->
-        if point.Point.row >= t.height
-        then can_move
-        else Board.is_empty t.board point && can_move))
+          if point.Point.row >= t.height
+          then can_move
+          else Board.is_empty t.board point && can_move))
   ;;
 
   (* TODO *)
@@ -589,7 +590,7 @@ end = struct
 
   let tick t =
     (* TODO: handle to 1 second clock tick.
-       The moving peice should try to move down one square.
+       The moving piece should try to move down one square.
        If it can't it we should check if the game is over or
        add it to the board and mark and new squares if appropriate *)
     let new_row = t.moving_piece_row - 1 in
@@ -661,8 +662,8 @@ end = struct
   ;;
 
   let draw_moving_piece
-        ~(draw_bottom_left : Point.t)
-        { Moving_piece.top_left; top_right; bottom_left; bottom_right }
+      ~(draw_bottom_left : Point.t)
+      { Moving_piece.top_left; top_right; bottom_left; bottom_right }
     =
     draw_part bottom_left ~from:draw_bottom_left;
     draw_part
@@ -697,7 +698,7 @@ end = struct
        for more info!
 
        So, we set [display_mode] to false, draw to the background buffer,
-       set [display_mode] to true and then synchronized. This guarantees
+       set [display_mode] to true and then synchronize. This guarantees
        that there won't be flickering!
     *)
     Graphics.display_mode false;
@@ -705,8 +706,8 @@ end = struct
     let dims = dimensions game in
     Point.For_drawing.fill_rect black Point.For_drawing.origin dims;
     List.iter (List.range 0 game.Game.width) ~f:(fun col ->
-      List.iter (List.range 0 game.Game.height) ~f:(fun row ->
-        draw_bg ~from:{ col = part_size.col * col; row = part_size.row * row }));
+        List.iter (List.range 0 game.Game.height) ~f:(fun row ->
+            draw_bg ~from:{ col = part_size.col * col; row = part_size.row * row }));
     draw_moving_piece
       ~draw_bottom_left:
         { Point.col = game.Game.moving_piece_col * part_size.col
@@ -714,13 +715,13 @@ end = struct
         }
       game.Game.moving_piece;
     List.iter (List.range 0 game.Game.width) ~f:(fun col ->
-      List.iter (List.range 0 game.Game.height) ~f:(fun row ->
-        match Board.get game.Game.board { row; col } with
-        | None -> ()
-        | Some color ->
-          draw_part
-            color
-            ~from:{ col = part_size.col * col; row = part_size.row * row }));
+        List.iter (List.range 0 game.Game.height) ~f:(fun row ->
+            match Board.get game.Game.board { row; col } with
+            | None -> ()
+            | Some color ->
+              draw_part
+                color
+                ~from:{ col = part_size.col * col; row = part_size.row * row }));
     draw_sweeper game;
     Graphics.display_mode true;
     Graphics.synchronize ()
@@ -748,41 +749,41 @@ let every seconds ~f ~stop =
    and redraws the game *)
 let run_sweeper (game : Game.t) =
   every ~stop:game.game_over (Sweeper.seconds_per_step game.sweeper) ~f:(fun () ->
-    Sweeper.step game.sweeper;
-    Graphics.draw game)
+      Sweeper.step game.sweeper;
+      Graphics.draw game)
 ;;
 
 let handle_keys (game : Game.t) =
   every ~stop:game.game_over 0.01 ~f:(fun () ->
-    match Graphics.read_key () with
-    | None -> ()
-    | Some key ->
-      let update =
-        match key with
-        | 'a' ->
-          Game.move_left game;
-          true
-        | 'd' ->
-          Game.move_right game;
-          true
-        | 'w' ->
-          Game.rotate_left game;
-          true
-        | 's' ->
-          Game.rotate_right game;
-          true
-        | ' ' ->
-          Game.drop game;
-          true
-        | _ -> false
-      in
-      if update && not !(game.game_over) then Graphics.draw game)
+      match Graphics.read_key () with
+      | None -> ()
+      | Some key ->
+        let update =
+          match key with
+          | 'a' ->
+            Game.move_left game;
+            true
+          | 'd' ->
+            Game.move_right game;
+            true
+          | 'w' ->
+            Game.rotate_left game;
+            true
+          | 's' ->
+            Game.rotate_right game;
+            true
+          | ' ' ->
+            Game.drop game;
+            true
+          | _ -> false
+        in
+        if update && not !(game.game_over) then Graphics.draw game)
 ;;
 
 let handle_clock_tick (game : Game.t) =
   every ~stop:game.game_over 1. ~f:(fun () ->
-    Game.tick game;
-    Graphics.draw game)
+      Game.tick game;
+      Graphics.draw game)
 ;;
 
 (* this is the core loop that powers the game *)
