@@ -14,7 +14,7 @@ let () =
 ;;
 
 (* TODO: Write a function to construct a list of all integers in the range from [from] to [to_]
-   includeing [from] but excluding [to_] in increasing order.
+   including [from] but excluding [to_] in increasing order.
 
    val range : int -> int -> int list
 *)
