@@ -7,13 +7,9 @@
 
    To compile your code and run inline tests, run
 
-   [jbuilder runtest]
+   [dune runtest]
 
    in a terminal session in this problem's directory.
-
-   (There are several other ways to invoke [jbuilder] that we will encounter
-   later. For an introduction, watch the excellent video tutorial about jbuilder
-   linked in the [README] in this repository's base directory).
 
    Try building this code.
 
