@@ -59,5 +59,8 @@ let%test "Testing card_value_to_score..." =
   Int.(=) 10 (card_value_to_score Jack)
 
 let%test "Testing card_value_to_score..." =
-  Int.(=) 5 (card_value_to_score (Number 5))
+  Int.(=) 10 (card_value_to_score one_card_value)
+
+let%test "Testing card_value_to_score..." =
+  Int.(=) 8 (card_value_to_score another_card_value)
 

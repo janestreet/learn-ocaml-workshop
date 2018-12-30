@@ -15,13 +15,13 @@ let divide dividend divisor  = dividend / divisor
 
    The following function has the signature:
 
-   val divide : dividend:int -> divisor:int -> int
+   val labelled_divide : dividend:int -> divisor:int -> int
 *)
-let divide ~dividend ~divisor = dividend / divisor
+let labelled_divide ~dividend ~divisor = dividend / divisor
 
 (* We can then call it using:
 
-   divide ~dividend:9 ~divisor:3
+   labelled_divide ~dividend:9 ~divisor:3
 
    Labelled arguments can be passed in in any order (!)
 
@@ -29,14 +29,14 @@ let divide ~dividend ~divisor = dividend / divisor
 
    let dividend = 9 in
    let divisor  = 3 in
-   divide ~dividend:dividend ~divisor:divisor
+   labelled_divide ~dividend:dividend ~divisor:divisor
 
    If the variable name happens to be the same as the labelled argument, we
    don't even have to write it twice:
 
    let dividend = 9 in
    let divisor  = 3 in
-   divide ~dividend ~divisor
+   labelled_divide ~dividend ~divisor
 *)
 
 (* Now implement [modulo ~dividend ~divisor] using our version of divide with labelled

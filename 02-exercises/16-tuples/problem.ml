@@ -63,6 +63,7 @@ let first pair = failwith "For you to implement"
 let second pair = failwith "For you to implement"
 
 (* Notice the cool [%compare.equal: int*int] here! *)
-let%test "Testing add..." = [%compare.equal: int * int] (4, 7) (add (5, 3) (-1, 4))
-let%test "Testing first..." = String.( = ) "foo" (first ("foo", "bar"))
+let%test "Testing add..." = [%compare.equal: int * int] (4, 11) (add int_pair (-1, 4))
+let%test "Testing first..." = String.( = ) "foo" (first string_pair)
 let%test "Testing second..." = Char.( = ) 'b' (second ('a', 'b'))
+let%test "Testing first and second..." = Char.( = ) 'c' (first (second nested_char_pair))
