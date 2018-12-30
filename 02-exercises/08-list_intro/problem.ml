@@ -34,10 +34,9 @@ let rec sum lst = failwith "For you to implement"
 (* The signature for the append operator is
    val (@) : 'a list -> 'a list -> 'a list
 
-   It's an infix operator. You can use it one of two ways:
+   It's an infix operator.
 *)
 let list_append first second = first @ second
-let other_list_append first second = first @ second
 
 (* The way you put something on the head to the list
    uses the same kind of syntax for matching on lists.
