@@ -6,3 +6,6 @@ type 'a pair
 val first : 'a pair -> 'a 
 val second : 'a pair -> 'a 
 
+type coordinate
+type name
+type initials

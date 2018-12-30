@@ -40,7 +40,8 @@ let set_color stoplight color = stoplight.color <- color
 (* Since we know that stoplights always go from Green to Yellow, Yellow to
    Red, and Red to Green, we can just write a function to advance the color
    of the light without taking an input color. *)
-let advance_color stoplight = failwith "For you to implement"
+let advance_color stoplight =
+  failwith "For you to implement"
 
 module For_testing = struct
   let test_ex_red : stoplight = { location = ""; color = Red }
