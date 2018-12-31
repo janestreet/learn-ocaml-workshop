@@ -1,0 +1,10 @@
+;; -*- scheme -*-
+
+(executables 
+  (names lumines)
+  (libraries
+   async
+   graphics
+   base
+   )
+  )
