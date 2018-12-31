@@ -53,5 +53,5 @@ developing in OCaml.
    - [[https://ocaml.janestreet.com/ocaml-core/v0.10/doc/][Documentation for Core]]
 ** dune
    - [[https://www.youtube.com/watch?v=BNZhmMAJarw][Video tutorial]]
-   - [[https://dune.readthedocs.io/en/latest/][Manual]
+   - [[https://dune.readthedocs.io/en/latest/][Manual]]
 
