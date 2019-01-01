@@ -1,6 +1,6 @@
 open! Base
 
-(* Ocaml, like many other languages, provides a way to interact with code via
+(* OCaml, like many other languages, provides a way to interact with code via
    interfaces. This allows implementation details to be hidden away, and for
    grouped units of code to restrict how they are used.
 
@@ -27,7 +27,6 @@ let one_less_than_the_meaning_of_life_etc =
   Example.subtract_one Example.the_meaning_of_life_the_universe_and_everything
 ;;
 
-;;
 assert (one_less_than_the_meaning_of_life_etc = 41)
 
 (* Types can be exposed via signatures in OCaml as well. Here's an example of declaring
@@ -47,7 +46,7 @@ module Abstract_type_example : sig
   val zero : t
   val one : t
 
-  (* Let them do something with the [t]*)
+  (* Let them do something with the [t] *)
 
   val add : t -> t -> t
 end = struct
@@ -61,9 +60,8 @@ end
 
 (* Here's an example of adding 2 and 2 *)
 let two = Abstract_type_example.add Abstract_type_example.one Abstract_type_example.one
-let four = Abstract_type_example.to_int (Abstract_type_example.add two two)
+let four = Abstract_type_example.to_int (Abstract_type_example.add two two);;
 
-;;
 assert (four = 4)
 
 module Fraction : sig

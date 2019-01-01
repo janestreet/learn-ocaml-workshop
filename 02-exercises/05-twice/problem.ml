@@ -6,9 +6,7 @@ open! Base
 
 let add1 x = failwith "For you to implement" 
 
-(*
- Let's write a function that squares its argument (multiplies it by itself)
-*)
+(* Let's write a function that squares its argument (multiplies it by itself) *)
 let square x = failwith "For you to implement"
 
 (* Functions are first class in OCaml. This means that you can take
@@ -56,5 +54,3 @@ let%test "Testing raise_to_the_fourth..." =
 
 let%test "Testing raise_to_the_fourth..." =
   Int.(=) 10000 (raise_to_the_fourth 10)
-
-

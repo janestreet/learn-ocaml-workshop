@@ -1,7 +1,7 @@
 open! Base
 
 (* When working with two lists it's conveninet to have a way to concatenate them together.
-    
+
    The append infix operator @ concatenates two lists:
 
    val (@) : 'a list -> 'a list -> 'a list
@@ -13,8 +13,8 @@ let () =
   assert ([%compare.equal: int list] (List.append [ 5; 1 ] [ 8; 4 ]) [ 5; 1; 8; 4 ])
 ;;
 
-(* TODO: Write a function to construct a list of all integers in the range from [from] to [to_]
-   includeing [from] but excluding [to_] in increasing order.
+(* Write a function to construct a list of all integers in the range from [from] to [to_]
+   including [from] but excluding [to_] in increasing order.
 
    val range : int -> int -> int list
 *)
@@ -34,8 +34,8 @@ let range from to_ = failwith "For you to implement"
    (like the [int list] example above, which is used below in tests). Instead of
    writing an equality function by hand, or defining a module specialized to
    that type just to use its equality operator, you can ask the [ppx_compare]
-   syntax extension to create it for you on the fly. *)
-
+   syntax extension to create it for you on the fly. 
+*)
 let%test "Testing range..." = [%compare.equal: int list] (range 1 4) [ 1; 2; 3 ]
 
 let%test "Testing range..." =

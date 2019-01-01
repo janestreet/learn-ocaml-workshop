@@ -1,6 +1,6 @@
 open! Base
 
-(* Now let's write a function to multiply the elements of a list. *)
+(* Now let's write a function to multiply together the elements of a list. *)
 let rec product xs =
   match xs with
   | [] -> failwith "For you to implement"

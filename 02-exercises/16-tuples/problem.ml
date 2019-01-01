@@ -23,10 +23,9 @@ let () =
 *)
 type coordinate = int * int
 
-(* TODO *)
 let add coord1 coord2 = failwith "For you to implement"
 
-(* Now consider a name type containing strings representing first and last name. *)
+(* Now consider a name type containing strings representing first and last names *)
 type name = string * string
 
 (* Or an initials type containing chars representing first and last initials *)
@@ -55,11 +54,9 @@ let nested_char_pair : char pair pair = ('a', 'b'), ('c', 'd')
 
 (* Write functions to extract the first and second elements from a pair. *)
 (* val first : 'a pair -> 'a *)
-(* TODO *)
 let first pair = failwith "For you to implement"
 
 (* val second : 'a pair -> 'a *)
-(* TODO *)
 let second pair = failwith "For you to implement"
 
 (* Notice the cool [%compare.equal: int*int] here! *)

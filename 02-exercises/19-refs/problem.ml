@@ -1,7 +1,7 @@
 open! Base
 
 (* It is sometimes useful to create a single mutable value. We can do this
-   using a ref. We can create an int ref containing 0 as follows:
+   using a ref. We can create an [int ref] containing 0 as follows:
 *)
 let x = ref 0
 

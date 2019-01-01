@@ -16,8 +16,7 @@ let rec factorial x =
   | _ -> times x (factorial (x - 1))
 ;;
 
-(*
-   These functions have a lot in common:
+(* These functions have a lot in common:
 
    let rec NAME x =
    match x with
@@ -25,8 +24,7 @@ let rec factorial x =
    | _ -> COMBINE x (NAME (x-1))
 *)
 
-(*
-   OCaml lets us write the common parts just once.
+(* OCaml lets us write the common parts just once.
    We just add an extra input for every part that changes (other than the name):
 *)
 let rec up_to answer combine x =
@@ -60,8 +58,7 @@ let rec product xs =
   | x :: ys -> times x (product ys)
 ;;
 
-(*
-   These functions look pretty similar too:
+(* These functions look pretty similar too:
 
    let rec NAME xs =
    match xs with
@@ -72,7 +69,7 @@ let rec product xs =
 (* Let's write the common parts just once: *)
 let rec every answer combine xs = failwith "For you to implement"
 
-(* Now let's rewrite sum and product in just one line each using every *)
+(* Now let's rewrite sum and product in just one line each using [every] *)
 let simpler_sum xs = failwith "For you to implement"
 let simpler_product xs = failwith "For you to implement"
 
