@@ -22,8 +22,7 @@ type color =
 
 type stoplight =
   { location : string (* stoplights don't usually move *)
-  ; mutable color : color
-  (* but they often change color *)
+  ; mutable color : color (* but they often change color *)
   }
 [@@deriving compare]
 

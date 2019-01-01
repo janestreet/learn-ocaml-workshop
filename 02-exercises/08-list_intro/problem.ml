@@ -1,12 +1,11 @@
 open! Base
 
-(*
-   OCaml natively supports linked lists as part of the language.
+(* OCaml natively supports linked lists as part of the language.
    Lists are commonly referred to as having heads and tails.
    The head is the first element of the linked list
    The tail is everything else.
 
-   To construct a list we use the cons infix operator :: to append elements to 
+   To construct a list we use the cons infix operator :: to prepend elements to 
    the front of a list
 
    val (::) : 'a -> 'a list -> 'a list

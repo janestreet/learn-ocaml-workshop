@@ -20,7 +20,7 @@ let to_string color =
   | Green -> "green"
   | Blue  -> "blue"
 
-(* Ocaml variants are in many ways more powerful than Enums because the different
+(* OCaml variants are in many ways more powerful than Enums because the different
    constructors of your variant can include data in them. Here's an example:
 *)
 type card_value =

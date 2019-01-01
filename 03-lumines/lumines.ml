@@ -145,7 +145,6 @@ module Point : sig
   (* It is useful to refer to points in our grid using this record. This allows us
      to avoid making mistakes about which coordinate is the row and which is the column
 
-
      We have provided a selection of useful functions, but feel free to add any others
      you find you want
   *)
