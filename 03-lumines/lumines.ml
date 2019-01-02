@@ -1,8 +1,7 @@
 open Base
-
 (* This is the core logic that actually runs the game.  We have implemented all of this for
    you, but feel free to read this as a reference.  *)
-
+   
 let every seconds ~f ~stop =
   let open Async in
   let open Core in
