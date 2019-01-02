@@ -17,14 +17,22 @@ let create () =
 
 let rotate_left t =
   (* TODO : rotate the piece to the left *)
-  ignore t;
-  t
+  let { top_left; top_right; bottom_left; bottom_right } = t in
+  { top_left = top_right
+  ; top_right = bottom_right
+  ; bottom_left = top_left
+  ; bottom_right = bottom_left
+  }
 ;;
 
 let rotate_right t =
   (* TODO : rotate the piece to the right *)
-  ignore t;
-  t
+  let { top_left; top_right; bottom_left; bottom_right } = t in
+  { top_left = bottom_left
+  ; top_right = top_left
+  ; bottom_left = bottom_right
+  ; bottom_right = top_right
+  }
 ;;
 
 let coords ~bottom_left:{ Point.col; row } : Point.t list =
@@ -42,7 +50,8 @@ let equal t1 t2 =
   && Filled_square.equal t1.bottom_right t2.bottom_right
 ;;
 
-(* Tests *)
+(* Tests *) 
+
 let%test "Testing Rotate Right..." = 
   let piece = 
     { top_left = Filled_square.create (Color.Orange)

@@ -14,32 +14,102 @@ let get t { Point.col; row } = t.board.(col).(row)
 let set t { Point.col; row } value = t.board.(col).(row) <- value
 
 let mark_squares_that_are_sweepable t =
-  (* TODO: at the end of this function the all
-     filled_squares that are part of completed squares
-     (anything that is in a single color square of 4 parts which includes
-     combined groups)
-     should be in sweeper state [`to_sweep] and
-     all other squares should be [`unmarked]
-  *)
-  ignore t
+  (* TODO: at the end of this function the all filled_squares that
+       are part of completed squares (anything that is in a single
+       color square of 4 parts which includes combined groups) should
+       be in sweeper state [To_sweep] and all other squares should be
+       [Unmarked] *)
+  List.iter (List.range 0 t.width) ~f:(fun col ->
+      List.iter (List.range 0 t.height) ~f:(fun row ->
+          match get t { col; row } with
+          | None -> ()
+          | Some filled_square -> Filled_square.unmark filled_square));
+  List.iter
+    (List.range 0 (t.width - 1))
+    ~f:(fun col ->
+        List.iter
+          (List.range 0 (t.height - 1))
+          ~f:(fun row ->
+              let coords = Moving_piece.coords ~bottom_left:{ Point.row; col } in
+              let colors =
+                List.map coords ~f:(get t)
+                |> List.fold ~init:[] ~f:(fun acc t ->
+                    match t with
+                    | None -> None :: acc
+                    | Some t ->
+                      let color = Some t.Filled_square.color in
+                      (match acc with
+                       | [] -> [ color ]
+                       | [ c ] ->
+                         if Option.equal Color.equal color c then acc else color :: acc
+                       | _ -> acc))
+              in
+              match colors with
+              | [ Some _ ] ->
+                List.iter coords ~f:(fun point ->
+                    match get t point with
+                    | None -> ()
+                    | Some filled_square -> Filled_square.to_sweep filled_square)
+              | _ -> ()))
 ;;
 
 let remove_squares t =
-  (* TODO: any squares that are marked as [`swept] should be removed from the board.
+  (* TODO: any squares that are marked as [Swept] should be removed from the board.
      Gravity should be applied appropriately.
 
      at the end of this function we should call [mark_squares_that_are_sweepable] so that we ensure that
      we leave the board in a valid state
   *)
-  ignore (mark_squares_that_are_sweepable t)
+  let squares_to_remove =
+    List.fold (List.range 0 t.width) ~init:[] ~f:(fun acc col ->
+        List.fold (List.range 0 t.height) ~init:acc ~f:(fun acc row ->
+            let point = { Point.col; row } in
+            match get t point with
+            | Some filled_square ->
+              if Filled_square.Sweeper_state.equal filled_square.sweeper_state Swept
+              then point :: acc
+              else acc
+            | _ -> acc))
+    |> List.sort ~compare:(fun p1 p2 -> Point.compare_by_row p2 p1)
+  in
+  List.iter squares_to_remove ~f:(fun { Point.col; row } ->
+      List.iter
+        (List.range row (t.height - 1))
+        ~f:(fun row1 ->
+            set t { Point.row = row1; col } (get t { Point.row = row1 + 1; col }));
+      set t { Point.row = t.height - 1; col } None);
+  mark_squares_that_are_sweepable t
 ;;
 
 let add_piece t ~moving_piece ~col =
   (* TODO: insert the moving piece into the board applying gravity appropriately *)
-  ignore t;
-  ignore moving_piece;
-  ignore col;
-  true
+  let find_row ~col =
+    List.find (List.range 0 t.height) ~f:(fun i ->
+        match get t { Point.row = i; col } with
+        | None -> true
+        | Some _ -> false)
+  in
+  let left_row = find_row ~col in
+  let right_row = find_row ~col:(col + 1) in
+  match left_row, right_row with
+  | None, _
+  | _, None -> false
+  | Some left_row, Some right_row ->
+    if left_row < t.height - 1 && right_row < t.height - 1
+    then (
+      set t { row = left_row; col } (Some moving_piece.Moving_piece.bottom_left);
+      set t { row = left_row + 1; col } (Some moving_piece.Moving_piece.top_left);
+      set
+        t
+        { row = right_row; col = col + 1 }
+        (Some moving_piece.Moving_piece.bottom_right);
+      set
+        t
+        { row = right_row + 1; col = col + 1 }
+        (Some moving_piece.Moving_piece.top_right);
+      mark_squares_that_are_sweepable t;
+      true)
+    else false
 ;;
 
 let is_empty t point =

@@ -32,32 +32,35 @@ let new_moving_piece t =
   t.moving_piece_row <- t.height
 ;;
 
-let can_move t ~row ~col =
+let can_move ~row ~col t =
   (* TODO: Check if the moving the piece so the bottom left corner is at [row] [col]
-     will cause it to be invalid either because it collides with a filled-in square
+     will cause it to be invalid either because it collides with a filled in square
      on the board or because it runs off the board *)
-  ignore row;
-  ignore col;
-  ignore t;
-  false
+  if row < 0 || col < 0 || col > t.width - 2
+  then false
+  else (
+    let coords = Moving_piece.coords ~bottom_left:{ Point.row; col } in
+    List.fold coords ~init:true ~f:(fun can_move point ->
+        if point.Point.row >= t.height 
+        then can_move
+        else Board.is_empty t.board point && can_move))
 ;;
 
-let move_left t =
-  (* TODO: Move the active piece left one square *)
-  ignore t;
+(* TODO *)
+let move t ~col =
+  if can_move ~row:t.moving_piece_row ~col t then t.moving_piece_col <- col
 ;;
 
-let move_right t =
-  (* TODO: Move the active piece right one square *)
-  ignore t;
-;;
-
+let move_left t = move t ~col:(t.moving_piece_col - 1)
+let move_right t = move t ~col:(t.moving_piece_col + 1)
 let rotate_right t = t.moving_piece <- Moving_piece.rotate_right t.moving_piece
 let rotate_left t = t.moving_piece <- Moving_piece.rotate_left t.moving_piece
 
 let drop t =
   (* TODO: drop the active piece all the way to to bottom *)
-  ignore t;
+  if not (Board.add_piece t.board ~moving_piece:t.moving_piece ~col:t.moving_piece_col)
+  then t.game_over := true;
+  new_moving_piece t
 ;;
 
 let tick t =
@@ -65,9 +68,11 @@ let tick t =
      The moving piece should try to move down one square.
      If it can't it we should check if the game is over or
      add it to the board and mark and new squares if appropriate *)
-  ignore t;
+  let new_row = t.moving_piece_row - 1 in
+  if can_move ~row:new_row ~col:t.moving_piece_col t
+  then t.moving_piece_row <- new_row
+  else drop t
 ;;
-
 
 (* Tests *)
 

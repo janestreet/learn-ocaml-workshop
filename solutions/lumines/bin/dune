@@ -6,6 +6,6 @@
    async
    graphics
    base
-   lib
+   lumines_solution_lib
    )
   )

@@ -1,5 +1,5 @@
 open Base
-open Lib
+open Lumines_solution_lib
 (* This is the core logic that actually runs the game.  We have implemented all of this for
    you, but feel free to read this as a reference.  *)
    
