@@ -1,24 +1,7 @@
 open Base
 
-(* For this game we have given you a framework and you will need to implement the
-   actual logic to make the game run.
-
-   We've given you the event-loop that drives the game and handles keyboard input.
-
-   You will have to implement the logic that keeps the game state correct and updates
-   things based on those inputs!
-
-   Fill in the functions marked with TODO to get the game running.
-
-   Once this is working there are many extensions that we'd love to see you try
-   and implement, for example:
-   - calculate a score
-   - make the game speed up over time
-   - change the color scheme after a certain number of blocks have been cleared
-   - add blocks that have different abilities (e.g. one that clears adjacent blocks )
-
-   We're sure you can come up with some interesting extensions of your own too.
-*)
+(* This is the core logic that actually runs the game.  We have implemented all of this for
+   you, but feel free to read this as a reference.  *)
 
 let every seconds ~f ~stop =
   let open Async in
