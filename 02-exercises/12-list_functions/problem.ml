@@ -4,9 +4,7 @@ open! Base
    in the language in a nice first class way.  
 
    Let's take look at some of the useful functions that are given to you.
-
 *)
-
 
 (* List.fold
 
@@ -18,7 +16,6 @@ open! Base
    Let's rewrite simpler_sum and simpler_product using List.fold
 *) 
 
-
 let simpler_sum xs = failwith "For you to implement"
 let simpler_product xs = failwith "For you to implement"
 
@@ -26,11 +23,11 @@ let simpler_product xs = failwith "For you to implement"
 
    val map : 'a list ‑> f:('a ‑> 'b) ‑> 'b list
 
-   Map allows us to transforms lists from one type to lists
+   [map] allows us to transforms lists from one type to lists
    of another type by applying some function (f) to every element
    of the list.
 
-   let's write a function that takes in an int list and transforms
+   Let's write a function that takes in an int list and transforms
    it into a float list
 *)
 
@@ -40,17 +37,19 @@ let float_of_int xs = failwith "For you to implement"
 
    val init : int -> f:(int -> 'a) -> 'a t
 
-   Init allows you to construct new lists.  Given a number of elements and a function
-   to construct a new element it returns you a list 
+   [init] allows you to construct new lists.  Given a number
+   representing the number of elements to generate and a function to
+   construct a new element, it returns a new list
 
-   let's rewrite the range function we wrote in problem 9 to use init
+   Let's rewrite the range function we wrote in problem 9 to use [init]
 *)
 
 let range from to_ = failwith "For you to implement"
 
 (* List.range
 
-   Turns out this special case of List.init is useful enough it has it's own function:
+   Turns out this special case of [List.init] is useful enough that it has it's own 
+   function:
 
    val range : 
        ?stride:int
@@ -64,11 +63,11 @@ let range from to_ = failwith "For you to implement"
 
    val iter : 'a list -> f:('a -> unit) -> unit
 
-   Sometimes you want to do something side-effecting to all the elements of a list.
-   For instance printing them out.  List.iter allows you to run a side-effecting 
+   Sometimes you want to do something side-effecting to all the elements of a list,
+   such as printing them out. [iter] allows you to run a side-effecting 
    function on every element of a list
 
-   lets use List.iter to print a list of ints
+   Lets use [iter] to print a list of ints
 *)
 
 let print_int_list xs = failwith "For you to implement"
@@ -99,7 +98,6 @@ let print_int_list xs = failwith "For you to implement"
 
    This allows you to combine two lists pairwise.  It will return None if the lists are not 
    equal in length
-
 *)
 
 let%test "Testing simpler_product..." = Int.( = ) 1 (simpler_product [])

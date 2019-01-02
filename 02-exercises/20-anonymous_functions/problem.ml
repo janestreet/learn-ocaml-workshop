@@ -6,22 +6,23 @@ open! Base
    To represent a function in a signature, you wrap its type in parenthesis,
    with arrows separating arguments.
 
-   Recall: a function called add1 which takes an integer and returns an integer has the type
+   Recall: a function called [add1] which takes an integer and returns an integer has the type
    val add1 : int -> int
 
    So, to use that signature in a type, we'd write
    (int -> int)
 
-   We now define a function called map_option.
-   map_option takes a function and an option.
+   We now define a function called [map_option].
+   [map_option] takes a function and an option.
 
-   If the option has a value of None, map_option returns None
-   If the option has a value of Some x, the function is called on x,
-   and wrapped up in a Some.
+   If the option has a value of [None], [map_option] returns [None]
+   If the option has a value of [Some x], the function is called on x,
+   and wrapped up in a [Some].
 
-   This may seem unintuitive, but this kind of function is very useful.
-   It means that you can continue working on data, and ignore if
-   the data isn't there (no null pointer exceptions!)
+   It may seem unintuitive, but this kind of function is very useful
+   because it allows you to continue applying functions to data 
+   without having to explicitly deal with null values or worry about 
+   null pointer exceptions if the data isn't there!
 
    The signature for the function is
 
@@ -61,11 +62,10 @@ let () =
        (map_option (fun i -> 2 * i) (Some 2))
        (Some 4))
 
-(* Define a function apply_if_nonzero which takes a function from
+(* Define a function, [apply_if_nonzero], which takes a function from
    int to int and an int, and applies the function if the integer
    is not zero, and otherwise just returns 0.
 *)
-(* TODO *)
 let apply_if_nonzero f i =
   failwith "For you to implement"
 

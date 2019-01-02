@@ -1,7 +1,7 @@
 open! Base
 
 (* It is sometimes useful to create a single mutable value. We can do this
-   using a ref. We can create an int ref containing 0 as follows:
+   using a ref. We can create an [int ref] containing 0 as follows:
 *)
 let x = ref 0
 
@@ -12,12 +12,12 @@ let x = ref 0
 let () =
   x := !x + 1
 
-(* Write a function min_and_max which returns a tuple containing the minimum
-   and maximum values in a non-empty list of positive integers.
+(* Write a function min_and_max which returns a tuple containing the
+   minimum and maximum values in a non-empty list of positive
+   integers. Your function should raise if the list is empty.
 
-   Your function should iterate over the list and maintain refs of the minimum
-   and maximum values seen so far.
-*)
+   Your function should iterate over the list and maintain refs of the
+   minimum and maximum values seen so far.  *)
 let min_and_max lst =
   failwith "For you to implement"
 

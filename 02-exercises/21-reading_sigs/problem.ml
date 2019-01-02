@@ -1,6 +1,6 @@
 open! Base
 
-(* Ocaml, like many other languages, provides a way to interact with code via
+(* OCaml, like many other languages, provides a way to interact with code via
    interfaces. This allows implementation details to be hidden away, and for
    grouped units of code to restrict how they are used.
 
@@ -46,7 +46,7 @@ module Abstract_type_example : sig
   val zero : t
   val one : t
 
-  (* Let them do something with the [t]*)
+  (* Let them do something with the [t] *)
 
   val add : t -> t -> t
 end = struct

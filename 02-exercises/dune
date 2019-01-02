@@ -1,0 +1,27 @@
+;; -*- Scheme -*-
+
+(alias
+ (name DEFAULT) 
+ (deps 
+  (alias_rec 01-introduction/runtest)
+  (alias_rec 02-basic_types/runtest)
+  (alias_rec 03-define_functions/runtest)
+  (alias_rec 04-call_functions/runtest)
+  (alias_rec 05-twice/runtest)
+  (alias_rec 06-pattern-matching/runtest)
+  (alias_rec 07-simple_recursion/runtest)
+  (alias_rec 08-list_intro/runtest)
+  (alias_rec 09-list_range/runtest)
+  (alias_rec 10-list_product/runtest)
+  (alias_rec 11-sum_product/runtest)
+  (alias_rec 12-list_functions/runtest)
+  (alias_rec 13-labelled_arguments/runtest)
+  (alias_rec 14-variants/runtest)
+  (alias_rec 15-options/runtest)
+  (alias_rec 16-tuples/runtest)
+  (alias_rec 17-records/runtest)
+  (alias_rec 18-mutable_records/runtest)
+  (alias_rec 19-refs/runtest)
+  (alias_rec 20-anonymous_functions/runtest)
+  (alias_rec 21-reading_sigs/runtest)
+  )) 

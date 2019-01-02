@@ -42,4 +42,24 @@ let%test "Testing safe_divide..." =
   | None -> true
   | _    -> false
 
+(* Implement a function [concatenate string1 string2], which takes two
+   [string option]s and returns a [string option] that is [Some x]
+   where x is the concatenation of the two strings, if they exist, and
+   [None] if either of the strings is [None]. *)
+let option_concatenate string1 string2 = 
+  failwith "For you to implement"
 
+let%test "Testing option_concatenate..." =
+  match option_concatenate (Some "hello") (Some "world") with
+  | Some "helloworld" -> true
+  | _ -> false
+
+let%test "Testing option_concatenate..." =
+  match option_concatenate None (Some "world") with
+  | None -> true
+  | _ -> false
+
+let%test "Testing option_concatenate..." =
+  match option_concatenate (Some "hello") None with
+  | None -> true
+  | _ -> false

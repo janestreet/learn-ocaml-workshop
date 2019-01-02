@@ -12,9 +12,9 @@ developing in OCaml.
   #+BEGIN_SRC bash
   cd problems/$problem_dir
 
-  jbuilder runtest # builds and runs inline tests
+  dune runtest # builds and runs inline tests
   # Look at test output and compiler errors, edit problem.ml, rerun:
-  jbuilder runtest
+  dune runtest
   #+END_SRC
 * Frogger
   Once you're done with the exercises, you will implement a simplified clone of
@@ -51,6 +51,7 @@ developing in OCaml.
 ** Jane Street libraries and tools
    - [[https://opensource.janestreet.com/][An overview of Jane Street's open source things]]
    - [[https://ocaml.janestreet.com/ocaml-core/v0.10/doc/][Documentation for Core]]
-** jbuilder
+** dune
    - [[https://www.youtube.com/watch?v=BNZhmMAJarw][Video tutorial]]
-   - [[https://jbuilder.readthedocs.io/en/latest/][Manual]]
+   - [[https://dune.readthedocs.io/en/latest/][Manual]]
+
