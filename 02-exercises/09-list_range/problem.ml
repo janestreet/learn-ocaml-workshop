@@ -13,7 +13,8 @@ let () =
   assert ([%compare.equal: int list] (List.append [ 5; 1 ] [ 8; 4 ]) [ 5; 1; 8; 4 ])
 ;;
 
-(* Write a function to construct a list of all integers in the range from [from] to [to_]
+(* TODO: Write a function to construct a list of all integers in the range from [from] to [to_]
+
    including [from] but excluding [to_] in increasing order.
 
    val range : int -> int -> int list
