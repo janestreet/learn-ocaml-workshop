@@ -30,20 +30,16 @@ type t =
 
 (* [create] takes a color and returns a filled_square.  All squares start off with
    a state of Unmarked *)
-
 val create : Color.t -> t
 
 (* [unmark] sets the state to Unmarked *)
-
 val unmark : t -> unit
 
 (* [to_sweep] sets the state to To_sweep *)
-
 val to_sweep : t -> unit
 
 (* [sweep] checks the current state of t.
    if it is [To_sweep], it marks it as [Swept] and returns true
    otherwise it doesn't change the state and returns false *)
-
 val sweep : t -> bool
 val equal : t -> t -> bool
