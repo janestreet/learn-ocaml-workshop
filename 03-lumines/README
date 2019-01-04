@@ -13,6 +13,11 @@ board.ml
 game.ml
 moving_piece.ml
 
+To compile the tests run
+dune runtest
+To run the game run 
+dune exec bin/lumines.exe
+
 A suggested ordering for working through this (though feel free to do in a different order if that appeals) is:
 
   moving_piece.ml rotate_left
