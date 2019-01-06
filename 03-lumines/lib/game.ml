@@ -33,9 +33,10 @@ let new_moving_piece t =
 ;;
 
 let can_move t ~row ~col =
-  (* TODO: Check if the moving the piece so the bottom left corner is at [row] [col]
-     will cause it to be invalid either because it collides with a filled-in square
-     on the board or because it runs off the board *)
+  (* TODO: Check if moving the [moving_piece] so that the bottom left
+     corner is at [row] [col] will cause the board to be invalid
+     either because the piece will collide with a filled-in square on
+     the board or because it runs off the board *)
   ignore row;
   ignore col;
   ignore t;
@@ -56,15 +57,17 @@ let rotate_right t = t.moving_piece <- Moving_piece.rotate_right t.moving_piece
 let rotate_left t = t.moving_piece <- Moving_piece.rotate_left t.moving_piece
 
 let drop t =
-  (* TODO: drop the active piece all the way to to bottom *)
+  (* TODO: drop the active piece all the way to to bottom and add it
+     to the board. We should also check if the game is over. If the
+     game is not over, make sure to generate a new moving piece. *)
   ignore t;
 ;;
 
 let tick t =
-  (* TODO: handle to 1 second clock tick.
-     The moving piece should try to move down one square.
-     If it can't it we should check if the game is over or
-     add it to the board and mark and new squares if appropriate *)
+  (* TODO: handle a single 1 second clock tick. The moving piece
+     should try to move down one square. If it can't, we should try to
+     add it to the board, checking if the game is over and marking
+     squares to sweep if appropriate. *)
   ignore t;
 ;;
 

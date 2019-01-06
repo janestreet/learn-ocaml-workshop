@@ -1,8 +1,8 @@
 open Base
 
 (* The board is a 2-dimensional array of filled_square options. If
-     the square is empty, we represent it with None.  If it is filled,
-     we represent it with Some Filled_Square.  We have provided getter
+     the square is empty, we represent it with [None].  If it is filled,
+     we represent it with [Some Filled_Square].  We have provided getter
      and setter functions to get and set values of the array *)
 type t =
   { board : Filled_square.t option array array
@@ -19,8 +19,8 @@ val get : t -> Point.t -> Filled_square.t option
 (* set the value at a given row and col *)
 val set : t -> Point.t -> Filled_square.t option -> unit
 
-(* [remove_squares] will be called by the sweeper.  It should delete any squares
-   marked as Swept from the board and leave the board in a valid state *)
+(* [remove_squares] will be called by the sweeper. It should delete any squares
+   marked as [Swept] from the board and leave the board in a valid state *)
 val remove_squares : t -> unit
 
 (* [add_piece] takes a piece and the column number of the left side of
