@@ -1,2 +1,2 @@
 all: 
-	jbuilder build @DEFAULT
+	dune build @DEFAULT

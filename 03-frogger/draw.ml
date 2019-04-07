@@ -61,7 +61,7 @@ module Wad = struct
     }
   [@@deriving fields]
 
-  let create (config : Config.t) =
+  let create (_config : Config.t) =
     let background           = Image_impl.create "assets/background.png" in
     let skull_and_crossbones = Image_impl.create "assets/skull.png"  in
     let frog_up              = Image_impl.create "assets/camel-up.png"  in

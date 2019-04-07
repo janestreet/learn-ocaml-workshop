@@ -1,0 +1,14 @@
+(executables
+ (names fuzzy)
+ (libraries core async)
+ (preprocess
+  (pps ppx_jane)))
+
+(alias
+ (name DEFAULT)
+ (deps fuzzy.exe))
+
+(alias
+ (name all)
+ (deps
+  (glob_files *.exe)))

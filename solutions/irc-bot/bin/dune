@@ -1,0 +1,9 @@
+(executables
+ (names bot)
+ (libraries core async irc_protocol)
+ (preprocess
+  (pps ppx_jane)))
+
+(alias
+ (name DEFAULT)
+ (deps bot.exe))
