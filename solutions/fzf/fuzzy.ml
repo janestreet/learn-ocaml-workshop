@@ -57,7 +57,7 @@ let widget t screen =
     )
   in
   let selected =
-    Option.map ~f:(Widget.text ~background:Color.grey) selected
+    Option.map ~f:(Widget.text (*~background:Color.grey*)) selected
   in
   let spinner =
     Option.map
@@ -91,7 +91,7 @@ let handle_input t input =
         filter_items_and_selection t new_entered_text;
         `Continue t
     end
-  | Exit -> `Finished None
+  | Ctrl_c -> `Finished None
   | Char x ->
     begin
       let text =
@@ -126,7 +126,7 @@ let run user_input tty_text stdin =
   let t = create () in
   let last_rendered : (string option * (string list)) ref = ref (None, []) in
   Render.every
-    ~how_many_times_to_render_in_a_second:10.
+    ~how_often_to_render:(Time.Span.of_sec 10.)
     ~render:(fun () ->
       if (
         [%compare.equal:string option * string list]
