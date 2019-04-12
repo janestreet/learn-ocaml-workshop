@@ -10,7 +10,7 @@ developing in OCaml.
   OCaml. Each one has some expect-tests embedded in it. The workflow is:
 
   #+BEGIN_SRC bash
-  cd problems/$problem_dir
+  cd 02-exercises/$problem_dir
 
   dune runtest # builds and runs inline tests
   # Look at test output and compiler errors, edit problem.ml, rerun:
