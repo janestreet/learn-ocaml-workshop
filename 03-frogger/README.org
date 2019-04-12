@@ -10,9 +10,9 @@ fun tricks!
 
 * ~js_of_ocaml~
   This version of Frogger will run in the browser by using ~js-of-ocaml~ to
-  transpile OCaml bytecode into Javascript. Fortunately for us, ~jbuilder~
+  transpile OCaml bytecode into Javascript. Fortunately for us, ~dune~
   supports this out of the box: all one needs to do is ask for the ~.bc.js~
-  target (see the definition of the ~DEFAULT~ alias in the [[file:jbuild][jbuild]] file).
+  target (see the definition of the ~DEFAULT~ alias in the [[file:dune][dune]] file).
 
   First, test your installation of ~js-of-ocaml~ by running ~make~ in the
   [[file:test-js-of-ocaml-install][test-js-of-ocaml-install]] directory. Then, point your browser at
