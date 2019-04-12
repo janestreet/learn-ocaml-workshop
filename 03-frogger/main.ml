@@ -5,7 +5,7 @@ open! Import
 open Scaffold
 open Draw
 
-let draw_background screen (config : Config.t) (wad : Wad.t) =
+let draw_background screen (_config : Config.t) (wad : Wad.t) =
   Image_impl.draw screen wad.background
     0. 0.
     screen.width screen.height
@@ -45,7 +45,7 @@ let render
   in
   let interpolate_y cur next = (1. -. alpha) *. (Int.to_float cur) +. (alpha *. (Int.to_float next)) in
   List.iter (List.zip_exn dl_current dl_next)
-    ~f:(fun ((image_cur, pos_cur), (image_next, pos_next)) ->
+    ~f:(fun ((image_cur, pos_cur), (_image_next, pos_next)) ->
         let x_cur , y_cur  = grid_to_screen pos_cur  in
         let x_next, y_next = grid_to_screen pos_next in
         let x = interpolate_x x_cur x_next in
