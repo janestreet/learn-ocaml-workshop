@@ -1,6 +1,6 @@
 open! Base
 
-(* When working with two lists it's conveninet to have a way to concatenate them together.
+(* When working with two lists it's convenient to have a way to concatenate them together.
 
    The append infix operator @ concatenates two lists:
 
