@@ -1,8 +1,6 @@
 open Base
 open Scaffold
 
-open Js_of_ocaml
-
 module Direction = struct
   type t =
     | Up 

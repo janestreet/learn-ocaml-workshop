@@ -1,0 +1,6 @@
+(library
+ (name irc_protocol)
+ (libraries async core angstrom angstrom-async)
+ (inline_tests)
+ (preprocess
+  (pps ppx_jane)))

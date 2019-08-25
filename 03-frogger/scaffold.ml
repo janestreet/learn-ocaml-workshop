@@ -86,5 +86,5 @@ module Board = struct
 end
 
 let console_log s =
-  Firebug.console##log s
+  Js_of_ocaml.Firebug.console##log s
 ;;

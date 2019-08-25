@@ -1,0 +1,11 @@
+;; -*- scheme -*-
+
+(executables
+ (names main)
+ (preprocess
+  (pps js_of_ocaml-ppx))
+ (libraries base js_of_ocaml))
+
+(alias
+ (name DEFAULT)
+ (deps main.bc.js index.html))

@@ -31,7 +31,7 @@ let%test "Testing non_zero..." = Bool.( = ) true (non_zero (-400))
    non-zero by matching on both of them. *)
 let both_non_zero x y = failwith "For you to implement"
 
-let%test "Testing both_positive..." = Bool.( = ) false (both_non_zero 0 0)
-let%test "Testing both_positive..." = Bool.( = ) false (both_non_zero 0 1)
-let%test "Testing both_positive..." = Bool.( = ) false (both_non_zero (-20) 0)
-let%test "Testing both_positive..." = Bool.( = ) true (both_non_zero 400 (-5))
+let%test "Testing both_non_zero..." = Bool.( = ) false (both_non_zero 0 0)
+let%test "Testing both_non_zero..." = Bool.( = ) false (both_non_zero 0 1)
+let%test "Testing both_non_zero..." = Bool.( = ) false (both_non_zero (-20) 0)
+let%test "Testing both_non_zero..." = Bool.( = ) true (both_non_zero 400 (-5))

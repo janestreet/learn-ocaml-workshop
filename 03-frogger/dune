@@ -1,0 +1,14 @@
+(executable
+ (name main)
+ (preprocess
+  (pps js_of_ocaml-ppx ppx_jane))
+ (modules_without_implementation suggested_frogger)
+ (libraries base js_of_ocaml))
+
+(alias
+ (name DEFAULT)
+ (deps
+  main.bc.js
+  index.html
+  (glob_files assets/*.png)
+  Dockerfile))
