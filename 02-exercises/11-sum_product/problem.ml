@@ -24,28 +24,31 @@ let rec factorial x =
    | _ -> COMBINE x (NAME (x-1))
 *)
 
-(* OCaml lets us write the common parts just once.
-   We just add an extra input for every part that changes (other than the name):
-*)
+(* OCaml lets us write the common parts just once. We just have to add some
+   extra arguments. *)
 let rec up_to answer combine x =
   match x with
   | 0 -> answer
   | _ -> combine x (up_to answer combine (x - 1))
 ;;
 
-(* Now we can write our original functions in one line each! *)
+(* Now we can write our original functions in one line each!
+
+   Note that the [combine] argument of [up_to] is a function. (Remember higher
+   order functions?) *)
 let simpler_add_every_number_up_to x = up_to 0 plus x
 let simpler_factorial x = up_to 1 times x
 
-(* Note that with infix operators like + and *, you can actually pass them as functions!
-   You can do this by writing ( + ) and ( * ). So another way to write the above two
-   functions would be:
+(* Infix operators like [( + )] and [( * )] can actually be passed as functions
+   too, without writing [plus] and [times] like we did above. Another way to
+   write the above two functions would be:
 
-   let simpler_add_every_number_up_to x = up_to 0 ( + ) x
-   let simpler_factorial x = up_to 1 ( * ) x
-*)
+   [let simpler_add_every_number_up_to x = up_to 0 ( + ) x]
+   [let simpler_factorial x = up_to 1 ( * ) x] *)
 
-(* Remember sum and product? *)
+(* Now let's try refactoring another example. 
+
+   Remember sum and product? *)
 let rec sum xs =
   match xs with
   | [] -> 0
@@ -58,18 +61,12 @@ let rec product xs =
   | x :: ys -> times x (product ys)
 ;;
 
-(* These functions look pretty similar too:
+(* These functions look pretty similar too! 
 
-   let rec NAME xs =
-   match xs with
-   | [] -> ANSWER
-   | x :: ys -> COMBINE x (NAME ys)
-*)
-
-(* Let's write the common parts just once: *)
+   Try factoring out the common parts like we did above. *)
 let rec every answer combine xs = failwith "For you to implement"
 
-(* Now let's rewrite sum and product in just one line each using [every] *)
+(* Now, rewrite sum and product in just one line each using [every]. *)
 let simpler_sum xs = failwith "For you to implement"
 let simpler_product xs = failwith "For you to implement"
 
