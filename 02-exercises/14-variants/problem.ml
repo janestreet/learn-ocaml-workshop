@@ -46,6 +46,22 @@ let card_value_to_string card_value =
 let card_value_to_score card_value =
   failwith "For you to implement"
 
+(* Remember the list type? We can define a list as a variant type too! *)
+type int_list = 
+  | Empty 
+  | Not_empty of int * int_list
+
+(* OCaml actually allows us to define a list type that can contain any type of
+   value, not just integers, by using parametrized types. *)
+type 'a generic_list = 
+  | Empty
+  | Not_empty of 'a * 'a generic_list
+
+(* Recall that ['a] is called a type parameter, for which any other type may be
+   supplied. For example, we can use the [generic_list] type to define an
+   integer list. *)
+type another_int_list = int generic_list
+
 let%test "Testing card_value_to_score..." =
   Int.(=) 11 (card_value_to_score Ace)
 
