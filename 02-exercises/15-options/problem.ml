@@ -13,8 +13,10 @@ type 'a option =
   | Some of 'a
 
 (* An ['a option] is either [None], meaning absence of data, or [Some x] meaning
-   the data exists, and that data specifically is [x]. Here's an example: *)
+   the data exists, and that data is [x], which is of type ['a]. Note that
+   [option] is a parameterized data type, with ['a] as the type parameter. 
 
+   Here's an example. *)
 let what_number_am_i_thinking (my_number : int option) =
   match my_number with
   | None        -> "I'm not thinking of any number!"
@@ -26,9 +28,9 @@ let%test _ =
 let%test _ =
   String.(=) (what_number_am_i_thinking (Some 7)) "My number is: 7"
 
-(* Implement the function [safe_divide ~dividend ~divisor], which takes two ints
-   and returns an int option. It should return None if [divisor = 0], and
-   otherwise returns [Some x] where [x] is the division result *)
+(* Implement the function [safe_divide ~dividend ~divisor], which takes two
+   [int]s and returns an [int option]. It should return [None] if [divisor = 0],
+   and otherwise return [Some x] where [x] is the division result *)
 let safe_divide ~dividend ~divisor =
   failwith "For you to implement"
 
@@ -42,10 +44,10 @@ let%test "Testing safe_divide..." =
   | None -> true
   | _    -> false
 
-(* Implement a function [concatenate string1 string2], which takes two
-   [string option]s and returns a [string option] that is [Some x]
-   where x is the concatenation of the two strings, if they exist, and
-   [None] if either of the strings is [None]. *)
+(* Implement a function [concatenate] , which takes two [string option]s and
+   returns a [string option] that is [Some x] where x is the concatenation of
+   the two strings, if they exist, and [None] if either of the strings is
+   [None]. *)
 let option_concatenate string1 string2 = 
   failwith "For you to implement"
 
