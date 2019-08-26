@@ -34,6 +34,9 @@ let rec up_to answer combine x =
 
 (* Now we can write our original functions in one line each!
 
+   Check out the signature for [up_to] in the mli. Do all the arguments make
+   sense?
+
    Note that the [combine] argument of [up_to] is a function. (Remember higher
    order functions?) *)
 let simpler_add_every_number_up_to x = up_to 0 plus x
@@ -48,7 +51,7 @@ let simpler_factorial x = up_to 1 times x
 
 (* Now let's try refactoring another example. 
 
-   Remember sum and product? *)
+   Remember [sum] and [product]? *)
 let rec sum xs =
   match xs with
   | [] -> 0
@@ -66,7 +69,9 @@ let rec product xs =
    Try factoring out the common parts like we did above. *)
 let rec every answer combine xs = failwith "For you to implement"
 
-(* Now, rewrite sum and product in just one line each using [every]. *)
+(* Can you write a signature in the mli for [every]? How does it compare with [up_to]? 
+
+   Now, rewrite sum and product in just one line each using [every]. *)
 let simpler_sum xs = failwith "For you to implement"
 let simpler_product xs = failwith "For you to implement"
 
