@@ -58,7 +58,11 @@ let range from to_ = failwith "For you to implement"
            -> int 
            -> int list
    |} 
-*)
+
+   The arguments that are preceded with a question mark (i.e. [stride], [start], 
+   and [stop]) are called "optional arguments", and are arguments that don't have to 
+   be passed when invoking the function. We'll learn about optional arguments in more 
+   detail in exercise 15.*)
 
 (** ========== [List.iter] ========== **)
 (* [List.iter] has the following signature:
