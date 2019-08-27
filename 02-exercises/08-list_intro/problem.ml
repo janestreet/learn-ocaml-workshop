@@ -7,7 +7,7 @@ open! Base
    To construct a list we use the cons infix operator [( :: )] to prepend elements to
    the front of a list:
 
-   [val (::) : 'a -> 'a list -> 'a list]
+   {| val (::) : 'a -> 'a list -> 'a list |}
 
    [] means "the empty list". hd :: tl means "the element hd added to the front
    of the list tl". 
@@ -33,7 +33,7 @@ let rec sum lst = failwith "For you to implement"
 
 (* The signature for the append infix operator is:
 
-   [val (@) : 'a list -> 'a list -> 'a list] *)
+   {| val (@) : 'a list -> 'a list -> 'a list |} *)
 let list_append first second = first @ second
 
 (* By the way, you might've noticed that the list type in the function

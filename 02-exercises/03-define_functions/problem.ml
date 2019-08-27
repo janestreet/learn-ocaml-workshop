@@ -3,11 +3,11 @@ open! Base
 (* Recall from exercise 2 that we use [let] to define functions.
 
    Definitions take on the form:
-   let FUNCTION_NAME ARG1 ARG2 ... = BODY
+
+   {| let FUNCTION_NAME ARG1 ARG2 ... = BODY |} 
 
    For example, here we define a function [add1] that takes a single int
-   argument and returns that argument plus 1.
-*)
+   argument and returns that argument plus 1. *)
 let add1 arg = arg + 1
 
 (* [string_append] uses the built-in [( ^ )] operator to concatenate two
@@ -20,11 +20,14 @@ let add1_float (arg : float) : float = arg +. 1.
 (* In OCaml, outside of strings, whitespace and newlines are the same.
 
    So, you could also write
-   let  FUNCTION_NAME
-   ARG1
-   ARG2
-   =
-   BODY
+
+   {| 
+       let  FUNCTION_NAME
+       ARG1
+       ARG2
+       =
+       BODY
+   |}
 
    and it's the same to the compiler. *)
 

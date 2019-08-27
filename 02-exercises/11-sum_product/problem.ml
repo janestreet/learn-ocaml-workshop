@@ -3,7 +3,8 @@ open! Base
 let plus x y = x + y
 let times x y = x * y
 
-(* Sometimes, multiple functions look similar: *)
+(* Sometimes, multiple functions look similar. For example, consider
+   [add_every_number_up_to] and [factorial]. *)
 let rec add_every_number_up_to x =
   match x with
   | 0 -> 0
@@ -18,10 +19,12 @@ let rec factorial x =
 
 (* These functions have a lot in common:
 
-   let rec NAME x =
-   match x with
-   | 0 -> ANSWER
-   | _ -> COMBINE x (NAME (x-1))
+   {| 
+       let rec NAME x =
+       match x with
+       | 0 -> ANSWER
+       | _ -> COMBINE x (NAME (x-1))
+   |}
 *)
 
 (* OCaml lets us write the common parts just once. We just have to add some

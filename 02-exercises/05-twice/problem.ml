@@ -1,6 +1,6 @@
 open! Base
 
-(* Write a function that adds 1 to an int. (This exercise may seem familiar!) *)
+(* Write a function that adds 1 to an int. (This function may seem familiar!) *)
 let add1 x = failwith "For you to implement" 
 
 (* Now write a function that squares its argument. *)
@@ -13,7 +13,8 @@ let square x = failwith "For you to implement"
    Let's write a function named [twice], which will take a function as its first
    argument, and apply that function two times to its second argument.
 
-   Hint: Remember that you can use parenthese or let bindings to order function calls.  *)
+   Hint: Remember that you can use parenthese or let bindings to order function
+   calls.  *)
 let twice f x = failwith "For you to implement"
 
 (* Take a second to look at the function signature for [twice] in the mli

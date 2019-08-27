@@ -1,13 +1,23 @@
 open! Base
 
-(* Pattern matching lets us compare inputs to known values.
+(* Pattern matching lets us compare inputs to known values. 
 
-   Patterns following [|] are tested (i.e. checked for whether they match) in
-   order.
+   In general, pattern matching looks like this:
+
+   {| 
+       match SOMETHING with 
+       | PATTERN1 -> WHAT TO DO IF PATTERN1 MATCHES
+       | PATTERN2 -> WHAT TO DO IF PATTERN2 MATCHES
+       ...
+   |}
+
+   Patterns are tested (i.e. checked for whether they match) in order starting
+   from the top. 
 
    On the first pattern that matches, we go into the code block following [->].
 
-   Note that the [_] pattern matches anything. *)
+   Note that the [_] pattern matches anything. (Can you think of why this might
+   be dangerous?) *)
 let is_superman x =
   match x with
   | "Clark Kent" -> true

@@ -3,13 +3,11 @@ open! Base
 (* Functions can call other functions. They can call themselves too, but only
    with a special keyword.
 
-   First, try to compile this. What is the error that you see?
+   First, try to compile this directory. What is the error that you see?
 
    Now change [let] to [let rec] and recompile.
 
-   A function is only allowed to call itself if the [rec] flag is specified.
-*)
-
+   A function is only allowed to call itself if the [rec] flag is specified. *)
 let add_every_number_up_to x =
   (* Make sure we don't call this on negative numbers! *)
   assert (x >= 0);

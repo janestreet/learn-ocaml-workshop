@@ -1,6 +1,7 @@
 open! Base
 (** ========= Introduction ========= **)
-(* In OCaml there are 6 basic types: int, float, char, string, bool, and unit.
+(* In OCaml there are 6 basic types: [int], [float], [char], [string], [bool],
+   and [unit].
 
    The following exercises and examples will give you a brief introduction to
    these types. Feel free to play around with them in utop as well.
@@ -10,7 +11,7 @@ open! Base
 (** ========= Type Signatures ========= **)
 (* [four] is a value with the type int. We write the signature like this:
 
-   [val four : int]
+   {| val four : int |}
 
    Read it like this: "[four] is a value of type int".
 
@@ -19,6 +20,7 @@ open! Base
    functions in your program. For example, in C, C++, and Java, the signature
    above would be written like so:
 
+   // C, C++, or Java type signature
    int four; 
 *)
 let four = 4
@@ -26,7 +28,7 @@ let four = 4
 (* [float_four] is a value with the type float. We write the signature like
    this:
 
-   [val float_four : float]
+   {| val float_four : float |}
 
    You may have noticed that the two signatures we showed you were in comments.
    Signatures are not always required! In many situations, you may omit them,
@@ -35,13 +37,14 @@ let four = 4
    However, if you do write a signature for a value, the compiler will make sure
    to check that it's consistent with how that value is used. Signatures are
    kept in interface files (named with a .mli extension). Check out problem.mli
-   in this directory before continuing.
+   in this directory before continuing. In general, reading signatures in mli
+   files will be helpful to understanding what a function is supposed to do.
 
    Now, try inserting an incorrect signature for [float_four] in the mli to see
    what error the compiler gives you.
 
    A brief aside on floats: In OCaml, floats are distinguished from ints by the
-   presence of a decimal point. 0 is an int, 0. is a float.
+   presence of a decimal point. [0] is an int, [0.] is a float.
 
    In addition the basic math operations are also distinguished by a decimal
    point. For example, [( + )] allows you to add two ints and [( +. )] allows
@@ -59,7 +62,7 @@ let float_four = 4.
    So the signature for a function that takes two integers and returns an
    integer is:
 
-   [val int_average : int -> int -> int]
+   {| val int_average : int -> int -> int |}
 
    You can verify that this is the same as the signature defined in the mli.
 
@@ -73,18 +76,16 @@ let int_average x y = failwith "For you to implement"
    the type of this function. *)
 let float_average x y = failwith "For you to implement"
 
-(* Note that in OCaml, there are no parentheses when applying a function! So the
-   following expression computes the average of 10 and 20:
+(* Note that in OCaml, parenthese are not necessary when applying a function! So
+   the following expression computes the average of 10 and 20:
 
-   [int_average 10 20] *)
+   {| int_average 10 20 |} *)
 
 (** ========== Strings ========== **)
-(* As in many languages strings are denoted with "" and chars are denoted with
-   ''. *)
+(* As in many languages strings are denoted with double quotes ("") and chars
+   are denoted with single quotes (''). *)
 
-(* The signature of [first_name] can be written:
-
-   [val first_name : string] *)
+(* Check the mli for the signature of [first_name]. *)
 let first_name = "Fred"
 
 (* You can also write type annotations in definitions using a colon like so. *)
@@ -100,8 +101,7 @@ let a_boolean_false : bool = false
    [( && )] for logical and
    [( || )] for logical or
 
-   What does the following do?
-*)
+   What does the following do? *)
 let () = assert (true || a_boolean_false)
 
 (** ========== The [unit] Type  ========== **)
@@ -122,7 +122,7 @@ let () =
 (* When evaluating a unit operation on the toplevel, you should wrap it in a
    [let] binding, as in
 
-   [let () = ... ]
+   {| let () = ... |}
 
    This isn't actually necessary in all cases, but it will save you from some
    frustrating debugging of compiler issues if you just always include it.
@@ -144,13 +144,18 @@ let () =
    We will see other kinds of inline tests later, and some interesting patterns
    for using them. *)
 
-(* An aside on comparison: While OCaml supports polymorphic comparison, it is
-   good practice to use equality and comparison functions specific to each type.
+(* An aside on modules and comparison: While OCaml supports polymorphic
+   comparison (i.e. comparison of values of arbitrary types), it is good
+   practice to use equality and comparison functions specific to each type.
+
+   Types, and functions that operate on those types, are gathered into
+   namespaces that we call "modules". We can access functions inside modules
+   using the syntax [Module.function].
 
    So, [Int.equal] is the [equal] function defined in the [Int] module. Its
    signature is
 
-   [val equal : int -> int -> bool]
+   {| val equal : int -> int -> bool |}
 
    In words: [equal] takes two [int]s and returns a [bool]. The following line
    is applying that function to two inputs, [5] and [int_average 5 5]. *)
@@ -162,7 +167,8 @@ let%test "Testing int_average..." =
    defined and equivalent to the [equal] function. To reference an operator in a
    module, we need to surround it with parentheses.
 
-   Try removing the parentheses to see what error you get.
+   Try removing the parentheses around the "=" and compiling to see what error
+   you get.
 
    [Int.(=)] is the same as [Int.equal]. *)
 

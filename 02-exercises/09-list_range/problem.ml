@@ -2,7 +2,7 @@ open! Base
 
 (* Recall the append infix operator, [( @ )], which concatenates two lists:
 
-   [val (@) : 'a list -> 'a list -> 'a list]
+   {| val (@) : 'a list -> 'a list -> 'a list |}
 
    This function is the same as the [List.append] function.  *)
 let () =
@@ -14,7 +14,7 @@ let () =
 
    including [from] but excluding [to_] in increasing order.
 
-   [val range : int -> int -> int list]
+   {| val range : int -> int -> int list |}
 *)
 let range from to_ = failwith "For you to implement"
 
