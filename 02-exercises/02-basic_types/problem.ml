@@ -132,7 +132,8 @@ let () =
    those languages it is required).  *)
 
 (* An aside on printing: Like many other programming languages, you can use
-   formatted strings for printing! *)
+   formatted strings for printing! We also use the '\n' character for printing
+   newlines. *)
 let () =
   Stdio.printf "Hi, my name is %s and I am %d years old\n" full_name 5
 
