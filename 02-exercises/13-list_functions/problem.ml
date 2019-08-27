@@ -74,8 +74,10 @@ let range from to_ = failwith "For you to implement"
 
 let print_int_list xs = failwith "For you to implement"
 
-(* There are many more useful [List] functions. A couple that are worth noting
-   here:
+(* There are many more useful [List] functions, which you can read about here:
+   https://ocaml.janestreet.com/ocaml-core/latest/doc/base/Base/List/index.html
+
+   A couple that are worth noting:
 
    * [List.find]
 
@@ -89,7 +91,7 @@ let print_int_list xs = failwith "For you to implement"
    {| val filter : 'a list -> f:('a -> bool) -> 'a list |}
 
    This allows you to remove all elements from a list that do not satisfy some
-   condition [f]
+   condition [f].
 
    * [List.mapi]
 
@@ -104,7 +106,7 @@ let print_int_list xs = failwith "For you to implement"
 
    This allows you to combine two lists pairwise.  It will return [None] if the
    lists are not equal in length. (You will learn about options and what [None]
-   means in exercise 15. *)
+   means in exercise 15.) *)
 
 let%test "Testing simpler_product..." = Int.( = ) 1 (simpler_product [])
 let%test "Testing simpler_product..." = Int.( = ) 55 (simpler_product [ 55 ])
