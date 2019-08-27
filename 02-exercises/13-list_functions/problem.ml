@@ -65,12 +65,12 @@ let range from to_ = failwith "For you to implement"
 
    {| val iter : 'a list -> f:('a -> unit) -> unit |}
 
-   Sometimes you want to do something side-effecting to all the elements of a list,
-   such as printing them out. [iter] allows you to run a side-effecting 
-   function on every element of a list
+   Sometimes you want to do something side-effecting to all the elements of a
+   list, such as printing them out. [iter] allows you to run a side-effecting
+   function on every element of a list.
 
-   Lets use [iter] to print a list of ints
-*)
+   Let's use [iter] to print a list of ints. Remember that we can use
+   [Stdio.printf] to print formatted strings. *)
 
 let print_int_list xs = failwith "For you to implement"
 
