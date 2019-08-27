@@ -3,27 +3,34 @@
    This exercise is just meant to familiarize you with the system.
 
    Write OCaml code using your favorite text editor; if you aren't already
-   committed to one, we recommend Visual Studio Code.
+   committed to one, we recommend Visual Studio Code. *)
 
-   1. To compile your code and run inline tests, run
+let () = Stdio.printf "Hello, World!
+
+(* To compile your code and run inline tests, run
 
    $ dune runtest
 
-   in a terminal session in this problem's directory.
+   in a terminal session in this exercise's directory.
 
    Try building this code.
 
-   You should see a compilation error because it's missing the end quote. Add
-   the end quote and re-run. You should see that the code compiled and ran! 
+   You should see a compilation error because the line of code above is missing
+   the end quote. Add the end quote and re-run. You should see that the code
+   compiled and ran!
 
-   2. OCaml has a toplevel interpreter (i.e. a REPL, or read-eval-print
-   loop) called utop. Try starting up utop in the command line like so:
+   This process of building/running tests, fixing compilation errors, and
+   repeating until all tests pass should roughly be your workflow as you work
+   through these exercises. Make sure to only build inside each exercise's
+   directory, so you don't have to sift through irrelevant output from other
+   exercises' tests. *)
+
+(* OCaml has a toplevel interpreter (i.e. a REPL, or read-eval-print loop)
+   called utop. Try starting up utop in the command line like so:
 
    $ utop
 
-   You can also execute code in this environment directly. Try
-   pasting the previous line of code into utop and running it there.
-*)
-let () = Stdio.printf "Hello, World!
+   You can also execute code in this environment directly. Try pasting the
+   previous line of code into utop and running it there.  *)
 
 
