@@ -7,6 +7,7 @@
 
 let () = Stdio.printf "Hello, World!
 
+(** =========== Compilation ========== **)
 (* To compile your code and run inline tests, run
 
    $ dune runtest
@@ -25,12 +26,31 @@ let () = Stdio.printf "Hello, World!
    directory, so you don't have to sift through irrelevant output from other
    exercises' tests. *)
 
+(** =========== utop ========== **)
 (* OCaml has a toplevel interpreter (i.e. a REPL, or read-eval-print loop)
    called utop. Try starting up utop in the command line like so:
 
    $ utop
 
    You can also execute code in this environment directly. Try pasting the
-   previous line of code into utop and running it there.  *)
+   previous line of code into utop and running it there.
 
+   Note that in utop, every line must end with a double semi-colon (;;). Your
+   session should look like this: 
+
+   {|
+       utop # Stdio.printf "Hello, world";; 
+       Hello, world- : unit = ()
+   |}
+
+   If you see "Error: Unbound module Stdio", your utop environment might be 
+   missing the stdio package. Try running the following:
+
+   {| 
+       utop # #require "stdio";;
+   |}
+
+   and retrying. 
+
+   While going through these exercises, it may be helpful to play around in utop! *)
 
