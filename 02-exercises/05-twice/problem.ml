@@ -13,9 +13,13 @@ let square x = failwith "For you to implement"
    Let's write a function named [twice], which will take a function as its first
    argument, and apply that function two times to its second argument.
 
-   Hint: it may be necessary to use parenthesis to specify which function is
-   applied to which value. *)
-let twice f x = failwith "For you to implement" 
+   Hint: Remember that you can use parenthese or let bindings to order function calls.  *)
+let twice f x = failwith "For you to implement"
+
+(* Take a second to look at the function signature for [twice] in the mli
+   file. Note that the first argument of twice is a function, [f], which has
+   type [int -> int]. We had to wrap its type in parentheses when representing
+   it in the function signature. *)
 
 (* Now that we have [twice], try writing [add2] and [raise_to_the_fourth] using
    [add1] and [square]. *)
