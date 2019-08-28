@@ -1,8 +1,8 @@
 open! Base
 
-(* Remember the list functions we wrote in exercises 8-11? Many of those
+(* Remember the list functions we wrote in exercises 8-10? Many of those
    functions that we've been writing by hand are actually available in the
-   language in a nice, first class way.
+   language in a nice, first class way in the [List] module. 
 
    Let's take look at some of the useful functions that are given to you. *)
 
