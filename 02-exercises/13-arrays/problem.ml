@@ -47,33 +47,46 @@ let () =
 
    {| val iter : 'a array -> f:('a -> unit) -> unit |}
 
-   Let's implement a function [double], which takes an [int array] and doubles
-   each element of the array in place. *)
+   [iteri] works almost the same way, it also gives [f] the index of the element
+   in the array (like [List.mapi] from exercise 12).
+
+   {| val iteri : 'a array -> f:(int -> 'a -> unit) -> unit |}
+
+   Let's implement a function [double] using [Array.iteri], which takes an [int
+   array] and doubles each element of the array in place. *)
 let double array = failwith "For you to implement"
 
 let%test "Testing double..." = 
+  let array = [| 1; 1; 1 |] in
+  double array;
   [%compare.equal: int array]
     [| 2; 2; 2 |] 
-    (double [| 1; 1; 1 |])
+    array
 
 let%test "Testing double..." = 
+  let array = [| 1; 2; 3; 4; 5 |] in
+  double array;
   [%compare.equal: int array] 
     [| 2; 4; 6; 8; 10 |] 
-    (double [| 1; 2; 3; 4; 5 |])
+    array
 
 (* Write a function that takes an [int array] and a list of indicies and
    doubles each of the elements at the specified indices. *)
 let double_selectively array indices = failwith "For you to implement"
 
 let%test "Testing double_selectively..." = 
+  let array = [| 1; 1; 1 |] in
+  (double_selectively array [ 1 ]);
   [%compare.equal: int array] 
     [| 1; 2; 1 |]
-    (double_selectively [| 1; 1; 1 |] [ 1 ])
+    array
 
 let%test "Testing double_selectively..." = 
+  let array = [| 1; 2; 3; 4; 5 |] in
+  double_selectively array [ 0; 2; 4];
   [%compare.equal: int array] 
     [| 2; 2; 6; 4; 10 |] 
-    (double_selectively [| 1; 2; 3; 4; 5 |] [ 0; 2; 4])
+    array
 
 (* Two-dimensional arrays are common enough in code that OCaml provides special
    functions just for constructing them!
@@ -93,6 +106,8 @@ let () =
 let double_matrix matrix = failwith "For you to implement"
 
 let%test "Testing double_matrix..." = 
+  let matrix = [| [| 1; 2; 3 |]; [| 1; 1; 1 |] |] in
+  (double_matrix matrix);
   [%compare.equal: int array array] 
     [| [| 2; 4; 6 |]; [| 2; 2; 2 |] |] 
-    (double_matrix [| [| 1; 2; 3 |]; [| 1; 1; 1 |] |])
+    matrix
