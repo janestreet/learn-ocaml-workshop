@@ -12,6 +12,14 @@
   of the board. The game ends when the game board is in an invalid state after a
   tick. 
 
+  Users can interact with the game by shifting, rotating, or dropping the block. 
+  The controls are:
+  [w] -> rotate left (counterclockwise)
+  [s] -> rotate right (clockwise)
+  [a] -> shift left
+  [d] -> shift right
+  [space] -> drop to bottom
+
   For this exercise, we have implemented an event-loop that drives the game and
   handles keyboard input, a graphic module that deals with rendering the game
   onto the screen, and the logic for handling the "sweeper" for the game.
