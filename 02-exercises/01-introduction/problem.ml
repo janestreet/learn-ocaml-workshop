@@ -1,6 +1,7 @@
 (* Welcome to Jane Street's OCaml challenges!
 
-   This exercise is just meant to familiarize you with the system.
+   This exercise is just meant to familiarize you with the build process and
+   tools.
 
    Write OCaml code using your favorite text editor; if you aren't already
    committed to one, we recommend Visual Studio Code. *)
