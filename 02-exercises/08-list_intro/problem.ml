@@ -39,11 +39,7 @@ let%test "Testing sum..." = Int.( = ) 0 (sum [ 5; -5; 1; -1 ])
 let%test "Testing sum..." = Int.( = ) 12 (sum [ 5; 5; 1; 1 ])
 
 (* Now write a function to multiply together the elements of a list. *)
-let rec product xs =
-  match xs with
-  | [] -> failwith "For you to implement"
-  | _for_you_to_implement -> failwith "For you to implement"
-;;
+let rec product xs = failwith "For you to implement" 
 
 let%test "Testing product..." = Int.equal 1 (product [])
 let%test "Testing product..." = Int.equal 55 (product [ 55 ])
