@@ -32,10 +32,11 @@ let new_moving_piece t =
   t.moving_piece_row <- t.height
 ;;
 
-let can_move ~row ~col t =
-  (* TODO: Check if the moving the piece so the bottom left corner is at [row] [col]
-     will cause it to be invalid either because it collides with a filled in square
-     on the board or because it runs off the board *)
+let can_move t ~row ~col =
+  (* TODO: Check if moving the [moving_piece] so that the bottom left
+     corner is at [row] [col] will cause the board to be invalid
+     either because the piece will collide with a filled-in square on
+     the board or because it runs off the board *)
   if row < 0 || col < 0 || col > t.width - 2
   then false
   else (
@@ -46,33 +47,40 @@ let can_move ~row ~col t =
         else Board.is_empty t.board point && can_move))
 ;;
 
-(* TODO *)
 let move t ~col =
   if can_move ~row:t.moving_piece_row ~col t then t.moving_piece_col <- col
 ;;
 
 let move_left t = move t ~col:(t.moving_piece_col - 1)
 let move_right t = move t ~col:(t.moving_piece_col + 1)
+
 let rotate_right t = t.moving_piece <- Moving_piece.rotate_right t.moving_piece
 let rotate_left t = t.moving_piece <- Moving_piece.rotate_left t.moving_piece
 
 let drop t =
-  (* TODO: drop the active piece all the way to to bottom *)
-  if not (Board.add_piece t.board ~moving_piece:t.moving_piece ~col:t.moving_piece_col)
+  (* TODO: drop the active piece all the way to to bottom and add it to the
+     board. Make sure to generate a new moving piece.
+
+     Note: Depending on your implementation, you might need to check if the game
+     is over here.  *)
+  if not (Board.add_piece_and_apply_gravity t.board ~moving_piece:t.moving_piece ~col:t.moving_piece_col)
   then t.game_over := true;
   new_moving_piece t
 ;;
 
 let tick t =
-  (* TODO: handle to 1 second clock tick.
-     The moving piece should try to move down one square.
-     If it can't it we should check if the game is over or
-     add it to the board and mark and new squares if appropriate *)
+  (* TODO: handle a single clock tick. The moving piece should try to move down
+     one square. If it can't, we should try to add it to the board.
+
+     Note: We want to guarantee that the board is in a valid state at the end of
+     [tick]. Depending on your implementation, you might need to check if the
+     game is over here. *)
   let new_row = t.moving_piece_row - 1 in
   if can_move ~row:new_row ~col:t.moving_piece_col t
   then t.moving_piece_row <- new_row
   else drop t
 ;;
+
 
 (* Tests *)
 
@@ -114,7 +122,7 @@ let%test "Test can_move edges..." =
 
 let%test "Test can_move collisions..." = 
   let t = create ~height:4 ~width:4 ~seconds_per_sweep:4. in
-  ignore (Board.add_piece t.board ~moving_piece:test_piece ~col:0);
+  ignore (Board.add_piece_and_apply_gravity t.board ~moving_piece:test_piece ~col:0);
   can_move t ~row:4 ~col:0
   && can_move t ~row:4 ~col:1
   && can_move t ~row:4 ~col:2
