@@ -1,6 +1,6 @@
 #+TITLE: Lumines
 
-* Introduction         
+* Introduction
   Lumines is a block-dropping game similar to Tetris, where the player uses 2x2
   tetrominos containing tiles of two different colors to attempt to make
   completely filled rectangular shapes of the same color on the playing field,
@@ -82,39 +82,39 @@
   To run the game, run: 
   $ dune exec bin/lumines.exe
   
-** Order of Implementation
+* Order of Implementation
    A suggested ordering for working through this (though feel free to do in a
    different order if you prefer) is:
    
 *** Phase 1: Piece rotation
-    [ ]  [[file:lib/moving_piece.ml][moving_piece.ml]]: [rotate_left]
-    [ ]  [[file:lib/moving_piece.ml][moving_piece.ml]]: [rotate_right]
+    - [ ]  [[file:lib/moving_piece.ml][moving_piece.ml]]: [rotate_left]
+    - [ ]  [[file:lib/moving_piece.ml][moving_piece.ml]]: [rotate_right]
     
     You can test the functions in phase 1 by running the game and rotating the piece
     even if you don't yet have a way to move the piece on the board.
     
 *** Phase 2: Game progression
-    [ ]  [[file:lib/board.ml][board.ml]]: [add_piece]
-    [ ]  [[file:lib/game.ml][game.ml]]: [tick]
+    - [ ]  [[file:lib/board.ml][board.ml]]: [add_piece]
+    - [ ]  [[file:lib/game.ml][game.ml]]: [tick]
    
     Once you have these two functions, you'll be able run the game and see pieces fall 
     down on the board.
    
 *** Phase 3: Piece movement
-    [ ]  [[file:lib/game.ml][game.ml]]: [can_move]
-    [ ]  [[file:lib/game.ml][game.ml]]: [move_left]
-    [ ]  [[file:lib/game.ml][game.ml]]: [move_right]
-    [ ]  [[file:lib/game.ml][game.ml]]: [drop]
+    - [ ]  [[file:lib/game.ml][game.ml]]: [can_move]
+    - [ ]  [[file:lib/game.ml][game.ml]]: [move_left]
+    - [ ]  [[file:lib/game.ml][game.ml]]: [move_right]
+    - [ ]  [[file:lib/game.ml][game.ml]]: [drop]
     
     After completing phase 3, you can run the game and move pieces around.
     
 *** Phase 4: Clearing lines
-    [ ]  [[file:lib/board.ml][board.ml]]: [mark_squares_that_are_sweepable]
-    [ ]  [[file:lib/board.ml][board.ml]]: [remove_squares]
+    - [ ]  [[file:lib/board.ml][board.ml]]: [mark_squares_that_are_sweepable]
+    - [ ]  [[file:lib/board.ml][board.ml]]: [remove_squares]
   
     You should now be able to play lumines!
 
-* Extensions  
+* Extensions
   Once your game is working, there are many fun extensions that you can try to implement!
   
   Some examples, for inspiration:
