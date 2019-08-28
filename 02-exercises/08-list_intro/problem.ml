@@ -47,22 +47,3 @@ let%test "Testing product..." = Int.equal 1 (product [])
 let%test "Testing product..." = Int.equal 55 (product [ 55 ])
 let%test "Testing product..." = Int.equal 25 (product [ 5; -5; 1; -1 ])
 let%test "Testing product..." = Int.equal 25 (product [ 5; 5; 1; 1 ])
-
-(* The signature for the append infix operator is:
-
-   {| val (@) : 'a list -> 'a list -> 'a list |} *)
-let list_append first second = first @ second
-
-(* By the way, you might've noticed that the list type in the function
-   definitions of the cons operator [( :: )] and [list_append] look a bit
-   different from every other type we've used thusfar. This is because a list is
-   a parameterized data type. You can't just have a list; you have to have a
-   list of somethings, like a list of integers.
-
-   The ['a list] in the signature means that this function can be used on lists
-   containing any type of data (as long as the contained data is the same in the
-   two argument lists).
-
-   Here, the ['a] is called a type parameter, and [list_append] is described as
-   a polymorphic function. We'll revisit parametrized types in later
-   exercises. *)
