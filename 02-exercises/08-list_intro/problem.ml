@@ -1,19 +1,21 @@
 open! Base
 
-(* OCaml natively supports linked lists as part of the language.  Lists are
-   commonly referred to as having heads and tails.  The head is the first
-   element of the linked list The tail is everything else.
+(* OCaml natively supports lists as a part of the language. Lists are
+   implemented as linked lists, and can only contain values of the same
+   type. 
 
-   To construct a list we use the cons infix operator [( :: )] to prepend elements to
-   the front of a list:
+   Lists are commonly referred to as having a head and a tail. The head is the
+   first element of the linked list The tail is everything else.
+
+   To construct a list we use the cons infix operator [( :: )] to prepend
+   elements to the front of a list:
 
    {| val (::) : 'a -> 'a list -> 'a list |}
 
    [] means "the empty list". hd :: tl means "the element hd added to the front
-   of the list tl". 
+   of the list tl".
 
-   The following assertion shows that we can construct lists in two ways.
-*)
+   The following assertion shows that we can construct lists in two ways.  *)
 let () = assert ([%compare.equal: int list] [ 5; 1; 8; 4 ]  (5 :: 1 :: 8 :: 4  :: []))
 
 (* When matching on a list, it's either empty or non-empty. To say it another
