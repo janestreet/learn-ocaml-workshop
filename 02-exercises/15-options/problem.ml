@@ -47,7 +47,7 @@ let%test "Testing safe_divide..." =
   | None -> true
   | _    -> false
 
-(* Implement a function [concatenate], which takes two [string option]s and
+(* Implement a function [option_concatenate], which takes two [string option]s and
    returns a [string option] that is:
    - [Some x], where x is the concatenation of the two strings, if they both exist
    - [None] if either of the strings is [None]  *)
