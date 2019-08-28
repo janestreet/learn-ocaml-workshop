@@ -38,11 +38,13 @@ let one_less_than_the_meaning_of_life_etc =
   Example.subtract_one Example.the_meaning_of_life_the_universe_and_everything
 ;;
 
-assert (one_less_than_the_meaning_of_life_etc = 41)
+let () =
+  assert (one_less_than_the_meaning_of_life_etc = 41)
 
 (* Try uncommenting this line of code. What does the compiler tell you? *)
-(* assert (Example.a_secret_value = 17) *)
-
+(* let () = 
+ *   assert (Example.a_secret_value = 17)  *)
+    
 (* Types can be exposed via signatures in OCaml as well. Here's an example of
    declaring an "abstract" type - one where the definition of the type is not
    exposed. *)
