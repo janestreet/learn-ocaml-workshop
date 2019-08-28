@@ -1,13 +1,14 @@
 open Base
 
-(* This module holds the entire game state  *)
+(* This module holds the entire game state. *)
 type t =
   { board : Board.t
   ; height : int
   ; width : int
   ; mutable moving_piece : Moving_piece.t
-        (* we will choose the bottom left corner to be the block we refer to the piece by *)
-  ; mutable moving_piece_col : int
+  ; (* We represent the location of the moving piece by the bottom left corner
+       of the piece. *)
+    mutable moving_piece_col : int
   ; mutable moving_piece_row : int
   ; game_over : bool ref
   ; sweeper : Sweeper.t
@@ -15,15 +16,15 @@ type t =
 
 val create : height:int -> width:int -> seconds_per_sweep:float -> t
 
-(* put a new piece at the top of the board *)
+(* [new_moving_piece] puts a random new block at the top of the board *)
 val new_moving_piece : t -> unit
 
-(* move the piece on the board *)
+(* Functions to move the piece on the board *)
 val move_left : t -> unit
 val move_right : t -> unit
 val rotate_left : t -> unit
 val rotate_right : t -> unit
 val drop : t -> unit
 
-(* handle the clock ticking once *)
+(* [tick] handles everything that needs to happen when the clock ticks once *)
 val tick : t -> unit

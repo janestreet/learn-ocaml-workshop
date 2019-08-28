@@ -16,13 +16,13 @@ let create () =
 ;;
 
 let rotate_left t =
-  (* TODO : rotate the piece to the left *)
+  (* TODO : rotate the piece to the left (counterclockwise). *)
   ignore t;
   t
 ;;
 
 let rotate_right t =
-  (* TODO : rotate the piece to the right *)
+  (* TODO : rotate the piece to the right (clockwise). *)
   ignore t;
   t
 ;;

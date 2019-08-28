@@ -1,7 +1,8 @@
 open Base
 open Lib
-(* This is the core logic that actually runs the game.  We have implemented all of this for
-   you, but feel free to read this as a reference.  *)
+
+(* This is the core logic that actually runs the game.  We have implemented all
+   of this for you, but feel free to read this as a reference.  *)
    
 let every seconds ~f ~stop =
   let open Async in
