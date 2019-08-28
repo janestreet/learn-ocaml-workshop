@@ -31,11 +31,7 @@ let%test _ =
 (* Implement the function [safe_divide ~dividend ~divisor], which takes two
    [int]s and returns an [int option]. It should return [None] if [divisor = 0],
    and otherwise return [Some x] where [x] is the division result *)
-let safe_divide ~dividend ~divisor =
-  match divisor with 
-  | 0 -> None
-  | _ -> Some (dividend / divisor)
-(* failwith "For you to implement" *)
+let safe_divide ~dividend ~divisor = failwith "For you to implement"
 
 let%test "Testing safe_divide..." =
   match (safe_divide ~dividend:3 ~divisor:2) with
@@ -51,11 +47,7 @@ let%test "Testing safe_divide..." =
    returns a [string option] that is:
    - [Some x], where x is the concatenation of the two strings, if they both exist
    - [None] if either of the strings is [None]  *)
-let option_concatenate string1 string2 = 
-  match string1, string2 with 
-  | None, _ | _, None -> None
-  | Some x, Some y -> Some (x ^ y)
-(* failwith "For you to implement" *)
+let option_concatenate string1 string2 = failwith "For you to implement" 
 
 let%test "Testing option_concatenate..." =
   match option_concatenate (Some "hello") (Some "world") with
@@ -137,11 +129,11 @@ let labeled_concatenate ?(separator = "")  ~string1 ~string2 =
    doesn't have any arguments that can be used to indicate that we are purposely
    not passing [separator].
 
-   To fix this problem, we can specify [~separator:None] in the invocation of
+   To fix this problem, we can specify [?separator:None] in the invocation of
    [labeled_concatenate] above. Try this and verify that the code compiles and
-   runs successfully.
+   runs successfully. *)
 
-   We could also define our [labeled_concatenate] function with an additional
+(*  We could also define our [labeled_concatenate] function with an additional
    [unit] argument at the end to allow us to erase the optional argument.
 
    Take a second to make sure this makes sense. Try writing a function signature
