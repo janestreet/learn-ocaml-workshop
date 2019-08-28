@@ -39,9 +39,9 @@
    what they represent.
 
 ** ~Sweeper.t~
-   A [Sweeper.t] contains the logic for how to clear the board. It is already
-   implemented, and will take care of removing squares from the board that have
-   been marked for sweeping. Go ahead and glance at [[file:lib/sweeper.mli][sweeper.mli]] to see its
+   A [Sweeper.t] contains the driving logic for clearing the board. It is
+   already implemented, and will take care of calling the functions that will
+   remove squares from the board. Go ahead and glance at [[file:lib/sweeper.mli][sweeper.mli]] to see its
    interface.
 
 ** ~Board.t~ 
@@ -70,6 +70,9 @@
 
    Make sure to take a look at [[file:lib/game.mli][game.mli]] to understand its structure.
 
+   Please note! [Game.t] treats the origin of the [Board.t] as the lower left
+   corner!
+
 * Getting Started
   The functions for you to implement are in
   - [[file:lib/moving_piece.ml][moving_piece.ml]]
@@ -94,7 +97,7 @@
     even if you don't yet have a way to move the piece on the board.
     
 *** Phase 2: Game progression
-    - [ ]  [[file:lib/board.ml][board.ml]]: [add_piece]
+    - [ ]  [[file:lib/board.ml][board.ml]]: [add_piece_and_apply_gravity]
     - [ ]  [[file:lib/game.ml][game.ml]]: [tick]
    
     Once you have these two functions, you'll be able run the game and see pieces fall 

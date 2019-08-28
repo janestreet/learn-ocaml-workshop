@@ -7,7 +7,8 @@ type t =
   ; width : int
   ; mutable moving_piece : Moving_piece.t
   ; (* We represent the location of the moving piece by the bottom left corner
-       of the piece. *)
+       of the piece. Note that the origin of [board] is the lower left
+       corner. *)
     mutable moving_piece_col : int
   ; mutable moving_piece_row : int
   ; game_over : bool ref

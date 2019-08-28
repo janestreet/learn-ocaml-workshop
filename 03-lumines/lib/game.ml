@@ -57,17 +57,21 @@ let rotate_right t = t.moving_piece <- Moving_piece.rotate_right t.moving_piece
 let rotate_left t = t.moving_piece <- Moving_piece.rotate_left t.moving_piece
 
 let drop t =
-  (* TODO: drop the active piece all the way to to bottom and add it
-     to the board. We should also check if the game is over. If the
-     game is not over, make sure to generate a new moving piece. *)
+  (* TODO: drop the active piece all the way to to bottom and add it to the
+     board. Make sure to generate a new moving piece.
+
+     Note: Depending on your implementation, you might need to check if the game
+     is over here.  *)
   ignore t;
 ;;
 
 let tick t =
-  (* TODO: handle a single 1 second clock tick. The moving piece
-     should try to move down one square. If it can't, we should try to
-     add it to the board, checking if the game is over and marking
-     squares to sweep if appropriate. *)
+  (* TODO: handle a single clock tick. The moving piece should try to move down
+     one square. If it can't, we should try to add it to the board.
+
+     Note: We want to guarantee that the board is in a valid state at the end of
+     [tick]. Depending on your implementation, you might need to check if the
+     game is over here. *)
   ignore t;
 ;;
 
@@ -112,7 +116,7 @@ let%test "Test can_move edges..." =
 
 let%test "Test can_move collisions..." = 
   let t = create ~height:4 ~width:4 ~seconds_per_sweep:4. in
-  ignore (Board.add_piece t.board ~moving_piece:test_piece ~col:0);
+  ignore (Board.add_piece_and_apply_gravity t.board ~moving_piece:test_piece ~col:0);
   can_move t ~row:4 ~col:0
   && can_move t ~row:4 ~col:1
   && can_move t ~row:4 ~col:2

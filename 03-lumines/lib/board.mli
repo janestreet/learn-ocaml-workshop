@@ -23,10 +23,10 @@ val set : t -> Point.t -> Filled_square.t option -> unit
    marked as [Swept] from the board and leave the board in a valid state *)
 val remove_squares : t -> unit
 
-(* [add_piece] takes a piece and the column number of the left side of the piece
-   and inserts it into the board. Returns: true if it was able to add the piece
-   to the board false otherwise *)
-val add_piece : t -> moving_piece:Moving_piece.t -> col:int -> bool
+(* [add_piece_and_apply_gravity] takes a piece and the column number of the left
+   side of the piece and inserts it into the board. Returns: true if it was able
+   to add the piece to the board false otherwise *)
+val add_piece_and_apply_gravity : t -> moving_piece:Moving_piece.t -> col:int -> bool
 
 (* [is_empty] takes a row and a col and returns: true if that square is empty
    false if that square is filled *)
