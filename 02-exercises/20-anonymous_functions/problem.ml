@@ -67,8 +67,17 @@ let () =
 let apply_if_nonzero f i =
   failwith "For you to implement"
 
-let%test "Testing apply_if_nonzero..." =
-  Int.(=) 0 (apply_if_nonzero (fun x -> 10 / x) 0)
+(* Now, using [apply_if_nonzero] with an anonymous function, write
+   [double_if_nonzero], which takes an integer and doubles it if it is not zero,
+   and otherwise just returns 0. *)
+let double_if_nonzero i = 
+  failwith "For you to implement"
 
-let%test "Testing apply_if_nonzero..." =
-  Int.(=) 2 (apply_if_nonzero (fun x -> 10 / x) 5)
+let%test "Testing double_if_nonzero..." =
+  Int.(=) 0 (double_if_nonzero 0)
+
+let%test "Testing double_if_nonzero..." =
+  Int.(=) 2 (double_if_nonzero 1)
+
+let%test "Testing double_if_nonzero..." =
+  Int.(=) 10 (double_if_nonzero 5)
