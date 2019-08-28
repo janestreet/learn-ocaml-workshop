@@ -41,15 +41,15 @@ let four = 4
    files will be helpful to understanding what a function is supposed to do.
 
    Now, try inserting an incorrect signature for [float_four] in the mli to see
-   what error the compiler gives you.
-
-   A brief aside on floats: In OCaml, floats are distinguished from ints by the
-   presence of a decimal point. [0] is an int, [0.] is a float.
-
-   In addition the basic math operations are also distinguished by a decimal
-   point. For example, [( + )] allows you to add two ints and [( +. )] allows
-   you to add two floats. *)
+   what error the compiler gives you. *)
 let float_four = 4.
+
+(* In OCaml, floats are distinguished from ints by the presence of a decimal
+   point. [0] is an int, [0.] is a float.
+
+   In addition, the basic math operations for floats are also distinguished by a
+   decimal point. For example, [( + )] allows you to add two ints and [( +. )]
+   allows you to add two floats. *)
 
 (** ========== Function Signatures ========== **)
 (* In OCaml, functions are also values! This means that we can write type
