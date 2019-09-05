@@ -20,29 +20,3 @@ let create ~height ~width ~invalid_locations =
   | [] -> None
   | _ -> Some { location = List.random_element_exn possible_locations }
 ;;
-
-(* See the "Expect Tests" in the README for more details on these tests. *)
-let%test_module _ =
-  (module struct
-    let%expect_test "Testing [create]..." =
-      let apple = create ~height:10 ~width:10 ~invalid_locations:[] in
-      match apple with
-      | None -> failwith "[create] returned [None] when [Some _] was expected!"
-      | Some apple ->
-        let { Position.row; col } = apple.location in
-        if row < 0 || row >= 10 || col < 0 || col >= 10
-        then failwith "[create] returned an invalid apple!"
-        else ()
-    ;;
-
-    let%expect_test "Testing [create]..." =
-      let invalid_locations =
-        List.init 10 ~f:(fun row -> List.init 10 ~f:(fun col -> { Position.row; col }))
-        |> List.concat
-      in
-      let apple = create ~height:10 ~width:10 ~invalid_locations in
-      Stdio.printf !"%{sexp: t option}\n%!" apple;
-      [%expect {| () |}]
-    ;;
-  end)
-;;

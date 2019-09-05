@@ -18,15 +18,3 @@ let next_position t { Position.row; col } : Position.t =
   | Up -> { row = row + 1; col }
   | Down -> { row = row - 1; col }
 ;;
-
-let%expect_test "Testing [next_position]..." =
-  let position = { Position.row = 5; col = 5 } in
-  Stdio.printf !"%{sexp: Position.t}\n%!" (next_position Left position);
-  [%expect {| ((col 4) (row 5)) |}];
-  Stdio.printf !"%{sexp: Position.t}\n%!" (next_position Right position);
-  [%expect {| ((col 6) (row 5)) |}];
-  Stdio.printf !"%{sexp: Position.t}\n%!" (next_position Up position);
-  [%expect {| ((col 5) (row 6)) |}];
-  Stdio.printf !"%{sexp: Position.t}\n%!" (next_position Down position);
-  [%expect {| ((col 5) (row 4)) |}]
-;;
