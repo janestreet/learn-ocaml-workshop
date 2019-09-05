@@ -48,6 +48,15 @@
    Please note! In this model, we treat the origin of the playing area
    as its lower left hand corner.
 
+* Expect Tests
+  This game makes use of expect tests to test functions individually
+  and ensure that they are all working properly. Take a quick look at
+  its [[https://github.com/janestreet/ppx_expect][documentation]] for how they work.
+
+  You shouldn't need to write or change any expect tests while working
+  on these exercises, but they may be helpful for debugging purposes
+  while writing code. 
+
 * Getting Started
   The functions for you to implement are in
   - [[file:lib/direction.ml][direction.ml]]
@@ -71,10 +80,10 @@
   to do in a different order if you prefer) is:
 
 ** Phase 1: Initial Rendering
-   - [ ]  [[file:lib/apple.ml][apple.ml]]: [create]
-   - [ ]  [[file:lib/snake.ml][snake.ml]]: [create]
-   - [ ]  [[file:lib/snake.ml][snake.ml]]: [locations]
-   - [ ]  [[file:lib/game.ml][game.ml]]: [create]
+   - [ ] [[file:lib/apple.ml][apple.ml]]: [create]
+   - [ ] [[file:lib/snake.ml][snake.ml]]: [create]
+   - [ ] [[file:lib/snake.ml][snake.ml]]: [locations]
+   - [ ] [[file:lib/game.ml][game.ml]]: [create]
 
    At the end of phase 1, you should be able to see the initial board
    get rendered with an apple and a snake.
@@ -88,8 +97,8 @@
    - [ ] [[file:lib/direction.ml][direction.ml]]: [next_position]
 
 ** Phase 3: Game Progression
-   - [ ]  [[file:lib/snake.ml][snake.ml]]: [step]
-   - [ ]  [[file:lib/game.ml][game.ml]]: [step]
+   - [ ] [[file:lib/snake.ml][snake.ml]]: [step]
+   - [ ] [[file:lib/game.ml][game.ml]]: [step]
 
    At the end of phase 3, you should be able to play snake in its
    entirety and also pass all expect tests.
