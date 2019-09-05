@@ -5,7 +5,17 @@ type t = { location : Position.t } [@@deriving sexp_of]
 let location t = t.location
 
 (* TODO: Implement [create]. *)
-let create ~height ~width ~invalid_locations = failwith "For you to implement"
+let create ~height ~width ~invalid_locations =
+  let possible_locations =
+    List.concat_map (List.range 0 height) ~f:(fun row ->
+        List.map (List.range 0 width) ~f:(fun col -> { Position.row; col }))
+    |> List.filter ~f:(fun pos ->
+           not (List.mem invalid_locations pos ~equal:[%compare.equal: Position.t]))
+  in
+  match possible_locations with
+  | [] -> None
+  | _ -> Some { location = List.random_element_exn possible_locations }
+;;
 
 let%test_module _ =
   (module struct

@@ -12,23 +12,46 @@ type t =
   }
 [@@deriving sexp_of]
 
-(* TODO: Implement [create] *)
-let create ~length = failwith "For you to implement"
+(* TODO: implement [create] *)
+let create ~length =
+  { direction = Right
+  ; extensions_left = 0
+  ; locations = List.init length ~f:(fun col -> { Position.row = 0; col }) |> List.rev
+  }
+;;
 
-(* TODO: Implement [grow_over_next_steps] *)
-let grow_over_next_steps t by_how_much = failwith "For you to implement"
+(* TODO: implement [grow_over_next_steps] *)
+let grow_over_next_steps t by_how_much =
+  { t with extensions_left = t.extensions_left + by_how_much }
+;;
 
-(* TODO: Implement [locations] *)
-let locations t = failwith "For you to implement"
+(* TODO: implement [locations] *)
+let locations t = t.locations
 
 (* TODO: implement [head_location] *)
-let head_location t = failwith "For you to implement"
+let head_location t = List.hd_exn t.locations
 
 (* TODO: implement [set_direction] *)
-let set_direction t direction = failwith "For you to implement"
+let set_direction t direction = { t with direction }
+
+let remove_last_elt lst =
+  match List.rev lst with
+  | [] -> []
+  | _ :: xs -> List.rev xs
+;;
 
 (* TODO: implement [step] *)
-let step t = failwith "For you to implement"
+let step ({ direction; extensions_left; locations } as t) =
+  let body, extensions_left =
+    if extensions_left > 0
+    then locations, extensions_left - 1
+    else remove_last_elt locations, extensions_left
+  in
+  let new_head = Direction.next_position direction (head_location t) in
+  match List.mem body new_head ~equal:[%compare.equal: Position.t] with
+  | true -> None
+  | false -> Some { t with locations = new_head :: body; extensions_left }
+;;
 
 let%test_module _ =
   (module struct

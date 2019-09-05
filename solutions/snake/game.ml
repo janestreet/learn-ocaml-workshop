@@ -11,22 +11,59 @@ type t =
 [@@deriving sexp_of]
 
 (* TODO: Implement [in_bounds] *)
-let in_bounds t { Position.row; col } = failwith "For you to implement"
+let in_bounds t { Position.row; col } =
+  col >= 0 && col < t.width && row >= 0 && row < t.height
+;;
 
 (* TODO: Implement [create] *)
 let create ~height ~width ~initial_snake_length ~amount_to_grow =
-  failwith "For you to implement"
+  let snake = Snake.create ~length:initial_snake_length in
+  let apple = Apple.create ~height ~width ~invalid_locations:(Snake.locations snake) in
+  match apple with
+  | None -> failwith "unable to create initial apple"
+  | Some apple ->
+    let t = { snake; apple; game_state = In_progress; height; width; amount_to_grow } in
+    if List.exists (Snake.locations snake) ~f:(fun pos -> not (in_bounds t pos))
+    then failwith "unable to create initial snake"
+    else t
 ;;
 
 let snake t = t.snake
 let apple t = t.apple
 let game_state t = t.game_state
 
-(* TODO: Implement [set_direction] *)
-let set_direction t direction = failwith "For you to implement"
+(* TODO: implement [set_direction] *)
+let set_direction t direction = t.snake <- Snake.set_direction t.snake direction
+
+let maybe_consume_apple t head =
+  if not ([%compare.equal: Position.t] head (Apple.location t.apple))
+  then ()
+  else (
+    let snake = Snake.grow_over_next_steps t.snake t.amount_to_grow in
+    let apple =
+      Apple.create
+        ~height:t.height
+        ~width:t.width
+        ~invalid_locations:(Snake.locations snake)
+    in
+    match apple with
+    | None -> t.game_state <- Win
+    | Some apple ->
+      t.snake <- snake;
+      t.apple <- apple)
+;;
 
 (* TODO: Implement [step] *)
-let step t = failwith "For you to implement"
+let step t =
+  match Snake.step t.snake with
+  | None -> t.game_state <- Game_over "Self collision"
+  | Some snake ->
+    t.snake <- snake;
+    let head = Snake.head_location snake in
+    if not (in_bounds t head)
+    then t.game_state <- Game_over "Wall collision"
+    else maybe_consume_apple t head
+;;
 
 let%test_module _ =
   (module struct
