@@ -1,5 +1,5 @@
 open! Base
-open! Dune_lib
+open! Snake_lib
 
 (* This is the core logic that actually runs the game. We have implemented all of this for
    you, but feel free to read this file as a reference. *)

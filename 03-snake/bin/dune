@@ -6,4 +6,4 @@
   async
   graphics
   base
-  lib))
+  snake_lib))
