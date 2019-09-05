@@ -14,11 +14,11 @@
 
   Users can interact with the game by shifting, rotating, or dropping the block. 
   The controls are:
-  [w] -> rotate left (counterclockwise)
-  [s] -> rotate right (clockwise)
-  [a] -> shift left
-  [d] -> shift right
-  [space] -> drop to bottom
+  - [w] -> rotate left (counterclockwise)
+  - [s] -> rotate right (clockwise)
+  - [a] -> shift left
+  - [d] -> shift right
+  - [space] -> drop to bottom
 
   For this exercise, we have implemented an event-loop that drives the game and
   handles keyboard input, a graphic module that deals with rendering the game
@@ -88,30 +88,34 @@
   - [[file:lib/game.ml][game.ml]]
   
   To compile the tests, run:
+  #+BEGIN_SRC bash
   $ dune runtest
+  #+END_SRC
   
   To run the game, run: 
+  #+BEGIN_SRC bash
   $ dune exec bin/lumines.exe
+  #+END_SRC
   
 * Order of Implementation
    A suggested ordering for working through this (though feel free to do in a
    different order if you prefer) is:
    
-*** Phase 1: Piece rotation
+** Phase 1: Piece rotation
     - [ ]  [[file:lib/moving_piece.ml][moving_piece.ml]]: [rotate_left]
     - [ ]  [[file:lib/moving_piece.ml][moving_piece.ml]]: [rotate_right]
     
     You can test the functions in phase 1 by running the game and rotating the piece
     even if you don't yet have a way to move the piece on the board.
     
-*** Phase 2: Game progression
+** Phase 2: Game progression
     - [ ]  [[file:lib/board.ml][board.ml]]: [add_piece_and_apply_gravity]
     - [ ]  [[file:lib/game.ml][game.ml]]: [tick]
    
     Once you have these two functions, you'll be able run the game and see pieces fall 
     down on the board.
    
-*** Phase 3: Piece movement
+** Phase 3: Piece movement
     - [ ]  [[file:lib/game.ml][game.ml]]: [can_move]
     - [ ]  [[file:lib/game.ml][game.ml]]: [move_left]
     - [ ]  [[file:lib/game.ml][game.ml]]: [move_right]
@@ -119,7 +123,7 @@
     
     After completing phase 3, you can run the game and move pieces around.
     
-*** Phase 4: Clearing lines
+** Phase 4: Clearing lines
     - [ ]  [[file:lib/board.ml][board.ml]]: [mark_squares_that_are_sweepable]
     - [ ]  [[file:lib/board.ml][board.ml]]: [remove_squares]
   
