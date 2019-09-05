@@ -12,7 +12,7 @@ let%test_module _ =
     let%expect_test "Testing [create]..." =
       Random.init 0;
       let apple = create ~height:10 ~width:10 ~invalid_locations:[] in
-      Stdio.print_s ([%sexp_of: t option] apple);
+      Stdio.printf !"%{sexp: t option}\n%!" apple;
       [%expect {| (((location ((col 2) (row 5))))) |}]
     ;;
 
@@ -22,7 +22,7 @@ let%test_module _ =
         |> List.concat
       in
       let apple = create ~height:10 ~width:10 ~invalid_locations in
-      Stdio.print_s ([%sexp_of: t option] apple);
+      Stdio.printf !"%{sexp: t option}\n%!" apple;
       [%expect {| () |}]
     ;;
   end)

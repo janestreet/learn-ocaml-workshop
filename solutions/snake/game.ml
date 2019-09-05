@@ -32,9 +32,10 @@ let snake t = t.snake
 let apple t = t.apple
 let game_state t = t.game_state
 
-(* TODO: implement [set_direction] *)
-let set_direction t direction = t.snake <- Snake.set_direction t.snake direction
+(* TODO: Implement [set_direction] *)
+let set_direction t direction : unit = t.snake <- Snake.set_direction t.snake direction
 
+(* TODO: Implement [step] *)
 let maybe_consume_apple t head =
   if not ([%compare.equal: Position.t] head (Apple.location t.apple))
   then ()
@@ -89,7 +90,7 @@ let%test_module _ =
     let%expect_test "Testing [create]..." =
       Random.init 0;
       let t = create ~height:10 ~width:10 ~initial_snake_length:3 ~amount_to_grow:3 in
-      Stdio.print_s ([%sexp_of: t] t);
+      Stdio.printf !"%{sexp: t}\n%!" t;
       [%expect
         {|
     ((snake
@@ -105,7 +106,7 @@ let%test_module _ =
         Or_error.try_with (fun () ->
             create ~height:1 ~width:2 ~initial_snake_length:3 ~amount_to_grow:3)
       in
-      Stdio.print_s ([%sexp_of: t Or_error.t] t);
+      Stdio.printf !"%{sexp: t Or_error.t}\n%!" t;
       [%expect {|
     (Error (Failure "unable to create initial apple")) |}]
     ;;
@@ -116,7 +117,7 @@ let%test_module _ =
         Or_error.try_with (fun () ->
             create ~height:10 ~width:2 ~initial_snake_length:3 ~amount_to_grow:3)
       in
-      Stdio.print_s ([%sexp_of: t Or_error.t] t);
+      Stdio.printf !"%{sexp: t Or_error.t}\n%!" t;
       [%expect {|
     (Error (Failure "unable to create initial snake")) |}]
     ;;
@@ -124,8 +125,8 @@ let%test_module _ =
     let%expect_test "Testing [set_direction]..." =
       Random.init 0;
       let t = create ~height:10 ~width:10 ~initial_snake_length:3 ~amount_to_grow:3 in
-      set_direction t Down;
-      Stdio.print_s ([%sexp_of: t] t);
+      set_direction t Direction.Down;
+      Stdio.printf !"%{sexp: t}\n%!" t;
       [%expect
         {|
            ((snake
@@ -141,7 +142,7 @@ let%test_module _ =
       Random.init 0;
       let t = create ~height:10 ~width:10 ~initial_snake_length:3 ~amount_to_grow:3 in
       step_n_times t 7;
-      Stdio.print_s ([%sexp_of: t] t);
+      Stdio.printf !"%{sexp: t}\n%!" t;
       [%expect
         {|
     ((snake
@@ -150,7 +151,7 @@ let%test_module _ =
      (apple ((location ((col 1) (row 8))))) (game_state In_progress) (height 10)
      (width 10) (amount_to_grow 3)) |}];
       step_n_times t 1;
-      Stdio.print_s ([%sexp_of: t] t);
+      Stdio.printf !"%{sexp: t}\n%!" t;
       [%expect
         {|
     ((snake
@@ -165,9 +166,9 @@ let%test_module _ =
       Random.init 2;
       let t = create ~height:10 ~width:10 ~initial_snake_length:3 ~amount_to_grow:3 in
       step_n_times t 3;
-      set_direction t Up;
+      set_direction t Direction.Up;
       step_n_times t 9;
-      Stdio.print_s ([%sexp_of: t] t);
+      Stdio.printf !"%{sexp: t}\n%!" t;
       [%expect
         {|
     ((snake
@@ -175,9 +176,9 @@ let%test_module _ =
        (locations (((col 5) (row 9)) ((col 5) (row 8)) ((col 5) (row 7))))))
      (apple ((location ((col 6) (row 7))))) (game_state In_progress) (height 10)
      (width 10) (amount_to_grow 3)) |}];
-      set_direction t Left;
+      set_direction t Direction.Left;
       step_n_times t 3;
-      Stdio.print_s ([%sexp_of: t] t);
+      Stdio.printf !"%{sexp: t}\n%!" t;
       [%expect
         {|
     ((snake
@@ -193,13 +194,13 @@ let%test_module _ =
       Random.init 2;
       let t = create ~height:10 ~width:10 ~initial_snake_length:3 ~amount_to_grow:3 in
       step_n_times t 3;
-      set_direction t Up;
+      set_direction t Direction.Up;
       step_n_times t 9;
-      set_direction t Left;
+      set_direction t Direction.Left;
       step_n_times t 1;
-      set_direction t Down;
+      set_direction t Direction.Down;
       step_n_times t 1;
-      Stdio.print_s ([%sexp_of: t] t);
+      Stdio.printf !"%{sexp: t}\n%!" t;
       [%expect
         {|
     ((snake
@@ -209,9 +210,9 @@ let%test_module _ =
          ((col 5) (row 7))))))
      (apple ((location ((col 6) (row 7))))) (game_state In_progress) (height 10)
      (width 10) (amount_to_grow 3)) |}];
-      set_direction t Right;
+      set_direction t Direction.Right;
       step_n_times t 1;
-      Stdio.print_s ([%sexp_of: t] t);
+      Stdio.printf !"%{sexp: t}\n%!" t;
       [%expect
         {|
         ((snake
@@ -227,11 +228,11 @@ let%test_module _ =
     let%expect_test "Testing [step] with game winning..." =
       Random.init 71;
       let t = create ~height:2 ~width:3 ~initial_snake_length:3 ~amount_to_grow:3 in
-      set_direction t Up;
+      set_direction t Direction.Up;
       step_n_times t 1;
-      set_direction t Left;
+      set_direction t Direction.Left;
       step_n_times t 2;
-      Stdio.print_s ([%sexp_of: t] t);
+      Stdio.printf !"%{sexp: t}\n%!" t;
       [%expect
         {|
     ((snake
@@ -241,9 +242,9 @@ let%test_module _ =
          ((col 1) (row 0))))))
      (apple ((location ((col 0) (row 0))))) (game_state In_progress) (height 2)
      (width 3) (amount_to_grow 3)) |}];
-      set_direction t Down;
+      set_direction t Direction.Down;
       step_n_times t 1;
-      Stdio.print_s ([%sexp_of: t] t);
+      Stdio.printf !"%{sexp: t}\n%!" t;
       [%expect
         {|
     ((snake

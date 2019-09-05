@@ -34,7 +34,7 @@ let%test_module _ =
   (module struct
     let%expect_test "Testing [create]..." =
       let t = create ~length:5 in
-      Stdio.print_s ([%sexp_of: t] t);
+      Stdio.printf !"%{sexp: t}\n%!" t;
       [%expect
         {|
         ((direction Right) (extensions_left 0)
@@ -45,7 +45,7 @@ let%test_module _ =
 
     let%expect_test "Testing [grow_over_next_steps]..." =
       let t = grow_over_next_steps (create ~length:5) 5 in
-      Stdio.print_s ([%sexp_of: t] t);
+      Stdio.printf !"%{sexp: t}\n%!" t;
       [%expect
         {|
         ((direction Right) (extensions_left 5)
@@ -56,7 +56,7 @@ let%test_module _ =
 
     let%expect_test "Testing [locations]..." =
       let t = create ~length:5 in
-      Stdio.print_s ([%sexp_of: Position.t list] (locations t));
+      Stdio.printf !"%{sexp: Position.t list}\n%!" (locations t);
       [%expect
         {|
         (((col 4) (row 0)) ((col 3) (row 0)) ((col 2) (row 0)) ((col 1) (row 0))
@@ -65,13 +65,13 @@ let%test_module _ =
 
     let%expect_test "Testing [head_location]..." =
       let t = create ~length:5 in
-      Stdio.print_s ([%sexp_of: Position.t] (head_location t));
+      Stdio.printf !"%{sexp: Position.t}\n%!" (head_location t);
       [%expect {| ((col 4) (row 0)) |}]
     ;;
 
     let%expect_test "Testing [set_direction]..." =
-      let t = set_direction (create ~length:5) Up in
-      Stdio.print_s ([%sexp_of: t] t);
+      let t = set_direction (create ~length:5) Direction.Up in
+      Stdio.printf !"%{sexp: t}\n%!" t;
       [%expect
         {|
         ((direction Up) (extensions_left 0)
@@ -90,7 +90,7 @@ let%test_module _ =
     let%expect_test "Testing [step]..." =
       let t = create ~length:5 in
       let t = step_n_times t 5 in
-      Stdio.print_s ([%sexp_of: t option] t);
+      Stdio.printf !"%{sexp: t option}\n%!" t;
       [%expect
         {|
         (((direction Right) (extensions_left 0)
@@ -102,7 +102,7 @@ let%test_module _ =
     let%expect_test "Testing [step] with growth..." =
       let t = grow_over_next_steps (create ~length:5) 5 in
       let t = step_n_times t 5 in
-      Stdio.print_s ([%sexp_of: t option] t);
+      Stdio.printf !"%{sexp: t option}\n%!" t;
       [%expect
         {|
         (((direction Right) (extensions_left 0)
@@ -117,9 +117,9 @@ let%test_module _ =
         create ~length:5
         |> fun t ->
         grow_over_next_steps t 5
-        |> fun t -> set_direction t Up |> fun t -> step_n_times t 5
+        |> fun t -> set_direction t Direction.Up |> fun t -> step_n_times t 5
       in
-      Stdio.print_s ([%sexp_of: t option] t);
+      Stdio.printf !"%{sexp: t option}\n%!" t;
       [%expect
         {|
         (((direction Up) (extensions_left 0)
@@ -141,16 +141,16 @@ let%test_module _ =
         |> fun t ->
         step_n_times t 1
         |> fun t ->
-        set_direction_if_some t Up
+        set_direction_if_some t Direction.Up
         |> fun t ->
         step_n_times t 1
         |> fun t ->
-        set_direction_if_some t Left
+        set_direction_if_some t Direction.Left
         |> fun t ->
         step_n_times t 1
-        |> fun t -> set_direction_if_some t Right |> fun t -> step_n_times t 1
+        |> fun t -> set_direction_if_some t Direction.Right |> fun t -> step_n_times t 1
       in
-      Stdio.print_s ([%sexp_of: t option] t);
+      Stdio.printf !"%{sexp: t option}\n%!" t;
       [%expect {| () |}]
     ;;
   end)
