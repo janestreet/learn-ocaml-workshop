@@ -11,7 +11,7 @@ type t =
 [@@deriving sexp_of]
 
 (* TODO: Implement [in_bounds]. *)
-let in_bounds t { Position.row; col } = failwith "For you to implement"
+let in_bounds t position = failwith "For you to implement"
 
 (* TODO: Implement [create].
 
@@ -34,8 +34,10 @@ let set_direction t direction = ()
 
    [step] should:
    - move the snake forward one square
-   - check for collisions
-   - consume and regenerate apple, if necessary *)
+   - check for collisions (end the game with "Wall collision" or "Self collision")
+   - if necessary:
+     -- consume apple
+     -- if apple cannot be regenerated, win game; otherwise, grow the snake *)
 let step t = ()
 
 module For_testing = struct

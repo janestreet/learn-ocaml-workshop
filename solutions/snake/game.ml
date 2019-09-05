@@ -44,8 +44,10 @@ let set_direction t direction = t.snake <- Snake.set_direction t.snake direction
 
    [step] should:
    - move the snake forward one square
-   - check for collisions
-   - consume and regenerate apple, if necessary *)
+   - check for collisions (end the game with "Wall collision" or "Self collision")
+   - if necessary:
+     -- consume apple
+     -- if apple cannot be regenerated, win game; otherwise, grow the snake *)
 let maybe_consume_apple t head =
   if not ([%compare.equal: Position.t] head (Apple.location t.apple))
   then ()

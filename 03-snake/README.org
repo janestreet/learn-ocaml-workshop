@@ -64,15 +64,15 @@
   - [[file:lib/snake.ml][snake.ml]]
   - [[file:lib/game.ml][game.ml]]
 
-  To compile the tests, run:
+  To compile the tests, run (from the root directory of the snake project):
 
   #+BEGIN_SRC bash
   $ dune runtest
   #+END_SRC
 
-  To run the game, run:
+  To run the game, run (from the root directory of the snake project):
   #+BEGIN_SRC bash
-  $ dune exec bin/lumines.exe
+  $ dune exec bin/snake.exe
   #+END_SRC
 
 * Order of Implementation

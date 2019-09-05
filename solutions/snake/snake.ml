@@ -48,7 +48,7 @@ let set_direction t direction = { t with direction }
 
    [step] should:
    - move the snake forward one block, growing it and updating [t.locations] if necessary
-   - check for collisions *)
+   - check for self collisions *)
 let remove_last_elt lst =
   match List.rev lst with
   | [] -> []

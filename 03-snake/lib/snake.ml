@@ -41,5 +41,5 @@ let set_direction t direction = failwith "For you to implement"
 
    [step] should:
    - move the snake forward one block, growing it and updating [t.locations] if necessary
-   - check for collisions *)
+   - check for self collisions *)
 let step t = failwith "For you to implement"
