@@ -83,6 +83,7 @@
    - [ ] [[file:lib/apple.ml][apple.ml]]: [create]
    - [ ] [[file:lib/snake.ml][snake.ml]]: [create]
    - [ ] [[file:lib/snake.ml][snake.ml]]: [locations]
+   - [ ] [[file:lib/game.ml][game.ml]]: [in_bounds]
    - [ ] [[file:lib/game.ml][game.ml]]: [create]
 
    At the end of phase 1, you should be able to see the initial board
@@ -92,7 +93,6 @@
    - [ ] [[file:lib/snake.ml][snake.ml]]: [grow_over_next_steps]
    - [ ] [[file:lib/snake.ml][snake.ml]]: [head_location]
    - [ ] [[file:lib/snake.ml][snake.ml]]: [set_direction] 
-   - [ ] [[file:lib/game.ml][game.ml]]: [in_bounds]
    - [ ] [[file:lib/game.ml][game.ml]]: [set_direction]
    - [ ] [[file:lib/direction.ml][direction.ml]]: [next_position]
 
