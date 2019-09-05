@@ -28,8 +28,8 @@ let simpler_product xs = failwith "For you to implement"
    applying some function [f] to every element of the list.
 
    Let's write a function that takes in an int list and transforms it into a
-   float list.  *)
-
+   float list. (Hint: you can cast an int to a float using [Float.of_int].) *)
+                       
 let float_of_int xs = failwith "For you to implement"
 
 (** ========== [List.init] ========== **)

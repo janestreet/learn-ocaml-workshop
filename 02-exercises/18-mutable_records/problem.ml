@@ -41,9 +41,10 @@ let an_example : stoplight =
    Inspect the type of [set_color]. *)
 let set_color stoplight color = stoplight.color <- color
 
-(* Since we know that stoplights always go from [Green] to [Yellow], [Yellow] to
-   [Red], and [Red] to [Green], we can just write a function to advance the
-   color of the light without taking an input color. *)
+(* For this exercise, assume that stoplights always transition from [Green] to
+   [Yellow], [Yellow] to [Red], and [Red] to [Green]. Since we know this is the
+   only transition, we can just write a function to advance the color of the
+   light without taking an input color. *)
 let advance_color stoplight = failwith "For you to implement"
 
 module For_testing = struct

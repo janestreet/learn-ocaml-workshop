@@ -16,7 +16,7 @@ open! Base
 
    We can query for the length of an array with [length]:
 
-   {| val length : 'a array - int |}
+   {| val length : 'a array -> int |}
 
    We can access a value at a given index in an array using [get]:
 
@@ -54,7 +54,7 @@ let () =
 
    Let's implement a function [double] using [Array.iteri], which takes an [int
    array] and doubles each element of the array in place. *)
-let double array = failwith "For you to implement"
+let double array : unit = failwith "For you to implement"
 
 let%test "Testing double..." = 
   let array = [| 1; 1; 1 |] in
@@ -72,7 +72,7 @@ let%test "Testing double..." =
 
 (* Write a function that takes an [int array] and a list of indicies and
    doubles each of the elements at the specified indices. *)
-let double_selectively array indices = failwith "For you to implement"
+let double_selectively array indices : unit = failwith "For you to implement"
 
 let%test "Testing double_selectively..." = 
   let array = [| 1; 1; 1 |] in
@@ -103,7 +103,7 @@ let () =
 
 (* Write a function that takes an [int array array] and doubles each of the
    elements at the specified indices. *)
-let double_matrix matrix = failwith "For you to implement"
+let double_matrix matrix : unit = failwith "For you to implement"
 
 let%test "Testing double_matrix..." = 
   let matrix = [| [| 1; 2; 3 |]; [| 1; 1; 1 |] |] in
