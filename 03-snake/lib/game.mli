@@ -8,10 +8,9 @@ type t
 val create
   :  height:int
   -> width:int
-  -> initial_snake_length:
-       int
-       (* [amount_to_grow] is the amount the snake's length should increase by
-          each time it eats an apple. *)
+  -> initial_snake_length:int
+  (* [amount_to_grow] is the amount the snake's length should increase by
+     each time it eats an apple. *)
   -> amount_to_grow:int
   -> t
 

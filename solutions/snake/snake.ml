@@ -3,54 +3,68 @@ open! Base
 type t =
   { (* [direction] represents the orientation of the snake's head. *)
     direction : Direction.t
-  ; (* [extensions_left] represents how many more times we should extend the
+  ; (* [extensions_remaining] represents how many more times we should extend the
        snake. *)
-    extensions_left : int
+    extensions_remaining : int
   ; (* [locations] represents the current set of squares that the snake
        occupies. *)
     locations : Position.t list
   }
 [@@deriving sexp_of]
 
-(* TODO: implement [create] *)
+(* TODO: Implement [create].
+
+   Note that at the beginning of the game, the snake will not need to grow at all, so
+   [extensions_remaining] should be initialized to 0. *)
 let create ~length =
   { direction = Right
-  ; extensions_left = 0
+  ; extensions_remaining = 0
   ; locations = List.init length ~f:(fun col -> { Position.row = 0; col }) |> List.rev
   }
 ;;
 
-(* TODO: implement [grow_over_next_steps] *)
+(* TODO: Implement [grow_over_next_steps].
+
+   Read over the documentation of this function in the mli.
+
+   Notice that this function should not actually grow the snake, but only record that we
+   should grow the snake one block for the next [by_how_much] squares. *)
 let grow_over_next_steps t by_how_much =
-  { t with extensions_left = t.extensions_left + by_how_much }
+  { t with extensions_remaining = t.extensions_remaining + by_how_much }
 ;;
 
-(* TODO: implement [locations] *)
+(* TODO: Implement [locations]. *)
 let locations t = t.locations
 
-(* TODO: implement [head_location] *)
+(* TODO: Implement [head_location]. *)
 let head_location t = List.hd_exn t.locations
 
-(* TODO: implement [set_direction] *)
+(* TODO: Implement [set_direction]. *)
 let set_direction t direction = { t with direction }
 
+(* TODO: Implement [step].
+
+   Read over the documentation of this function in the mli.
+
+   [step] should:
+   - move the snake forward one block, growing it and updating [t.locations] if necessary
+   - check for collisions *)
 let remove_last_elt lst =
   match List.rev lst with
   | [] -> []
   | _ :: xs -> List.rev xs
 ;;
 
-(* TODO: implement [step] *)
-let step ({ direction; extensions_left; locations } as t) =
-  let body, extensions_left =
-    if extensions_left > 0
-    then locations, extensions_left - 1
-    else remove_last_elt locations, extensions_left
+let step ({ direction; extensions_remaining; locations } as t) =
+  let body, extensions_remaining =
+    if extensions_remaining > 0
+    then locations, extensions_remaining - 1
+    else remove_last_elt locations, extensions_remaining
   in
   let new_head = Direction.next_position direction (head_location t) in
   match List.mem body new_head ~equal:[%compare.equal: Position.t] with
   | true -> None
-  | false -> Some { t with locations = new_head :: body; extensions_left }
+  | false -> Some { t with locations = new_head :: body; extensions_remaining }
 ;;
 
 let%test_module _ =
@@ -60,7 +74,7 @@ let%test_module _ =
       Stdio.printf !"%{sexp: t}\n%!" t;
       [%expect
         {|
-        ((direction Right) (extensions_left 0)
+        ((direction Right) (extensions_remaining 0)
          (locations
           (((col 4) (row 0)) ((col 3) (row 0)) ((col 2) (row 0)) ((col 1) (row 0))
            ((col 0) (row 0))))) |}]
@@ -71,7 +85,7 @@ let%test_module _ =
       Stdio.printf !"%{sexp: t}\n%!" t;
       [%expect
         {|
-        ((direction Right) (extensions_left 5)
+        ((direction Right) (extensions_remaining 5)
          (locations
           (((col 4) (row 0)) ((col 3) (row 0)) ((col 2) (row 0)) ((col 1) (row 0))
            ((col 0) (row 0))))) |}]
@@ -97,7 +111,7 @@ let%test_module _ =
       Stdio.printf !"%{sexp: t}\n%!" t;
       [%expect
         {|
-        ((direction Up) (extensions_left 0)
+        ((direction Up) (extensions_remaining 0)
          (locations
           (((col 4) (row 0)) ((col 3) (row 0)) ((col 2) (row 0)) ((col 1) (row 0))
            ((col 0) (row 0))))) |}]
@@ -116,7 +130,7 @@ let%test_module _ =
       Stdio.printf !"%{sexp: t option}\n%!" t;
       [%expect
         {|
-        (((direction Right) (extensions_left 0)
+        (((direction Right) (extensions_remaining 0)
           (locations
            (((col 9) (row 0)) ((col 8) (row 0)) ((col 7) (row 0)) ((col 6) (row 0))
             ((col 5) (row 0)))))) |}]
@@ -128,7 +142,7 @@ let%test_module _ =
       Stdio.printf !"%{sexp: t option}\n%!" t;
       [%expect
         {|
-        (((direction Right) (extensions_left 0)
+        (((direction Right) (extensions_remaining 0)
           (locations
            (((col 9) (row 0)) ((col 8) (row 0)) ((col 7) (row 0)) ((col 6) (row 0))
             ((col 5) (row 0)) ((col 4) (row 0)) ((col 3) (row 0)) ((col 2) (row 0))
@@ -145,7 +159,7 @@ let%test_module _ =
       Stdio.printf !"%{sexp: t option}\n%!" t;
       [%expect
         {|
-        (((direction Up) (extensions_left 0)
+        (((direction Up) (extensions_remaining 0)
           (locations
            (((col 4) (row 5)) ((col 4) (row 4)) ((col 4) (row 3)) ((col 4) (row 2))
             ((col 4) (row 1)) ((col 4) (row 0)) ((col 3) (row 0)) ((col 2) (row 0))

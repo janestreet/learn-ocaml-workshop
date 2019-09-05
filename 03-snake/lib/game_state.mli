@@ -7,5 +7,5 @@ type t =
   | Win
 [@@deriving sexp_of]
 
-(** [to_string] returns a pretty-prints the current game state into a string. *)
+(** [to_string] pretty-prints the current game state into a string. *)
 val to_string : t -> string

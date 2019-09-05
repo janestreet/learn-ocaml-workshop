@@ -34,6 +34,6 @@ val head_location : t -> Position.t
     time [step] is called. *)
 val set_direction : t -> Direction.t -> t
 
-(** [step] moves the snake forward by 1. Returns [None] if the snake collided
+(** [step] moves the snake forward by 1. [step] returns [None] if the snake collided
     with itself. *)
 val step : t -> t option
