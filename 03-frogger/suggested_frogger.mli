@@ -5,8 +5,9 @@ module Direction : sig
 end
 
 module Frog : sig
-  type t 
-  val facing   : t -> Direction.t
+  type t
+
+  val facing : t -> Direction.t
   val position : t -> Position.t
 end
 
@@ -19,8 +20,8 @@ module Non_frog_character : sig
 
   type t
 
-  val kind             : t -> Kind.t
-  val position         : t -> Position.t
+  val kind : t -> Kind.t
+  val position : t -> Position.t
 
   (** In units of grid-points/tick. Positive values indicate rightward motion,
      negative values leftward motion. *)
@@ -39,15 +40,12 @@ module World : sig
 
   val frog : t -> Frog.t
   val nfcs : t -> Non_frog_character.t list
-
   val state : t -> Game_state.t
 end
 
-val create       : unit -> World.t
-val tick         : World.t -> World.t
+val create : unit -> World.t
+val tick : World.t -> World.t
 val handle_input : World.t -> Key.t -> World.t
 val handle_event : World.t -> Event.t -> World.t
-val draw         : World.t -> Display_list.t
-val finished     : World.t -> bool
-
-
+val draw : World.t -> Display_list.t
+val finished : World.t -> bool

@@ -24,7 +24,6 @@ module Widget : sig
   val vertical_group : t list -> t
 end
 
-
 module User_input : sig
   type t =
     | Ctrl_c
@@ -38,9 +37,7 @@ end
 (** [with_rendering f] will start rendering to the terminal, and
     will return a pipe for reading user input, as well as a [t].
     When [f] becomes determined, the screen rendering will end.  *)
-val with_rendering
-  :  ((User_input.t Pipe.Reader.t * t) -> 'a Deferred.t)
-  -> 'a Deferred.t
+val with_rendering : (User_input.t Pipe.Reader.t * t -> 'a Deferred.t) -> 'a Deferred.t
 
 (** [screen_dimensions t] returns the terminal dimensions that were
     determined when [with_rendering] was invoked. *)

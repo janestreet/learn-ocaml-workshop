@@ -21,9 +21,8 @@ module Sweeper_state : sig
 end
 
 type t =
-  { color :
-      Color.t
-  (* recall from our earlier exercise, by marking this as mutable we can change it in
+  { color : Color.t
+        (* recall from our earlier exercise, by marking this as mutable we can change it in
      place rather than making a new one every time the state updates *)
   ; mutable sweeper_state : Sweeper_state.t
   }

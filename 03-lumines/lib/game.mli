@@ -5,9 +5,8 @@ type t =
   { board : Board.t
   ; height : int
   ; width : int
-  ; mutable moving_piece :
-      Moving_piece.t
-  (* we will choose the bottom left corner to be the block we refer to the piece by *)
+  ; mutable moving_piece : Moving_piece.t
+        (* we will choose the bottom left corner to be the block we refer to the piece by *)
   ; mutable moving_piece_col : int
   ; mutable moving_piece_row : int
   ; game_over : bool ref
