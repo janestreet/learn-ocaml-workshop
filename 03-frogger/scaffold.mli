@@ -8,7 +8,6 @@
 
 (** The playable area of the screen will be referred to as the [board]. *)
 module Board : sig
-
   (** Every row of the game board is one of these three kinds. *)
   module Row : sig
     type t =
@@ -28,7 +27,8 @@ module Position : sig
   type t =
     { x : int
     ; y : int
-    } [@@deriving fields, sexp]
+    }
+  [@@deriving fields, sexp]
 
   val create : x:int -> y:int -> t
 end
@@ -40,18 +40,15 @@ module Image : sig
     | Frog_down
     | Frog_left
     | Frog_right
-
     | Car1_left
     | Car1_right
     | Car2_left
     | Car2_right
     | Car3_left
     | Car3_right
-
     | Log1
     | Log2
     | Log3
-
     | Confetti
     | Skull_and_crossbones
   [@@deriving sexp, variants]
@@ -78,7 +75,7 @@ end
 
 module Event : sig
   type t =
-    | Tick     
+    | Tick
     | Keypress of Key.t
 end
 

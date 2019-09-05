@@ -2,6 +2,6 @@ open! Core
 open! Async
 
 type t =
-  { width  : int
+  { width : int
   ; height : int
   }
