@@ -27,7 +27,7 @@ let mark_squares_that_are_sweepable t =
 let remove_squares t =
   (* TODO: remove any squares marked as [Swept] from the board.  Gravity should
      be applied appropriately. This is the function that is called by the
-     [Sweeper.t] to clear squares frmo the board.
+     [Sweeper.t] to clear squares from the board.
 
      At the end of this function, we should call
      [mark_squares_that_are_sweepable] so that we ensure that we leave the board
@@ -51,14 +51,14 @@ let is_empty t point =
 ;;
 
 (* Tests *)
-let is_filled_with_color t ~row ~col color = 
-  match get t { Point. row; col} with
+let is_filled_with_color t ~row ~col color =
+  match get t { Point.row; col } with
   | None -> false
   | Some square -> Color.equal color square.color
 ;;
 
-let is_marked t ~row ~col = 
-  match get t { Point. row; col} with
+let is_marked t ~row ~col =
+  match get t { Point.row; col } with
   | None -> false
   | Some square ->
     Filled_square.Sweeper_state.equal
@@ -66,15 +66,15 @@ let is_marked t ~row ~col =
       Filled_square.Sweeper_state.To_sweep
 ;;
 
-let test_piece = 
-  { Moving_piece. top_left = Filled_square.create (Color.Orange)
-  ; top_right = Filled_square.create (Color.White)
-  ; bottom_left = Filled_square.create (Color.White)
-  ; bottom_right = Filled_square.create (Color.White)
+let test_piece =
+  { Moving_piece.top_left = Filled_square.create Color.Orange
+  ; top_right = Filled_square.create Color.White
+  ; bottom_left = Filled_square.create Color.White
+  ; bottom_right = Filled_square.create Color.White
   }
 ;;
 
-let%test "Testing add_piece_and_apply_gravity add one..." = 
+let%test "Testing add_piece_and_apply_gravity add one..." =
   let t = create ~height:4 ~width:4 in
   add_piece_and_apply_gravity t ~moving_piece:test_piece ~col:0
   && is_filled_with_color t ~row:0 ~col:0 Color.White
@@ -85,16 +85,16 @@ let%test "Testing add_piece_and_apply_gravity add one..." =
 
 let%test "Testing add_piece_and_apply_gravity add many..." =
   let t = create ~height:4 ~width:4 in
-  (add_piece_and_apply_gravity t ~moving_piece:test_piece ~col:0)
-  && (add_piece_and_apply_gravity t ~moving_piece:test_piece ~col:0)
-  && (not (add_piece_and_apply_gravity t ~moving_piece:test_piece ~col:0))
+  add_piece_and_apply_gravity t ~moving_piece:test_piece ~col:0
+  && add_piece_and_apply_gravity t ~moving_piece:test_piece ~col:0
+  && not (add_piece_and_apply_gravity t ~moving_piece:test_piece ~col:0)
 ;;
 
-let test_removable_piece = 
-  { Moving_piece. top_left = Filled_square.create (Color.White)
-  ; top_right = Filled_square.create (Color.White)
-  ; bottom_left = Filled_square.create (Color.White)
-  ; bottom_right = Filled_square.create (Color.White)
+let test_removable_piece =
+  { Moving_piece.top_left = Filled_square.create Color.White
+  ; top_right = Filled_square.create Color.White
+  ; bottom_left = Filled_square.create Color.White
+  ; bottom_right = Filled_square.create Color.White
   }
 ;;
 
@@ -103,22 +103,20 @@ let%test "Testing mark_squares_that_are_sweepable..." =
   assert (add_piece_and_apply_gravity t ~moving_piece:test_removable_piece ~col:0);
   assert (add_piece_and_apply_gravity t ~moving_piece:test_piece ~col:0);
   mark_squares_that_are_sweepable t;
-  is_marked t ~row:0 ~col:0 
+  is_marked t ~row:0 ~col:0
   && is_marked t ~row:0 ~col:1
   && is_marked t ~row:1 ~col:0
   && is_marked t ~row:1 ~col:1
   && is_marked t ~row:2 ~col:0
   && is_marked t ~row:2 ~col:1
-  && not (is_marked t ~row:3 ~col:0)
+  && (not (is_marked t ~row:3 ~col:0))
   && not (is_marked t ~row:3 ~col:1)
 ;;
 
-let sweep_board t = 
-  Array.iter t.board
-    ~f:(fun row ->
-        Array.iter row ~f:(fun square -> 
-            Option.iter square
-              ~f:(fun square -> ignore (Filled_square.sweep square))))
+let sweep_board t =
+  Array.iter t.board ~f:(fun row ->
+      Array.iter row ~f:(fun square ->
+          Option.iter square ~f:(fun square -> ignore (Filled_square.sweep square))))
 ;;
 
 let%test "Testing Remove_squares..." =
