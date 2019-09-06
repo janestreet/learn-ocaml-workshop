@@ -8,9 +8,7 @@ module Sweeper_state = struct
 
   let equal t1 t2 =
     match t1, t2 with
-    | Unmarked, Unmarked
-    | To_sweep, To_sweep
-    | Swept, Swept -> true
+    | Unmarked, Unmarked | To_sweep, To_sweep | Swept, Swept -> true
     | _ -> false
   ;;
 end
@@ -33,6 +31,5 @@ let sweep t =
 ;;
 
 let equal t1 t2 =
-  Color.equal t1.color t2.color
-  && Sweeper_state.equal t1.sweeper_state t2.sweeper_state
+  Color.equal t1.color t2.color && Sweeper_state.equal t1.sweeper_state t2.sweeper_state
 ;;

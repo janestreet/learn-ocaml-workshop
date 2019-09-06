@@ -1,13 +1,13 @@
 open Base
 
-(* We have a simple colors scheme with two colors: Orange and white *)
+(* We have a simple color scheme with two colors: Orange and White. *)
 type t =
   | Orange
   | White
 
-(* compares two colors. returns 0 if they are the same *)
+(* [compare] compares two colors, returning 0 if they are the same. *)
 val compare : t -> t -> int
 
-(* get a random color *)
+(* [random] returns a random color. *)
 val random : unit -> t
 val equal : t -> t -> bool

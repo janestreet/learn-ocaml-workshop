@@ -16,9 +16,14 @@ developing in OCaml.
   # Look at test output and compiler errors, edit problem.ml, rerun:
   dune runtest
   #+END_SRC
-* Frogger
-  Once you're done with the exercises, you will implement a simplified clone of
-  the classic arcade game Frogger.
+* Lumines and Frogger
+  Once you're done with the exercises, you can also implement the block-dropping
+  game Lumines, which will run on your desktop.
+  
+  See the [[file:03-lumines][lumines README]] to get started!
+
+  You can also implement a simplified clone of the classic arcade game Frogger
+  in your web browser.
 
   See the [[file:03-frogger][frogger README]] to get started!
 * ~Async~

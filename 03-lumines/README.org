@@ -1,0 +1,139 @@
+#+TITLE: Lumines
+
+* Introduction
+  Lumines is a block-dropping game similar to Tetris, where the player uses 2x2
+  tetrominos containing tiles of two different colors to attempt to make
+  completely filled rectangular shapes of the same color on the playing field,
+  with larger shapes earning more points.
+
+  Like Tetris, Lumines proceeds via clock events called "ticks". At every tick,
+  the currently active block moves down one row, if it can. If it can't move
+  down, it becomes affixed to the board, and a new piece is generated at the top
+  of the board. The game ends when the game board is in an invalid state after a
+  tick. 
+
+  Users can interact with the game by shifting, rotating, or dropping the block. 
+  The controls are:
+  - [w] -> rotate left (counterclockwise)
+  - [s] -> rotate right (clockwise)
+  - [a] -> shift left
+  - [d] -> shift right
+  - [space] -> drop to bottom
+
+  For this exercise, we have implemented an event-loop that drives the game and
+  handles keyboard input, a graphic module that deals with rendering the game
+  onto the screen, and the logic for handling the "sweeper" for the game.
+  
+  You will have to implement the logic that keeps the game state correct and
+  updates things based on those inputs!
+  
+  Feel free to play around with the working solutions demo before getting
+  started. It will be helpful to understand the game's mechanisms when working
+  on these exercises!
+  
+* Code Overview
+  We have implemented a simple event-loop that drives the game and handles
+  graphic rendering as well as keyboard input in [[file:bin/lumines.ml][lumines.ml]]. Feel free to take a
+  look to get a sense of how the game engine works under the hood. 
+
+  Here, we provide an overview of some important parts of the code. Even for the
+  files that we don't cover here, it might be helpful to glance at its interface
+  file to get a better sense of all of the pieces.
+
+** ~Filled_square.t~
+   A [Filled_square.t] represents a square on the board that is currently
+   occupied by a square. Make sure to read over [[file:lib/filled_square.mli][filled_square.mli]] and
+   familiarize yourself with the different states of a [Filled_square.t] and
+   what they represent.
+
+** ~Sweeper.t~
+   A [Sweeper.t] contains the driving logic for clearing the board. It is
+   already implemented, and will take care of calling the functions that will
+   remove squares from the board. Go ahead and glance at [[file:lib/sweeper.mli][sweeper.mli]] to see its
+   interface.
+
+** ~Board.t~ 
+   A [Board.t] represents the grid of squares that constitutes the main plaing
+   area, in which blocks can move around. It also contains the "landscape" of
+   blocks that have fallen to the bottom and become affixed. 
+
+   A board is implemented as a 2-dimensional array containing [Filled_square.t
+   option]s, which are [None] if the square is empty, and otherwise [Some
+   filled_square]. 
+
+   Make sure to take a look at [[file:lib/board.mli][board.mli]] to understand its structure.
+   
+** ~Moving_piece.t~
+   A [Moving_piece.t] is a single tetromino (2x2 block) that is currently
+   "active" (i.e. moving down) on the board. It will handle the logic for
+   rotating the block.
+
+   Make sure to take a look at [[file:lib/moving_piece.mli][moving_piece.mli]] to understand its structure.
+
+** ~Game.t~
+   A [Game.t] represents the entire game state, including the current
+   [moving_piece] and its position relative to the board, the [board], and some
+   additional metadata. It handles the movement of the [moving_piece] relative
+   to the board. It also holds a [Sweeper.t].
+
+   Make sure to take a look at [[file:lib/game.mli][game.mli]] to understand its structure.
+
+   Please note! [Game.t] treats the origin of the [Board.t] as the lower left
+   corner!
+
+* Getting Started
+  The functions for you to implement are in
+  - [[file:lib/moving_piece.ml][moving_piece.ml]]
+  - [[file:lib/board.ml][board.ml]]
+  - [[file:lib/game.ml][game.ml]]
+  
+  To compile the tests, run:
+  #+BEGIN_SRC bash
+  $ dune runtest
+  #+END_SRC
+  
+  To run the game, run: 
+  #+BEGIN_SRC bash
+  $ dune exec bin/lumines.exe
+  #+END_SRC
+  
+* Order of Implementation
+   A suggested ordering for working through this (though feel free to do in a
+   different order if you prefer) is:
+   
+** Phase 1: Piece rotation
+    - [ ]  [[file:lib/moving_piece.ml][moving_piece.ml]]: [rotate_left]
+    - [ ]  [[file:lib/moving_piece.ml][moving_piece.ml]]: [rotate_right]
+    
+    You can test the functions in phase 1 by running the game and rotating the piece
+    even if you don't yet have a way to move the piece on the board.
+    
+** Phase 2: Game progression
+    - [ ]  [[file:lib/board.ml][board.ml]]: [add_piece_and_apply_gravity]
+    - [ ]  [[file:lib/game.ml][game.ml]]: [tick]
+   
+    Once you have these two functions, you'll be able run the game and see pieces fall 
+    down on the board.
+   
+** Phase 3: Piece movement
+    - [ ]  [[file:lib/game.ml][game.ml]]: [can_move]
+    - [ ]  [[file:lib/game.ml][game.ml]]: [move_left]
+    - [ ]  [[file:lib/game.ml][game.ml]]: [move_right]
+    - [ ]  [[file:lib/game.ml][game.ml]]: [drop]
+    
+    After completing phase 3, you can run the game and move pieces around.
+    
+** Phase 4: Clearing lines
+    - [ ]  [[file:lib/board.ml][board.ml]]: [mark_squares_that_are_sweepable]
+    - [ ]  [[file:lib/board.ml][board.ml]]: [remove_squares]
+  
+    You should now be able to play lumines!
+
+* Extensions
+  Once your game is working, there are many fun extensions that you can try to implement!
+  
+  Some examples, for inspiration:
+  - calculate and display a score
+  - make the game speed up over time
+  - change the color scheme after a certain number of blocks have been cleared
+  - add blocks that have different abilities (e.g. one that clears adjacent blocks)

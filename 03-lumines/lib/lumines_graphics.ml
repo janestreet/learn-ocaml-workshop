@@ -1,4 +1,4 @@
-open Base 
+open Base
 open! Import
 
 let only_one : bool ref = ref false
@@ -33,12 +33,12 @@ let filled_square_to_rgb (filled_square : Filled_square.t) =
 let draw_part filled_square ~from =
   (* Make things look pretty *)
   (match filled_square.Filled_square.sweeper_state with
-   | To_sweep | Swept ->
-     Point.For_drawing.fill_rect
-       Graphics.(rgb 198 197 196)
-       from
-       (Point.add from part_size)
-   | Unmarked -> ());
+  | To_sweep | Swept ->
+    Point.For_drawing.fill_rect
+      Graphics.(rgb 198 197 196)
+      from
+      (Point.add from part_size)
+  | Unmarked -> ());
   Point.For_drawing.fill_rect
     (filled_square_to_rgb filled_square)
     (Point.add from { Point.col = 2; row = 2 })

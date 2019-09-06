@@ -29,7 +29,7 @@ let step t =
           | None -> acc
           | Some filled_square -> Filled_square.sweep filled_square || acc)
     in
-    if not more_marked || t.cur_pos = steps then Board.remove_squares t.board);
+    if (not more_marked) || t.cur_pos = steps then Board.remove_squares t.board);
   (* advance sweeper *)
   if t.cur_pos < steps then t.cur_pos <- t.cur_pos + 1 else t.cur_pos <- 0
 ;;
