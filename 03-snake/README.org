@@ -3,14 +3,18 @@
 * Introduction
   Snake is a video game where the player maneuvers a line (the snake)
   around a screen. The goal is to grow the snake's length by eating
-  apples that are randomly generated on the screen.
+  apples that are randomly generated on the screen. 
 
-  The snake constantly moves forward. Users can interact with the game by
-  changing the direction of the snake. The controls are:
+  The snake constantly moves forward. Users can interact with the game
+  by changing the direction of the snake. The controls are:
   - [w] -> go up
   - [s] -> go down
   - [a] -> go left
   - [d] -> go right
+
+  The player loses if the snake collides with the walls or itself. The
+  player wins if the snake fills the entire screen, so that no apples
+  can be generated.
 
   For this exercise, we have implemented an event-loop that drives the
   game and handles keyboard input and a graphic module that deals with
