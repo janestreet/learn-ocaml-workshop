@@ -35,7 +35,7 @@ let coords ~bottom_left:{ Point.col; row } : Point.t list =
   ]
 ;;
 
-let equal t1 t2 = 
+let equal t1 t2 =
   Filled_square.equal t1.top_left t2.top_left
   && Filled_square.equal t1.top_right t2.top_right
   && Filled_square.equal t1.bottom_left t2.bottom_left
@@ -43,37 +43,37 @@ let equal t1 t2 =
 ;;
 
 (* Tests *)
-let%test "Testing Rotate Right..." = 
-  let piece = 
-    { top_left = Filled_square.create (Color.Orange)
-    ; top_right = Filled_square.create (Color.White)
-    ; bottom_left = Filled_square.create (Color.White)
-    ; bottom_right = Filled_square.create (Color.White)
+let%test "Testing Rotate Right..." =
+  let piece =
+    { top_left = Filled_square.create Color.Orange
+    ; top_right = Filled_square.create Color.White
+    ; bottom_left = Filled_square.create Color.White
+    ; bottom_right = Filled_square.create Color.White
     }
   in
-  let rotated = 
-    { top_left = Filled_square.create (Color.White)
-    ; top_right = Filled_square.create (Color.Orange)
-    ; bottom_left = Filled_square.create (Color.White)
-    ; bottom_right = Filled_square.create (Color.White)
+  let rotated =
+    { top_left = Filled_square.create Color.White
+    ; top_right = Filled_square.create Color.Orange
+    ; bottom_left = Filled_square.create Color.White
+    ; bottom_right = Filled_square.create Color.White
     }
   in
   equal (rotate_right piece) rotated
 ;;
 
-let%test "Testing Rotate Left..." = 
-  let piece = 
-    { top_left = Filled_square.create (Color.Orange)
-    ; top_right = Filled_square.create (Color.White)
-    ; bottom_left = Filled_square.create (Color.White)
-    ; bottom_right = Filled_square.create (Color.White)
+let%test "Testing Rotate Left..." =
+  let piece =
+    { top_left = Filled_square.create Color.Orange
+    ; top_right = Filled_square.create Color.White
+    ; bottom_left = Filled_square.create Color.White
+    ; bottom_right = Filled_square.create Color.White
     }
   in
-  let rotated = 
-    { top_left = Filled_square.create (Color.White)
-    ; top_right = Filled_square.create (Color.White)
-    ; bottom_left = Filled_square.create (Color.Orange)
-    ; bottom_right = Filled_square.create (Color.White)
+  let rotated =
+    { top_left = Filled_square.create Color.White
+    ; top_right = Filled_square.create Color.White
+    ; bottom_left = Filled_square.create Color.Orange
+    ; bottom_right = Filled_square.create Color.White
     }
   in
   equal (rotate_left piece) rotated

@@ -6,8 +6,7 @@ type t =
 
 let compare t1 t2 =
   match t1, t2 with
-  | White, White
-  | Orange, Orange -> 0
+  | White, White | Orange, Orange -> 0
   | White, Orange -> 1
   | Orange, White -> -1
 ;;

@@ -3,18 +3,18 @@ open Lib
 
 (* This is the core logic that actually runs the game.  We have implemented all
    of this for you, but feel free to read this as a reference.  *)
-   
+
 let every seconds ~f ~stop =
   let open Async in
   let open Core in
   let rec loop () =
     if !stop
     then return ()
-    else (
+    else
       Clock.after (Time.Span.of_sec seconds)
       >>= fun () ->
       f ();
-      loop ())
+      loop ()
   in
   don't_wait_for (loop ())
 ;;
