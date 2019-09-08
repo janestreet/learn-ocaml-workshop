@@ -1,30 +1,38 @@
 open! Base
 
-(* We use let to define functions.
+(* Recall from exercise 2 that we use [let] to define functions.
 
    Definitions take on the form:
-   let FUNCTION_NAME ARG1 ARG2 ... = BODY
 
-   In OCaml, outside of strings, whitespace and newlines are the same.
+   {| let FUNCTION_NAME ARG1 ARG2 ... = BODY |} 
 
-   So, you could also write
-   let  FUNCTION_NAME
-   ARG1
-   ARG2
-   =
-   BODY
-
-   and it's the same to the compiler.
-
-   For example, here we define a function add1 that takes a single int
-   argument and returns that argument plus 1.
-*)
+   For example, here we define a function [add1] that takes a single int
+   argument and returns that argument plus 1. *)
 let add1 arg = arg + 1
 
-(* This function uses the built-in ^ operator to append strings. *)
+(* [string_append] uses the built-in [( ^ )] operator to concatenate two
+   strings. *)
 let string_append x y = x ^ y
 
-(* Let's define our own functions using +, -, *, and / below. *)
+(* We can annotate a function definition with types as well. *)
+let add1_float (arg : float) : float = arg +. 1.
+
+(* In OCaml, outside of strings, whitespace and newlines are the same.
+
+   So, you could also write
+
+   {| 
+       let  FUNCTION_NAME
+       ARG1
+       ARG2
+       =
+       BODY
+   |}
+
+   and it's the same to the compiler. *)
+
+(* Let's define a few more functions below. Remember that you can see the
+   function signatures in the mli file. *)
 
 let plus x y = failwith "For you to implement"
 let times x y = failwith "For you to implement"

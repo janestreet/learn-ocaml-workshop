@@ -7,6 +7,10 @@ open! Base
    [int_average] and [float_average] in problem.ml have the type signatures
    written below.
 *)
+val four : int
+val float_four : float
+
+val first_name : string
 
 val int_average   : int   -> int   -> int
 val float_average : float -> float -> float

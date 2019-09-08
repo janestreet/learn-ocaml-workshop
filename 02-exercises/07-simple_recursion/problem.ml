@@ -1,22 +1,22 @@
 open! Base
 
-(* Remember that functions can call functions?
-   They can call themselves too. But only with a special keyword.
+(* Functions can call other functions. They can call themselves too, but only
+   with a special keyword.
 
-   First try to compile this. We see "Unbound value add_every_number_up_to".
+   First, try to compile this directory. What is the error that you see?
 
-   Now change "let" to "let rec" and recompile.
-*)
+   Now change [let] to [let rec] and recompile.
 
+   A function is only allowed to call itself if the [rec] flag is specified. *)
 let add_every_number_up_to x =
-  (* make sure we don't call this on negative numbers! *)
+  (* Make sure we don't call this on negative numbers! *)
   assert (x >= 0);
   match x with
   | 0 -> 0
   | _ -> x + add_every_number_up_to (x - 1)
 ;;
 
-(* Let's write a function to multiply every number up to x. Remember: [factorial 0] is 1 *)
+(* Now, let's write a function to take the product of every number up to [x]. *)
 let rec factorial x =
   assert (x >= 0);
   failwith "For you to implement"

@@ -1,38 +1,31 @@
 open! Base
 
-(* We can easily write a function that adds 1 to any number.
-   Recall that the infix operator (+) will add two integers.
-*)
-
+(* Write a function that adds 1 to an int. (This function may seem familiar!) *)
 let add1 x = failwith "For you to implement" 
 
-(* Let's write a function that squares its argument (multiplies it by itself) *)
+(* Now write a function that squares its argument. *)
 let square x = failwith "For you to implement"
 
-(* Functions are first class in OCaml. This means that you can take
-   a function and pass it around as an argument to other functions.
+(* Functions are "first class" in OCaml. This means that you can take a function
+   and pass it around as an argument to other functions. We call functions that
+   take other functions as arguments "higher order functions".
 
-   Let's write a function named twice: it will take a function and apply
-   that function to itself two times.
+   Let's write a function named [twice], which will take a function as its first
+   argument, and apply that function two times to its second argument.
 
-   For example, if we wanted to make an "add2" function, we could do it
-   by writing:
-   let add2 = twice add1
+   Hint: Remember that you can use parenthese or let bindings to order function
+   calls.  *)
+let twice f x = failwith "For you to implement"
 
-   It may be necessary to use parenthesis to specify which function is
-   applied to which value. E.g.
-   let add2 = add1 add1 x
-   will not compile, however
-   let add2 = add1 (add1 x)
-   will compile.
-*)
+(* Take a second to look at the function signature for [twice] in the mli
+   file. Note that the first argument of twice is a function, [f], which has
+   type [int -> int]. We had to wrap its type in parentheses when representing
+   it in the function signature. *)
 
-let twice f x = failwith "For you to implement" 
-
-(* Now that we have twice, write add2 and raise_to_the_fourth *)
-
-let add2 = failwith "For you to implement" (* Hint: use add1 *)
-let raise_to_the_fourth = failwith "For you to implement" (* Hint: use square *)
+(* Now that we have [twice], try writing [add2] and [raise_to_the_fourth] using
+   [add1] and [square]. *)
+let add2 = failwith "For you to implement"
+let raise_to_the_fourth = failwith "For you to implement"
 
 let%test "Testing add1..." =
   Int.(=) 5 (add1 4)

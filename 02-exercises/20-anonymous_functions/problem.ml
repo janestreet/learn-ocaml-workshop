@@ -1,33 +1,31 @@
 open! Base
 
-(* In OCaml, functions are values, so we can pass them in as
-   arguments to other functions.
+(* Recall: In OCaml, functions are values, so we can pass them in as arguments
+   to other functions (higher order functions).
 
-   To represent a function in a signature, you wrap its type in parenthesis,
-   with arrows separating arguments.
+   As we've seen before, in order to represent a function in a signature, we
+   wrap its type in parenthesis, with arrows separating arguments.
 
-   Recall: a function called [add1] which takes an integer and returns an integer has the type
-   val add1 : int -> int
+   Remember [add1] from exercise 4?
 
-   So, to use that signature in a type, we'd write
-   (int -> int)
+   {| val add1 : int -> int |}
 
-   We now define a function called [map_option].
-   [map_option] takes a function and an option.
+   When we used its signature in a type, we had to write [(int -> int)]. *)
 
-   If the option has a value of [None], [map_option] returns [None]
-   If the option has a value of [Some x], the function is called on x,
-   and wrapped up in a [Some].
+(* Now, let's define a function called [map_option]. [map_option] takes a
+   function and an option.
 
-   It may seem unintuitive, but this kind of function is very useful
-   because it allows you to continue applying functions to data 
-   without having to explicitly deal with null values or worry about 
-   null pointer exceptions if the data isn't there!
+   If the option has a value of [None], [map_option] returns [None].
 
-   The signature for the function is
+   If the option has a value of [Some x], the function is called on x, and
+   wrapped up in a [Some].
 
-   val map_option : ('a -> 'b) -> 'a option -> 'b option
-*)
+   It may seem unintuitive, but this kind of function is very useful because it
+   allows you to continue applying functions to data without having to
+   explicitly deal with [None] values or worry about null pointer exceptions if
+   the data isn't there!
+
+   Make sure to inspect and understand the signature for [map_option].  *)
 let map_option f opt =
   match opt with
   | None -> None
@@ -47,30 +45,39 @@ let () =
        (map_option double (Some 2))
        (Some 4))
 
-(* Instead of defining the function double beforehand, we can use
-   an anonymous function.
+(* In the previous example, we defined [double] separately before using it with
+   [map_option]. Instead of defining the [double] beforehand, we can use an
+   anonymous function.
 
-   To write an anonymous function, the "fun" keyword is used in the following form
+   To write an anonymous function, we use the [fun] keyword in the following
+   form:
 
-   (fun ARG1 ARG2 ... -> BODY)
+   {| (fun ARG1 ARG2 ... -> BODY) |}
 
-   The following has the same effect as above:
-*)
+   The following has the same effect as above: *)
 let () =
   assert
     ([%compare.equal: int option]
        (map_option (fun i -> 2 * i) (Some 2))
        (Some 4))
 
-(* Define a function, [apply_if_nonzero], which takes a function from
-   int to int and an int, and applies the function if the integer
-   is not zero, and otherwise just returns 0.
-*)
+(* Define a function, [apply_if_nonzero], which takes a function from an integer
+   to an integer and applies the function to the supplied argument if it is not
+   zero, and otherwise just returns 0. *)
 let apply_if_nonzero f i =
   failwith "For you to implement"
 
-let%test "Testing apply_if_nonzero..." =
-  Int.(=) 0 (apply_if_nonzero (fun x -> 10 / x) 0)
+(* Now, using [apply_if_nonzero] with an anonymous function, write
+   [add1_if_nonzero], which takes an integer and adds 1 to it if it is not zero,
+   and otherwise just returns 0. *)
+let add1_if_nonzero i = 
+  failwith "For you to implement"
 
-let%test "Testing apply_if_nonzero..." =
-  Int.(=) 2 (apply_if_nonzero (fun x -> 10 / x) 5)
+let%test "Testing add1_if_nonzero..." =
+  Int.(=) 0 (add1_if_nonzero 0)
+
+let%test "Testing add1_if_nonzero..." =
+  Int.(=) 2 (add1_if_nonzero 1)
+
+let%test "Testing add1_if_nonzero..." =
+  Int.(=) 6 (add1_if_nonzero 5)

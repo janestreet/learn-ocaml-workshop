@@ -1,1 +1,4 @@
-(* This file deliberately left empty. *)
+open! Base
+
+val twice : (int -> int) -> int -> int
+
