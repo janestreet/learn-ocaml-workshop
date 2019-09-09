@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; -*-
 
 (library
-  (name snake_tests)
+  (name snake_tests_2)
   (libraries
    async
    graphics

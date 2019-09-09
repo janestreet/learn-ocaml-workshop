@@ -25,16 +25,16 @@ let create ~length = failwith "For you to implement"
 
    Notice that this function should not actually grow the snake, but only record that we
    should grow the snake one block for the next [by_how_much] squares. *)
-let grow_over_next_steps t by_how_much = failwith "For you to implement"
+let grow_over_next_steps t by_how_much = t
 
 (* TODO: Implement [locations]. *)
 let locations t = failwith "For you to implement"
 
 (* TODO: Implement [head_location]. *)
-let head_location t = failwith "For you to implement"
+let head_location t = { Position.row = 0; col = 0 }
 
 (* TODO: Implement [set_direction]. *)
-let set_direction t direction = failwith "For you to implement"
+let set_direction t direction = t
 
 (* TODO: Implement [step].
 
@@ -43,4 +43,4 @@ let set_direction t direction = failwith "For you to implement"
    [step] should:
    - move the snake forward one block, growing it and updating [t.locations] if necessary
    - check for self collisions *)
-let step t = failwith "For you to implement"
+let step t = Some t

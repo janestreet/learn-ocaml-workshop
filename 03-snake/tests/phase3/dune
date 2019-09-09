@@ -1,0 +1,24 @@
+;; -*- mode: scheme; -*-
+
+(library
+  (name snake_tests_3)
+  (libraries
+   async
+   graphics
+   base
+   snake_lib
+   )
+  (inline_tests)
+  (preprocess (pps ppx_jane)))
+
+(env
+ (dev
+  (flags (:standard
+          -w -20
+          -w -27
+          -w -32
+          -w -34
+          -w -37
+          -w -39)))
+ (release
+  (flags (:standard))))

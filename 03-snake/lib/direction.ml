@@ -11,4 +11,4 @@ type t =
 
    Make sure to take a look at the signature of this function to understand what it does.
    Recall that the origin of the board is in the lower left hand corner. *)
-let next_position t position = failwith "For you to implement"
+let next_position t position = position

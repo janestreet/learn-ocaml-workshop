@@ -74,10 +74,25 @@
   $ dune runtest
   #+END_SRC
 
+  For this exercise, tests are split into three directories corresponding to the
+  three phases outlined in [[Order of Implementation]]. It may be helpful while
+  going through the exercises to run only the subset of tests corresponding to
+  the phase you are working on by specifiying a directory when running
+  tests. For example:
+
+  #+BEGIN_SRC bash
+  $ dune runtest tests/phase1
+  #+END_SRC
+  
   To run the game, run (from the root directory of the snake project):
+
   #+BEGIN_SRC bash
   $ dune exec bin/snake.exe
   #+END_SRC
+
+  Note that during the course of this exercise, you will be able to 
+  run the game even when not all tests pass. This might be helpful for
+  development and debugging.
 
 * Order of Implementation
   A suggested ordering for working through this game (though feel free
@@ -91,7 +106,12 @@
    - [ ] [[file:lib/game.ml][game.ml]]: [create]
 
    At the end of phase 1, you should be able to see the initial board
-   get rendered with an apple and a snake.
+   get rendered with an apple and a snake. Additionally, all expect tests 
+   for phase 1 should pass:
+
+   #+BEGIN_SRC bash
+   $ dune runtest tests/phase1
+   #+END_SRC
 
 ** Phase 2: Utilities
    - [ ] [[file:lib/snake.ml][snake.ml]]: [grow_over_next_steps]
@@ -100,12 +120,22 @@
    - [ ] [[file:lib/game.ml][game.ml]]: [set_direction]
    - [ ] [[file:lib/direction.ml][direction.ml]]: [next_position]
 
+   At the end of phase 2, all expect tests for phase 2 should pass:
+
+   #+BEGIN_SRC bash
+   $ dune runtest tests/phase1
+   #+END_SRC
+
 ** Phase 3: Game Progression
    - [ ] [[file:lib/snake.ml][snake.ml]]: [step]
    - [ ] [[file:lib/game.ml][game.ml]]: [step]
 
    At the end of phase 3, you should be able to play snake in its
-   entirety and also pass all expect tests.
+   entirety and also pass all expect tests:
+
+   #+BEGIN_SRC bash
+   $ dune runtest
+   #+END_SRC
 
 * Extensions
   Once your game is working, there are many fun extensions that you
