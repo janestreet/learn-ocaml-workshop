@@ -11,10 +11,10 @@ type t [@@deriving sexp_of]
 (** [create] makes a new snake with the given length. The length must be
     positive.
 
-    The snake will initially occupy the locations: (0,0), (1,0), (2,0), ...,
-    (length - 1, 0)
+    The snake will initially be occupy the (column, row) locations:
+    (0,0), (1,0), (2,0), ..., (length - 1, 0)
 
-    The head will be at position (length -1, 0) and the initial direction
+    The head will be at position (length - 1, 0) and the initial direction
     should be towards the right. *)
 val create : length:int -> t
 

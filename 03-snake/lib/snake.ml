@@ -7,7 +7,8 @@ type t =
        snake. *)
     extensions_remaining : int
   ; (* [locations] represents the current set of squares that the snake
-       occupies. *)
+       occupies. The first element of the list is the head of the snake. We hold
+       as an invariant that [locations] is always non-empty. *)
     locations : Position.t list
   }
 [@@deriving sexp_of]
