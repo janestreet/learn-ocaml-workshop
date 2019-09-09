@@ -57,6 +57,11 @@
   and ensure that they are all working properly. Take a quick look at
   its [[https://github.com/janestreet/ppx_expect][documentation]] for how they work.
 
+  In practice, when you run the expect tests in a file ~my_file.ml~, if there is
+  any difference in output, dune will create a file ~my_file.ml.corrected~. You
+  can then diff the two files to see what changed between what the original file
+  expected and what was actually produced.
+
   You shouldn't need to write or change any expect tests while working
   on these exercises, but they may be helpful for debugging purposes
   while writing code. 
@@ -84,6 +89,15 @@
   $ dune runtest tests/phase1
   #+END_SRC
   
+  Note that the runtest target will only show the expect test diff for the
+  first file that has a diff. To see the diff for a specific file, you can run 
+  
+  #+BEGIN_SRC bash
+  $ (cd _build/default && /usr/bin/diff -u tests/phase1/snake_tests.ml tests/phase2/snake_tests.ml.corrected)
+  #+END_SRC
+  
+  (See [[Expect Tests]] for an explanation on ~.ml.corrected~ files.) 
+   
   To run the game, run (from the root directory of the snake project):
 
   #+BEGIN_SRC bash
@@ -113,12 +127,18 @@
    $ dune runtest tests/phase1
    #+END_SRC
 
+   Recall that you can see expect test diffs for specific files by running:
+
+   #+BEGIN_SRC bash
+   $ (cd _build/default && /usr/bin/diff -u tests/phase1/snake_tests.ml tests/phase2/snake_tests.ml.corrected)
+   #+END_SRC
+
 ** Phase 2: Utilities
+   - [ ] [[file:lib/direction.ml][direction.ml]]: [next_position]
    - [ ] [[file:lib/snake.ml][snake.ml]]: [grow_over_next_steps]
    - [ ] [[file:lib/snake.ml][snake.ml]]: [head_location]
    - [ ] [[file:lib/snake.ml][snake.ml]]: [set_direction] 
    - [ ] [[file:lib/game.ml][game.ml]]: [set_direction]
-   - [ ] [[file:lib/direction.ml][direction.ml]]: [next_position]
 
    At the end of phase 2, all expect tests for phase 2 should pass:
 
