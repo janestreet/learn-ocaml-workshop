@@ -16,16 +16,14 @@ developing in OCaml.
   # Look at test output and compiler errors, edit problem.ml, rerun:
   dune runtest
   #+END_SRC
-* Lumines and Frogger
-  Once you're done with the exercises, you can also implement the block-dropping
-  game Lumines, which will run on your desktop.
-  
-  See the [[file:03-lumines][lumines README]] to get started!
+* Snake, Lumines, and Frogger
+  Once you're done with the exercises, you can also implement simplified clones
+  of the following arcade games:
 
-  You can also implement a simplified clone of the classic arcade game Frogger
-  in your web browser.
-
-  See the [[file:03-frogger][frogger README]] to get started!
+  - [[file:03-snake/README.org][snake]] (runs on your computer)
+  - [[file:03-lumines/README.org][lumines]] (runs on your computer)
+  - [[file:03-frogger/README.org][frogger]] (runs in a web browser)
+ 
 * ~Async~
   The OCaml standard library has various low-level calls for working with
   sockets in the ~Unix~ module and Jane Street's ~Core~ library wraps all of

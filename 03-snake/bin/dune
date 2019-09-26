@@ -1,0 +1,9 @@
+;; -*- scheme -*-
+
+(executables
+ (names snake)
+ (libraries
+  async
+  graphics
+  base
+  snake_lib))
