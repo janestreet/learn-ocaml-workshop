@@ -16,6 +16,9 @@ developing in OCaml.
   # Look at test output and compiler errors, edit problem.ml, rerun:
   dune runtest
   #+END_SRC
+  
+  *If you receive a permission error (-bash: ./dune: Permission denied), please...
+  
 * Snake, Lumines, and Frogger
   Once you're done with the exercises, you can also implement simplified clones
   of the following arcade games:
