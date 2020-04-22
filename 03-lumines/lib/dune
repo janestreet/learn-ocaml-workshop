@@ -2,22 +2,14 @@
 
 (library
  (name lib)
- (libraries
-   async
-   graphics
-   base
-   )
+ (libraries async graphics base)
  (inline_tests)
- (preprocess (pps ppx_jane)))
+ (preprocess
+  (pps ppx_jane)))
 
 (env
-  (dev
-    (flags (:standard
-            -w -20 
-            -w -27 
-            -w -32 
-            -w -34 
-            -w -37 
-            -w -39)))
-  (release 
-   (flags (:standard))))
+ (dev
+  (flags
+   (:standard -w -20 -w -27 -w -32 -w -34 -w -37 -w -39)))
+ (release
+  (flags (:standard))))
