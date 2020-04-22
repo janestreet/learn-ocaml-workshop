@@ -1,4 +1,5 @@
 (executables
+ (modes byte exe)
  (names fuzzy)
  (libraries core async)
  (preprocess

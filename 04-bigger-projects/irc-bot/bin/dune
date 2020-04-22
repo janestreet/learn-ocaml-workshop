@@ -1,4 +1,5 @@
 (executables
+ (modes byte exe)
  (names bot)
  (libraries core async)
  (preprocess
