@@ -62,7 +62,7 @@ module For_testing = struct
 
   let%test "Testing advance_color..." =
     advance_color test_ex_yellow;
-    [%compare.equal: stoplight] test_ex_yellow' test_ex_yellow'
+    [%compare.equal: stoplight] test_ex_yellow' test_ex_yellow
   ;;
 
   let%test "Testing advance_color..." =
