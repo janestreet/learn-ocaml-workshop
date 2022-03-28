@@ -36,7 +36,10 @@ let is_same_person x y =
 
 (* Let's write our own pattern matching. Write a function that returns whether [x]
    is non-zero by matching on [x]. *)
-let non_zero x = failwith "For you to implement"
+let non_zero x =
+   match x with
+   | 0 -> false
+   | _ -> true
 
 let%test "Testing non_zero..." = Bool.( = ) false (non_zero 0)
 let%test "Testing non_zero..." = Bool.( = ) true (non_zero 500)
@@ -44,7 +47,12 @@ let%test "Testing non_zero..." = Bool.( = ) true (non_zero (-400))
 
 (* Now, write a function that returns true if [x] and [y] are both non-zero by
    matching on both of them at the same time. *)
-let both_non_zero x y = failwith "For you to implement"
+let both_non_zero x y = 
+   match x, y with
+   | 0, 0
+   | 0, _
+   | _, 0   -> false
+   | _      -> true
 
 let%test "Testing both_non_zero..." = Bool.( = ) false (both_non_zero 0 0)
 let%test "Testing both_non_zero..." = Bool.( = ) false (both_non_zero 0 1)
