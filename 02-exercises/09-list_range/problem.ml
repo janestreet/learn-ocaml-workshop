@@ -14,8 +14,8 @@ let () =
 
    {| val range : int -> int -> int list |} *)
 let range from to_ = 
-   let startPoint = if from > to_ then to_ else from in
-   let endPoint = if from > to_ then from else to_ in
+   let startPoint = Int.min from to_ in
+   let endPoint = Int.max from to_ in
    let rec loop f = 
       if endPoint =  f then []
       else f :: loop (f + 1)
