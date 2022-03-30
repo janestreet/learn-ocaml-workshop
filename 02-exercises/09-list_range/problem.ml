@@ -13,7 +13,15 @@ let () =
    including [from] but excluding [to_] in increasing order.
 
    {| val range : int -> int -> int list |} *)
-let range from to_ = failwith "For you to implement"
+let range from to_ = 
+   let startPoint = Int.min from to_ in
+   let endPoint = Int.max from to_ in
+   let rec loop f = 
+      if endPoint =  f then []
+      else f :: loop (f + 1)
+   in
+   loop startPoint
+;;
 
 (* You might've noticed that the list type in the function definitions of the
    operator [( @ )] (and also [( :: )]) look a bit different from every other
