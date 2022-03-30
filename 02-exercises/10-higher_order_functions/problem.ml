@@ -70,13 +70,22 @@ let rec product xs =
 (* These functions look pretty similar too! 
 
    Try factoring out the common parts like we did above. *)
-let rec every answer combine xs = failwith "For you to implement"
+let rec every answer combine xs =
+   match xs with
+   | []        -> answer
+   | x :: ys   -> combine x (every answer combine ys)
+;;
 
 (* Can you write a signature in the mli for [every]? How does it compare with [up_to]? 
 
    Now, rewrite sum and product in just one line each using [every]. *)
-let simpler_sum xs = failwith "For you to implement"
-let simpler_product xs = failwith "For you to implement"
+let simpler_sum xs =
+   every 0 plus xs
+;;
+
+let simpler_product xs =
+   every 1 times xs
+;;
 
 let%test "Testing simpler_product..." = Int.( = ) 1 (simpler_product [])
 let%test "Testing simpler_product..." = Int.( = ) 55 (simpler_product [ 55 ])
