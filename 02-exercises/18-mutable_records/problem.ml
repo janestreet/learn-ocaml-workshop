@@ -10,6 +10,7 @@ type color =
   | Red
   | Yellow
   | Green
+[@@deriving compare]
 
 (* An aside: Note that for the [stoplight] type definition is followed by
    [@@deriving compare]. This is a ppx (remember the [%compare.equal] ppx from
@@ -45,7 +46,11 @@ let set_color stoplight color = stoplight.color <- color
    [Yellow], [Yellow] to [Red], and [Red] to [Green]. Since we know this is the
    only transition, we can just write a function to advance the color of the
    light without taking an input color. *)
-let advance_color stoplight = failwith "For you to implement"
+let advance_color stoplight = 
+  match stoplight.color with
+  | Red -> set_color stoplight Green
+  | Yellow -> set_color stoplight Red
+  | Green -> set_color stoplight Yellow
 
 module For_testing = struct
   let test_ex_red : stoplight = { location = ""; color = Red }
