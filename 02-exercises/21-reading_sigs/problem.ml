@@ -74,13 +74,16 @@ end
 let two = Abstract_type_example.add Abstract_type_example.one Abstract_type_example.one
 let four = Abstract_type_example.to_int (Abstract_type_example.add two two);;
 
-assert (four = 4)
+let () = assert (four = 4)
 
 module Fraction : sig
   type t
   (* Now, add signatures for the create and value functions to expose them in
      the [Fraction] module. Note that you shouldn't need to change any of the
      underlying implementation, nor change anything about how [t] is exposed. *)
+  val create : numerator:int -> denominator:int -> t
+  val value : t -> float
+
 end = struct
   type t = int * int
 
